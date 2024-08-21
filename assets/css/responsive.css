@@ -126,8 +126,8 @@
 
 @media (max-width: 767px) {
     .icon-menu {
-        right: 30px;
-        top: 30px;
+        right: 5px;
+        top: 5px;
     }
     .hero-section .hero-content .go-to-project-btn {
         margin-left: 0;
@@ -264,6 +264,10 @@
     .footer-area .footer-widget-item {
         margin-bottom: 40px;
     }
+}
+.certified-img{
+    width: 40px;
+    margin-right: 10px;
 }
 @media (max-width: 584px) {
     .subtitle {
