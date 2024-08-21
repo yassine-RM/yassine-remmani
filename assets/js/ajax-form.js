@@ -54,7 +54,7 @@
         const email = document.getElementById("email");
         const subject = document.getElementById("subject");
 
-        if (!fullName.value || !email.value) {
+        if (!fullName.value || !email.value || !subject.value) {
             message.classList.add('show');
             fullName.classList.add("invalid");
             console.log('false');
@@ -63,13 +63,22 @@
         message.classList.remove('show');
 
         form_data = $(this).serialize();
+  
         $.ajax({
             type: 'POST',
-            url: form.attr('action'),
+            url: 'send_email.php',
             data: form_data
         })
-        .done(done_func)
-        .fail(fail_func);
+        .done(function(response) {
+            // Handle success
+            console.log('Success:', response);
+            done_func
+        })
+        .fail(function(jqXHR, textStatus, errorThrown) {
+            // Handle errors
+            console.log('Error:', textStatus, errorThrown);
+            fail_func
+        });
     });
     
 })(jQuery);
