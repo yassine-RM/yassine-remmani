@@ -1,15 +1,13 @@
 <?php
-// Adjust the path as needed
-require 'PHPMailer/PHPMailer.php';
-require 'PHPMailer/SMTP.php';
-require 'PHPMailer/Exception.php';
-
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
+
+require 'vendor/autoload.php'; // Path to Composer autoload file
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $fullName = htmlspecialchars($_POST['full-name']);
     $email = htmlspecialchars($_POST['email']);
+    $phoneNumber = htmlspecialchars($_POST['phone-number']);
     $subject = htmlspecialchars($_POST['subject']);
     $message = htmlspecialchars($_POST['message']);
 
@@ -17,28 +15,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     try {
         // Server settings
-        $mail->isSMTP();
-        $mail->Host       = 'smtp.hostinger.com'; // Hostinger SMTP server
-        $mail->SMTPAuth   = true;
-        $mail->Username   = 'dev@remmani.com'; // Your email address
-        $mail->Password   = 'yassine.DR@1996'; // Your email password
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-        $mail->Port       = 587;
+        $mail->isSMTP();                                            
+        $mail->Host       = 'smtp.hostinger.com'; // Set the SMTP server to send through
+        $mail->SMTPAuth   = true;                                   
+        $mail->Username   = 'dev@remmani.com';                     
+        $mail->Password   = 'yassine.DR@1996';                            
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;   // Or use ENCRYPTION_STARTTLS with port 587
+        $mail->Port       = 465;  // Or 587 for TLS
 
         // Recipients
-        $mail->setFrom('dev@remmani.com', $fullName);
-        $mail->addAddress('dev@remmani.com');
+        $mail->setFrom("dev@remmani.com", $fullName);
+        $mail->addAddress('remmanidev@gmail.com'); 
 
         // Content
-        $mail->isHTML(false);
-        $mail->Subject = "New Message from Contact Form: $subject";
-        $mail->Body    = "Name: $fullName\nEmail: $email\n\nMessage:\n$message";
+        $mail->isHTML(false);                                  
+        $mail->Subject = "RM DEV - $subject";
+        $mail->Body    = "Name: $fullName\nEmail: $email\nPhone: $phoneNumber\n\nMessage:\n$message";
 
         $mail->send();
-        echo "Message sent successfully!";
+        $response['status'] = 'success';
+        $response['message'] = 'Message sent successfully!';
     } catch (Exception $e) {
-        echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+        $response['status'] = 'error';
+        $response['message'] = "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
     }
 } else {
-    echo "Invalid request method.";
+    $response['status'] = 'error';
+    $response['message'] = 'Invalid request method.';
 }
+echo json_encode($response);
+

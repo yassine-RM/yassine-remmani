@@ -28,7 +28,7 @@
     // Success function
     function done_func(response) {
         message.fadeIn().removeClass('alert-danger').addClass('alert-success');
-        message.text(response);
+        message.text(response.message);
         setTimeout(function () {
             message.fadeOut();
         }, 3000);
@@ -36,9 +36,9 @@
     }
 
     // fail function
-    function fail_func(data) {
+    function fail_func(response) {
         message.fadeIn().removeClass('alert-success').addClass('alert-success');
-        message.text(data.responseText);
+        message.text(response.message);
         setTimeout(function () {
             message.fadeOut();
         }, 3000);
@@ -70,14 +70,10 @@
             data: form_data
         })
         .done(function(response) {
-            // Handle success
-            console.log('Success:', response);
-            done_func
+            done_func(response)
         })
-        .fail(function(jqXHR, textStatus, errorThrown) {
-            // Handle errors
-            console.log('Error:', textStatus, errorThrown);
-            fail_func
+        .fail(function(response) {
+            fail_func(response)
         });
     });
     
