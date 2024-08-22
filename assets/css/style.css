@@ -1073,15 +1073,14 @@ p{
 .portfolio-items .portfolio-item .portfolio-item-inner .portfolio-categories li a {
     display: block;
     font-size: 14px;
-    background: var(--primary_color);
+    background: #1fc2cd;
     color: #000;
     padding: 7px 20px;
     border-radius: 19px;
     transition: .3s;
 }
 .portfolio-items .portfolio-item:hover .portfolio-item-inner .portfolio-categories li a {
-    background: #1f1f1f;
-    color: #fff;
+    background: var(--primary_color);
 }
 .portfolio-items .portfolio-item h2 {
     font-size: 24px;
