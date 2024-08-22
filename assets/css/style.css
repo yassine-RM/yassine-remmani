@@ -847,7 +847,13 @@ body .body-overlay {
 .home5-page .body-overlay {
     opacity: 0.3;
 }
-
+.link:hover{
+    color: var(--primary_color);
+}
+.link{
+    color: #999999;
+    font-weight: 300;
+}
 .hi{
     color: white;
     font-weight: 200 !important;
