@@ -31,7 +31,7 @@
         message.text(response.message);
         setTimeout(function () {
             message.fadeOut();
-        }, 3000);
+        }, 6000);
         form.find('input:not([type="submit"]), textarea').val('');
     }
 
@@ -41,7 +41,7 @@
         message.text(response.message);
         setTimeout(function () {
             message.fadeOut();
-        }, 3000);
+        }, 6000);
     }
     
     form.submit(function (e) {
