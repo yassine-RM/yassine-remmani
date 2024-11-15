@@ -1070,7 +1070,7 @@ p{
     bottom: 20px;
     left: 20px;
 }
-.portfolio-items .portfolio-item .portfolio-item-inner .portfolio-categories li a {
+.portfolio-items .portfolio-item .portfolio-item-inner .portfolio-categories li p {
     display: block;
     font-size: 14px;
     background: #1fc2cd;
