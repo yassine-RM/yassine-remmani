@@ -1079,7 +1079,7 @@ p{
     border-radius: 19px;
     transition: .3s;
 }
-.portfolio-items .portfolio-item:hover .portfolio-item-inner .portfolio-categories li a {
+.portfolio-items .portfolio-item:hover .portfolio-item-inner .portfolio-categories li p {
     background: var(--primary_color);
 }
 .portfolio-items .portfolio-item h2 {
