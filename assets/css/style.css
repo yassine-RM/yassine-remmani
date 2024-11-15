@@ -1014,9 +1014,12 @@ p{
 .skills .skill .skill-inner {
     border: 1px solid #565656;
     border-radius: 85px;
-    padding: 55px;
+    padding: 40px;
     margin-bottom: 20px;
     transition: .3s;
+    min-height: 180px;
+    min-width: 180px;
+    display: flex; 
 }
 .skills .skill:hover .skill-inner {
     border-color: var(--primary_color);
