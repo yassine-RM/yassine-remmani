@@ -1000,6 +1000,10 @@ p{
     right: 50px;
 }
 
+.company-icon,.university-icon{
+    color: darkgoldenrod;
+}
+
 
 
 /* 13 - Skills */
