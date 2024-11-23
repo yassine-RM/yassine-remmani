@@ -1001,7 +1001,7 @@ p{
 }
 
 .company-icon,.university-icon{
-    color: darkgoldenrod;
+    color: darkgoldenrod !important;
 }
 
 
