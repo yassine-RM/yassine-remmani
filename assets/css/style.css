@@ -839,7 +839,7 @@ body .body-overlay {
     z-index: -1;
 }
 .home2-page .body-overlay,
-.home3-page .body-overlay {
+.home-page .body-overlay {
     opacity: 0.1;
 }
 .home1-page .body-overlay,
