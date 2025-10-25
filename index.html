@@ -1,841 +1,1405 @@
 <!DOCTYPE html>
 <html lang="en">
 
-
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yassine Remmani | Full Stack Web Developer Portfolio</title>
-    <link rel="icon" type="image/x-icon" href="assets/images/favicon.png">
+    <!-- Meta -->
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+
+    <title>Yassine Remmani | Senior Full-Stack — Spring Boot & Next.js</title>
+    <meta name="description"
+        content="Senior Full-Stack Developer specialized in Spring Boot and Next.js. Building multi-tenant platforms, SEO-ready sites, and reliable APIs at Auto Dealers Digital (2019 → Present). Open to strong roles." />
     <link rel="canonical" href="https://remmanidev.com/" />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com/">
-    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&amp;display=swap"
-        rel="stylesheet">
-
-
-    <link rel="stylesheet"
-        href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
-    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="assets/css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="assets/css/animate.min.css">
-    <link rel="stylesheet" href="assets/css/smooth-scrollbar.css">
-    <link rel="stylesheet" href="assets/css/lightbox.min.css">
-
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/responsive.css">
-
-    <meta name="description" content="Yassine Remmani – Full Stack Developer specializing in Spring Boot, Laravel, and modern JavaScript frameworks. Expert in building scalable APIs and full-stack applications.">
-
-    <meta property="og:title" content="Yassine Remmani | Full Stack Web Developer Portfolio" />
+    <!-- OG / Twitter -->
+    <meta property="og:title" content="Yassine Remmani | Senior Full-Stack — Spring Boot & Next.js" />
     <meta property="og:description"
-        content="Hi, I'm Yassine Remmani, a full stack web developer with 6 years of experience in leading both front and back end development. I specialize in Laravel, ReactJs, and Vuejs." />
+        content="6+ years building scalable platforms (APIs, dashboards, multi-tenant SaaS) with Spring Boot, Next.js, Docker, PostgreSQL. Auto Dealers Digital · Dec 2019 → Present." />
     <meta property="og:image" content="https://remmanidev.com/assets/images/me.png" />
-    <meta property="og:url" content="https://remmanidev.com" />
     <meta property="og:type" content="website" />
-
-
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Yassine Remmani | Full Stack Web Developer Portfolio" />
-    <meta name="twitter:description"
-        content="Hi, I'm Yassine Remmani, a full stack web developer with 6 years of experience in leading both front and back end development. I specialize in Laravel, ReactJs, and Vuejs." />
-    <meta name="twitter:image" content="https://remmanidev.com/assets/images/me.png" />
 
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/images/favicon.png" />
 
-    <meta name="author" content="Yassine REMMANI">
-    <meta name="title" property="og:title" content="Yassine Remmani | Full Stack Web Developer Portfolio">
-    <meta property="og:type" content="website">
-    <meta name="description" property="og:description"
-        content="Hi, I'm Yassine Remmani, a full stack web developer with 6 years of experience in leading both front and back end development. I specialize in Laravel, ReactJs, and Vuejs.">
-    <meta name="image" property="og:image" content="https://remmanidev.com/assets/images/me.png">
+    <!-- Premium font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet" />
 
-    <!-- Site verification -->
-    <meta name="google-site-verification" content="e07HqqqmujcOCMkM8I7HrsL3hUYYLUN-0_dXhuz4-Ug" />
+    <!-- Icons -->
+    <link rel="stylesheet"
+        href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css" />
 
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3FW3ZVCSXF"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
+    <!-- Your base styles (kept) -->
+    <link rel="stylesheet" href="assets/css/style.css" />
 
-        gtag('config', 'G-3FW3ZVCSXF');
-    </script>
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <!-- Minimal, mobile-first premium overrides -->
     <style>
-        .swiper {
-            width: 100%;
-            height: 200px;
+        :root {
+            --bg:
+                radial-gradient(60rem 60rem at 15% 15%, rgba(39, 233, 139, .12), transparent 60%),
+                radial-gradient(50rem 50rem at 85% 0%, rgba(15, 82, 255, .10), transparent 60%),
+                linear-gradient(160deg, #0b0f1a 0%, #000 70%);
+            --surface: rgba(15, 23, 42, .6);
+            --border: rgba(255, 255, 255, .08);
+            --text: #fff;
+            --dim: #94a3b8;
+            --accent: #27e98b;
+            /* brand mint (hover uses this, not blue) */
+            --accent-2: #20c97a;
+            /* hover shade */
+            --radius-lg: 1rem;
+            --radius-md: .75rem;
+            --radius-sm: .5rem;
+            --shadow-1: 0 30px 120px rgba(0, 0, 0, .85), 0 2px 4px rgba(0, 0, 0, .6);
+            --shadow-2: 0 22px 70px rgba(0, 0, 0, .8);
         }
 
-        .swiper-slide {
-            display: flex;
+        /* === MOBILE HORIZONTAL-SCROLL KILLER PACK === */
+
+        /* 1) Absolutely prevent any x-overflow from layout/calcs */
+        html,
+        body {
+            overflow-x: hidden;
+        }
+
+        /* 2) Make all flex/grid containers allow shrinking of children */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        /* 3) Long strings/links can’t push the viewport wider */
+        a,
+        .wrap,
+        .contact-item,
+        .link-muted,
+        .links a,
+        .nav-links a,
+        .brand-id,
+        .section-title,
+        .hero-title,
+        .t-role,
+        .chip,
+        .badge {
+            word-break: break-word;
+            overflow-wrap: anywhere;
+            min-width: 0;
+            /* lets flex/grid actually shrink */
+        }
+
+        /* 4) Flex containers must allow shrink */
+        .nav-inner,
+        .brand,
+        .brand-id,
+        .nav-links,
+        .links {
+            min-width: 0;
+        }
+
+        /* 5) Images/icons can never overflow */
+        img,
+        svg {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* 6) Tighten micro-gaps on very small phones (prevents calc() + gap spillover) */
+        @media (max-width: 360px) {
+            section {
+                padding-left: 0.75rem;
+                padding-right: 0.75rem;
+            }
+
+            .facts {
+                gap: 0.75rem;
+            }
+
+            .fact {
+                flex: 1 1 48%;
+                /* safer than calc(50% - 1rem) on tiny widths */
+                max-width: none;
+                padding: 0.85rem 0.75rem;
+            }
+
+            .nav-links {
+                gap: 0.5rem 0.75rem;
+            }
+
+            .card {
+                padding-left: 0.9rem;
+                padding-right: 0.9rem;
+            }
+        }
+
+        /* 7) Extra safety for sticky nav brand row on small screens */
+        .brand {
+            min-width: 0;
+        }
+
+        .brand-id .n1,
+        .brand-id .n2 {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* 8) Grid two-up forms: never exceed viewport on narrow screens */
+        .grid.two {
+            grid-template-columns: 1fr !important;
+        }
+
+        .grid.two>* {
+            min-width: 0;
+        }
+
+        /* 9) Skill pills & timeline chips: never force a row wider than viewport */
+        .pill,
+        .chip {
+            min-width: 0;
+            max-width: 100%;
+        }
+
+        /* 10) Remove any hidden 100vw culprits (just in case a lib sets them) */
+        [style*="width: 100vw"] {
+            width: 100% !important;
+        }
+
+
+        * {
+            box-sizing: border-box
+        }
+
+        html,
+        body {
+            margin: 0
+        }
+
+        body {
+            font-family: "Plus Jakarta Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: var(--bg);
+            background-attachment: fixed;
+            color: var(--text);
+            line-height: 1.55;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+            overflow-x: hidden;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block
+        }
+
+        /* Links: no blue hover — use accent mint */
+        a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: color .15s ease, opacity .2s ease
+        }
+
+        a:hover {
+            color: var(--accent-2)
+        }
+
+        .link-muted {
+            color: var(--dim)
+        }
+
+        .link-muted:hover {
+            color: var(--accent)
+        }
+
+        /* Layout (mobile-first) */
+        .shell {
+            display: grid;
+            grid-template-columns: 1fr;
+            min-height: 100vh
+        }
+
+        @media(min-width:992px) {
+            .shell {
+                grid-template-columns: minmax(260px, 320px) 1fr
+            }
+        }
+
+        main {
+            position: relative;
+            z-index: 2
+        }
+
+        section {
+            padding: 2.5rem 1rem;
+            max-width: 1280px;
+            margin-inline: auto
+        }
+
+        @media(min-width:480px) {
+            section {
+                padding: 3rem 1.25rem
+            }
+        }
+
+        @media(min-width:768px) {
+            section {
+                padding: 4rem 2rem
+            }
+        }
+
+        .h-eyebrow {
+            font-size: .7rem;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            font-weight: 600;
+            color: var(--accent);
+            display: inline-flex;
+            gap: .5rem;
+            align-items: center
+        }
+
+        .h-eyebrow i {
+            font-size: 1rem
+        }
+
+        .h-title {
+            font-size: clamp(1.25rem, 1vw + .95rem, 2rem);
+            line-height: 1.2;
+            font-weight: 600;
+            margin: .5rem 0
+        }
+
+        .h-title span {
+            color: var(--accent)
+        }
+
+        .muted {
+            color: var(--dim);
+            max-width: 70ch
+        }
+
+        /* Sidebar */
+        aside.profile {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+            padding: 2rem 1.25rem 1.5rem;
+            text-align: center;
+            box-shadow: var(--shadow-1)
+        }
+
+        @media(min-width:992px) {
+            aside.profile {
+                position: sticky;
+                top: 1.5rem;
+                align-self: start;
+                margin: 1.5rem;
+                border-radius: var(--radius-lg)
+            }
+        }
+
+        .avatar {
+            width: 90px;
+            height: 90px;
+            border-radius: .75rem;
+            border: 2px solid var(--accent);
+            box-shadow: 0 24px 80px rgba(39, 233, 139, .4);
+            object-fit: cover;
+            margin-inline: auto
+        }
+
+        .name {
+            font-weight: 700;
+            margin: .9rem 0 .25rem
+        }
+
+        .name .accent {
+            color: var(--accent)
+        }
+
+        .role {
+            color: var(--dim);
+            font-weight: 600;
+            font-size: .85rem
+        }
+
+        .badge {
+            display: inline-flex;
+            flex-wrap: wrap;
+            gap: .4rem .6rem;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
-            border-radius: 10px;
-            padding: 20px;
+            color: var(--accent);
+            background: rgba(39, 233, 139, .07);
+            border: 1px solid rgba(39, 233, 139, .3);
+            border-radius: .5rem;
+            padding: .45rem .6rem;
+            margin-top: .8rem;
+            font-size: .72rem;
+            font-weight: 600
         }
 
-        .swiper-button-next,
-        .swiper-button-prev {
-            color: #27e98b;
+        .contact-list {
+            display: grid;
+            gap: .75rem;
+            margin: 1.5rem 0 1.25rem;
+            font-size: .9rem;
+            word-break: break-word
         }
 
-        .swiper-pagination-bullet-active {
-            background: #27e98b;
+        .contact-item {
+            display: flex;
+            gap: .6rem;
+            color: var(--text);
+            font-weight: 600
         }
 
-        .swiper-button-prev,
-        .swiper-rtl .swiper-button-next {
-            left: var(--swiper-navigation-sides-offset, 0px)
+        .contact-item i {
+            color: var(--accent);
+            flex-shrink: 0
         }
 
-        .swiper-button-next,
-        .swiper-rtl .swiper-button-prev {
-            right: var(--swiper-navigation-sides-offset, 0px)
+        .social {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: .75rem;
+            margin-bottom: 1.25rem
         }
 
-        .swiper-button-next,
-        .swiper-button-prev {
-            top: var(--swiper-navigation-top-offset, 90%)
+        .icon-btn {
+            width: 40px;
+            height: 40px;
+            display: grid;
+            place-items: center;
+            border-radius: .75rem;
+            background: rgba(255, 255, 255, .05);
+            border: 1px solid var(--border)
+        }
+
+        .icon-btn:hover {
+            background: rgba(39, 233, 139, .08);
+            border-color: rgba(39, 233, 139, .35)
+        }
+
+        .cta {
+            display: block;
+            width: 100%;
+            background: var(--accent);
+            color: #000;
+            border-radius: .75rem;
+            padding: .9rem 1rem;
+            font-weight: 700;
+            box-shadow: 0 22px 70px rgba(39, 233, 139, .45)
+        }
+
+        .aside-meta {
+            margin-top: 1.3rem;
+            color: var(--dim);
+            font-size: .75rem
+        }
+
+        /* Top nav */
+        .nav {
+            position: sticky;
+            top: 0;
+            z-index: 40;
+            background: rgba(0, 0, 0, .45);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+            box-shadow: 0 24px 80px rgba(0, 0, 0, .9)
+        }
+
+        .nav-inner {
+            max-width: 1280px;
+            margin-inline: auto;
+            padding: 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: .75rem 1rem;
+            align-items: center;
+            justify-content: space-between
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: .75rem;
+            min-width: 0
+        }
+
+        .brand img {
+            width: 32px;
+            height: 32px;
+            border-radius: .5rem;
+            border: 1px solid var(--border);
+            object-fit: cover
+        }
+
+        .brand-id {
+            display: flex;
+            flex-direction: column;
+            min-width: 0
+        }
+
+        .brand-id .n1 {
+            font-weight: 700;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden
+        }
+
+        .brand-id .n2 {
+            color: var(--dim);
+            font-weight: 600;
+            font-size: .75rem;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden
+        }
+
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .75rem 1rem;
+            justify-content: center;
+            flex: 1 1 100%;
+            font-weight: 700;
+            font-size: .72rem;
+            text-transform: uppercase;
+            letter-spacing: .06em
+        }
+
+        @media(min-width:520px) {
+            .nav-links {
+                flex: 0 1 auto
+            }
+        }
+
+        .nav-links a {
+            color: var(--dim)
+        }
+
+        .nav-links a:hover {
+            color: var(--accent)
+        }
+
+        .nav-cta {
+            background: var(--accent);
+            color: #000;
+            border-radius: .5rem;
+            padding: .55rem .8rem;
+            font-weight: 700;
+            box-shadow: 0 22px 70px rgba(39, 233, 139, .45)
+        }
+
+        /* Hero */
+        .hero {
+            display: grid;
+            gap: 1.5rem
+        }
+
+        .hero-title {
+            font-size: clamp(1.35rem, 1vw + 1rem, 2.1rem);
+            line-height: 1.2;
+            font-weight: 700;
+            margin: .35rem 0
+        }
+
+        .hero-title .accent {
+            color: var(--accent)
+        }
+
+        .hero-p {
+            color: var(--dim)
+        }
+
+        .facts {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem 1.25rem;
+            margin-top: 1.25rem
+        }
+
+        .fact {
+            flex: 1 1 calc(50% - 1rem);
+            max-width: 180px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: .8rem;
+            padding: 1rem .9rem;
+            box-shadow: var(--shadow-2)
+        }
+
+        @media(min-width:600px) {
+            .fact {
+                flex: 0 0 auto
+            }
+        }
+
+        .fact .v {
+            font-weight: 700;
+            color: var(--accent);
+            font-size: 1.25rem
+        }
+
+        .fact .l {
+            color: var(--dim);
+            text-transform: uppercase;
+            letter-spacing: .06em;
+            font-size: .72rem;
+            font-weight: 700
+        }
+
+        /* Sections */
+        .cards {
+            display: grid;
+            gap: 1.25rem;
+            max-width: 900px
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 1.2rem 1rem;
+            box-shadow: var(--shadow-1)
+        }
+
+        @media(min-width:480px) {
+            .card {
+                padding: 1.25rem 1.25rem
+            }
+        }
+
+        .card h3 {
+            margin: .2rem 0 .6rem;
+            font-size: 1rem
+        }
+
+        .list {
+            display: grid;
+            gap: .6rem;
+            color: var(--dim);
+            font-weight: 600;
+            font-size: .9rem
+        }
+
+        .list i {
+            color: var(--accent);
+            margin-right: .45rem
+        }
+
+        /* Timeline */
+        .timeline {
+            display: grid;
+            gap: 1.25rem;
+            max-width: 900px
+        }
+
+        .t-head {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .6rem 1rem;
+            align-items: flex-start;
+            justify-content: space-between
+        }
+
+        .t-role {
+            font-weight: 700
+        }
+
+        .chip {
+            display: inline-flex;
+            gap: .45rem;
+            align-items: center;
+            color: var(--accent);
+            background: rgba(39, 233, 139, .07);
+            border: 1px solid rgba(39, 233, 139, .3);
+            border-radius: .45rem;
+            padding: .35rem .5rem;
+            font-size: .72rem;
+            font-weight: 700
+        }
+
+        .t-date {
+            color: var(--dim);
+            font-size: .72rem;
+            font-weight: 800;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            white-space: nowrap
+        }
+
+        /* Skills grid */
+        .skills {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(160px, 100%), 1fr));
+            gap: 1rem;
+            max-width: 900px
+        }
+
+
+        /* Contact */
+        .contact {
+            max-width: 900px
+        }
+
+        .links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem 1.25rem;
+            margin-bottom: 1.25rem
+        }
+
+        .links a {
+            display: flex;
+            gap: .5rem;
+            align-items: center;
+            color: var(--text);
+            font-weight: 700
+        }
+
+        .links i {
+            color: var(--accent)
+        }
+
+        label {
+            display: block;
+            color: var(--dim);
+            font-weight: 800;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            font-size: .72rem;
+            margin: .45rem 0
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            background: rgba(15, 23, 42, .6);
+            border: 1px solid var(--border);
+            color: var(--text);
+            border-radius: .75rem;
+            padding: .85rem .95rem;
+            box-shadow: var(--shadow-2);
+            font-weight: 600;
+            font-size: .9rem
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical
+        }
+
+        .btn {
+            display: inline-flex;
+            gap: .5rem;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            background: var(--accent);
+            color: #000;
+            border: 0;
+            border-radius: .75rem;
+            padding: .9rem 1rem;
+            font-weight: 800;
+            box-shadow: 0 22px 70px rgba(39, 233, 139, .45);
+            cursor: pointer
+        }
+
+        /* Utilities */
+        .center {
+            max-width: 1280px;
+            margin-inline: auto
+        }
+
+        .mt-1 {
+            margin-top: .5rem
+        }
+
+        .mt-2 {
+            margin-top: 1rem
+        }
+
+        .mt-3 {
+            margin-top: 1.5rem
+        }
+
+        .mt-4 {
+            margin-top: 2rem
+        }
+
+        .grid {
+            display: grid;
+            gap: 1rem
+        }
+
+        .two {
+            grid-template-columns: 1fr
+        }
+
+        @media(min-width:768px) {
+            .two {
+                grid-template-columns: 1fr 1fr;
+                gap: 1.25rem
+            }
+        }
+
+        /* Make long strings never overflow */
+        .wrap {
+            word-break: break-word;
+            overflow-wrap: anywhere
+        }
+
+        /* ====== SKILLS: cleaner, fully responsive, no overflow ====== */
+        .skills {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(160px, 100%), 1fr));
+            gap: 1rem;
+            max-width: 900px;
+        }
+
+        .pill {
+            display: grid;
+            gap: 5 px;
+            padding: 1rem;
+            border-radius: .8rem;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-2);
+            font-weight: 700;
+            font-size: .88rem;
+            transition: transform .15s ease, border-color .15s ease, background .15s ease;
+            min-width: 0;
+            /* critical so long text never forces horizontal scroll */
+        }
+
+        .pill .flex {
+            display: flex;
+            align-items: center;
+            gap: .75rem;
+        }
+
+        .pill img {
+            width: 28px;
+            height: 28px;
+            object-fit: contain;
+            flex-shrink: 0
+        }
+
+        .pill>small {
+            display: block;
+            color: var(--dim);
+            font-weight: 600;
+            font-size: .6rem
+        }
+
+        .pill:hover {
+            transform: translateY(-2px);
+            background: rgba(39, 233, 139, .07);
+            border-color: rgba(39, 233, 139, .35)
+        }
+
+        @media (max-width:360px) {
+            .skills {
+                gap: .75rem
+            }
+
+            .pill {
+                padding: .85rem
+            }
+        }
+
+        @media (max-width:480px) {
+            .pill {
+                display: grid !important;
+            }
+
+            .nav-links {
+                font-size: .59rem;
+            }
+
+            .nav-cta {
+                position: absolute;
+                right: 15px;
+                top: 16px;
+                font-size: .6rem;
+            }
+        }
+
+        /* ====== CERTIFICATIONS (matches your premium cards) ====== */
+        .cert-section {
+            padding-top: 0
+        }
+
+        /* optional: keep sections tight */
+        .certs-grid {
+            display: grid;
+            gap: 1rem;
+            max-width: 900px;
+        }
+
+        .cert-card {
+            display: block;
+            /* anchor wraps the card */
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-1);
+            padding: 1.15rem 1rem;
+            color: var(--text);
+            text-decoration: none;
+            transition: transform .15s ease, border-color .15s ease, background .15s ease;
+        }
+
+        @media(min-width:480px) {
+            .cert-card {
+                padding: 1.25rem 1.25rem
+            }
+        }
+
+        .cert-card:hover {
+            transform: translateY(-2px);
+            background: rgba(39, 233, 139, .07);
+            border-color: rgba(39, 233, 139, .35)
+        }
+
+        .cert-head {
+            display: flex;
+            align-items: center;
+            gap: .6rem;
+            margin-bottom: .6rem;
+            font-weight: 800;
+            font-size: 1rem;
+        }
+
+        .cert-head i {
+            color: var(--accent);
+            font-size: 1.1rem
+        }
+
+        .cert-body {
+            display: flex;
+            gap: .75rem;
+            align-items: flex-start;
+            /* no bootstrap needed */
+            min-width: 0;
+        }
+
+        .certified-img {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+            flex-shrink: 0;
+        }
+
+        .cert-body p {
+            margin: 0;
+            color: var(--dim);
+            font-weight: 600;
+            font-size: .9rem;
+        }
+
+        /* prevent any tiny horizontal scroll caused by gaps on small phones */
+        @media (max-width:360px) {
+            .cert-body {
+                gap: .6rem
+            }
+
+            .certified-img {
+                width: 36px;
+                height: 36px
+            }
+        }
+
+        /* global safety (in case you didn’t add earlier) */
+        html,
+        body {
+            overflow-x: hidden;
+        }
+
+        /* Toast */
+        #toast {
+            position: fixed;
+            z-index: 9999;
+            bottom: 16px;
+            right: 16px;
+            display: grid;
+            gap: 10px;
+            max-width: min(92vw, 360px);
+            pointer-events: none;
+            /* clicks pass through */
+        }
+
+        .toast {
+            pointer-events: auto;
+            border-radius: .75rem;
+            padding: .9rem 1rem;
+            font-weight: 700;
+            box-shadow: 0 22px 70px rgba(0, 0, 0, .45);
+            border: 1px solid rgba(255, 255, 255, .08);
+            background: rgba(15, 23, 42, .95);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: .6rem;
+            animation: toast-in .2s ease-out;
+        }
+
+        .toast.success {
+            border-color: rgba(39, 233, 139, .35);
+            background: rgba(10, 28, 22, .96);
+        }
+
+        .toast.error {
+            border-color: rgba(255, 80, 80, .4);
+            background: rgba(30, 10, 10, .96);
+        }
+
+        .toast .icon {
+            font-size: 1.1rem;
+        }
+
+        @keyframes toast-in {
+            from {
+                opacity: 0;
+                transform: translateY(6px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     </style>
-
 </head>
 
-<body class="home-page">
+<body>
 
-    <div class="page-loader">
-        <div class="bounceball"></div>
-    </div>
+    <div class="shell">
+        <!-- Sidebar -->
+        <aside class="profile">
+            <img class="avatar" src="assets/images/me.png" alt="Yassine Remmani portrait" />
+            <div class="name">Yassine <span class="accent">REMMANI</span></div>
+            <div class="role">Senior Full-Stack Developer<br />Spring Boot • Next.js • Docker</div>
+            <div class="badge"><i class="las la-building"></i> Auto Dealers Digital · Dec 27, 2019 → Present</div>
 
-    <span class="icon-menu">
-        <span class="bar"></span>
-        <span class="bar"></span>
-    </span>
-    <div class="responsive-sidebar-menu">
-        <div class="overlay"></div>
-        <div class="sidebar-menu-inner">
-            <div class="menu-wrap">
-                <ul class="menu scroll-nav-responsive d-flex">
-                    <li>
-                        <a class="scroll-to" href="#home">
-                            <i class="las la-home"></i> <span>Home</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="scroll-to" href="#about">
-                            <i class="lar la-user"></i> <span>About</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="scroll-to" href="#resume">
-                            <i class="las la-briefcase"></i> <span>Resume</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="scroll-to" href="#services">
-                            <i class="las la-stream"></i> <span>Services</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="scroll-to" href="#skills">
-                            <i class="las la-shapes"></i> <span>Skills</span>
-                        </a>
-                    </li>
-                    <!-- <li>
-                        <a class="scroll-to" href="#portfolio">
-                            <i class="las la-grip-vertical"></i> <span>Portfolios</span>
-                        </a>
-                    </li> -->
-
-                    <li>
-                        <a class="scroll-to" href="#contact">
-                            <i class="las la-envelope"></i> <span>Contact</span>
-                        </a>
-                    </li>
-                </ul>
+            <div class="contact-list">
+                <a class="contact-item" href="tel:+212620963660"><i class="las la-phone"></i><span class="wrap">+212 6
+                        20 96 36 60</span></a>
+                <a class="contact-item" href="mailto:remmanidev@gmail.com"><i class="las la-envelope"></i><span
+                        class="wrap">remmanidev@gmail.com</span></a>
+                <a class="contact-item link-muted" href="https://www.linkedin.com/in/yassine-remmani/" target="_blank"
+                    rel="nofollow noopener"><i class="lab la-linkedin-in"></i><span
+                        class="wrap">linkedin.com/in/yassine-remmani</span></a>
+                <a class="contact-item link-muted" href="https://github.com/yassine-RM" target="_blank"
+                    rel="nofollow noopener"><i class="lab la-github"></i><span
+                        class="wrap">github.com/yassine-RM</span></a>
+                <a class="contact-item link-muted" href="https://maps.app.goo.gl/aBTio919Q7TbiLFc7" target="_blank"
+                    rel="nofollow noopener"><i class="las la-map-marker-alt"></i><span>Casablanca · Morocco</span></a>
             </div>
 
-            <div class="sidebar-social">
-                <p>Social</p>
-                <ul class="social-links d-flex align-items-center">
-                    <li>
-                        <a target="_blank" href="https://x.com/YassineRMM"><i class="lab la-twitter"></i></a>
-                    </li>
-                    <li>
-                        <a target="_blank" href="https://web.facebook.com/remmanitravels/"><i
-                                class="lab la-facebook"></i></a>
-                    </li>
-                    <li>
-                        <a target="_blank" href="https://www.instagram.com/remmanitravels/"><i
-                                class="lab la-instagram"></i></a>
-                    </li>
-                </ul>
+            <div class="social">
+                <a class="icon-btn" href="https://x.com/YassineRMM" target="_blank" aria-label="X / Twitter"><i
+                        class="lab la-twitter"></i></a>
+                <a class="icon-btn" href="https://www.instagram.com/yassine.remmani/" target="_blank"
+                    aria-label="Instagram"><i class="lab la-instagram"></i></a>
+                <a class="icon-btn" href="https://web.facebook.com/yassine.remmani.96/" target="_blank"
+                    aria-label="Facebook"><i class="lab la-facebook"></i></a>
             </div>
-        </div>
-    </div>
 
-    <ul class="menu scroll-nav d-flex">
-        <li>
-            <a class="scroll-to" href="#home">
-                <span>Home</span> <i class="las la-home"></i>
-            </a>
-        </li>
-        <li>
-            <a class="scroll-to" href="#about">
-                <span>About</span> <i class="lar la-user"></i>
-            </a>
-        </li>
-        <li>
-            <a class="scroll-to" href="#resume">
-                <span>Resume</span> <i class="las la-briefcase"></i>
-            </a>
-        </li>
-        <li>
-            <a class="scroll-to" href="#services">
-                <span>Services</span> <i class="las la-stream"></i>
-            </a>
-        </li>
-        <li>
-            <a class="scroll-to" href="#skills">
-                <span>Skills</span> <i class="las la-shapes"></i>
-            </a>
-        </li>
-        <li>
-            <a class="scroll-to" href="#portfolio">
-                <span>Portfolios</span> <i class="las la-grip-vertical"></i>
-            </a>
-        </li>
+            <a href="#contact" class="cta"><i class="las la-envelope"></i> Hire Me</a>
+            <div class="aside-meta">© <span id="year"></span> All Rights Reserved</div>
+        </aside>
 
-        <li>
-            <a class="scroll-to" href="#contact">
-                <span>Contact</span> <i class="las la-envelope"></i>
-            </a>
-        </li>
-    </ul>
-
-    <div class="left-sidebar">
-        <div class="sidebar-header text-center">
-            <img src="assets/images/logo.png" alt="Logo">
-        </div>
-        <img class="me" src="assets/images/me.png" alt="Me">
-        <h2 class="address">Yassine <span class="primary-color">REMMANI</span></h2>
-        <p class="copyright">&copy; <span id="year"></span> All Rights Reserved</p>
-        <ul class="social-profile d-flex align-items-center flex-wrap justify-content-center">
-            <li>
-                <a href="tel:0620963660"><i class="las la-phone"></i></a>
-            </li>
-            <li>
-                <a href="https://www.linkedin.com/in/yassine-remmani/" target="_blank"><i
-                        class="lab la-linkedin-in"></i></a>
-            </li>
-            <li>
-                <a href="https://github.com/yassine-RM" target="_blank"><i class="lab la-github"></i></a>
-            </li>
-            <li>
-                <a href="mailto:remmanidev@gmail.com"><i class="las la-envelope"></i></a>
-            </li>
-            <li>
-                <a href="https://maps.app.goo.gl/aBTio919Q7TbiLFc7" target="_blank"><i
-                        class="las la-map-marker-alt"></i></a>
-            </li>
-        </ul>
-        <a href="#contact" class="theme-btn">
-            <i class="las la-envelope"></i> Hire Me!
-        </a>
-    </div>
-
-    <main class="drake-main">
-        <div id="smooth-wrapper">
-            <div id="smooth-content">
-
-                <div class="left-sidebar">
-                    <div class="sidebar-header text-center">
-                        <img src="assets/images/logo.png" alt="Logo">
+        <!-- Main -->
+        <main>
+            <!-- Nav -->
+            <div class="nav">
+                <div class="nav-inner">
+                    <div class="brand">
+                        <img src="assets/images/my-logo.png" alt="logo" />
+                        <div class="brand-id">
+                            <span class="n1">Yassine Remmani</span>
+                            <span class="n2">Senior Full-Stack Developer</span>
+                        </div>
                     </div>
-                    <img class="me" src="assets/images/me.png" alt="Me">
-                    <h2 class="address">Yassine <span class="primary-color">REMMANI</span></h2>
-                    <p class="copyright">&copy; 2024 All Rights Reserved</p>
-                    <ul class="social-profile d-flex align-items-center flex-wrap justify-content-center">
-                        <li>
-                            <a href="tel:0620963660"><i class="las la-phone"></i></a>
-                        </li>
-                        <li>
-                            <a href="https://www.linkedin.com/in/yassine-remmani-developer/" target="_blank"><i
-                                    class="lab la-linkedin-in"></i></a>
-                        </li>
-                        <li>
-                            <a href="https://github.com/yassine-RM" target="_blank"><i class="lab la-github"></i></a>
-                        </li>
-                        <li>
-                            <a href="mailto:remmanidev@gmail.com"><i class="las la-envelope"></i></a>
-                        </li>
-                        <li>
-                            <a href="https://maps.app.goo.gl/aBTio919Q7TbiLFc7" target="_blank"><i
-                                    class="las la-map-marker-alt"></i></a>
-                        </li>
-                    </ul>
-                    <a href="#contact" class="theme-btn">
-                        <i class="las la-envelope"></i> Hire Me!
+                    <nav class="nav-links">
+                        <a href="#intro">About</a>
+                        <a href="#experience">Experience</a>
+                        <a href="#impact">Impact</a>
+                        <a href="#skills">Skills</a>
+                        <a href="#certs">Certifications</a>
+                        <a href="#contact">Contact</a>
+                    </nav>
+                    <a class="nav-cta" href="#contact">Let’s talk</a>
+                </div>
+            </div>
+
+            <!-- Intro / Hero -->
+            <section id="intro">
+                <div class="h-eyebrow"><i class="las la-bolt"></i> About Me</div>
+                <h1 class="hero-title">I build reliable, revenue-focused platforms — <span class="accent">end to
+                        end</span>.</h1>
+                <p class="hero-p muted">
+                    I'm <strong>Yassine Remmani</strong>, a <strong>Senior Full-Stack Developer</strong> specialized in
+                    <strong>Spring Boot (Java)</strong>, <strong>Next.js / React</strong>, <strong>Docker</strong>, and
+                    <strong>PostgreSQL</strong>.
+                    Since <strong>December 27, 2019</strong> I’ve been building and maintaining production software for
+                    <strong style="color:var(--accent)">Auto Dealers Digital</strong>.
+                </p>
+                <p class="hero-p muted">
+                    I design backend architectures, expose secure REST APIs, build modern dashboards, ship SEO-ready
+                    sites,
+                    and automate deployments with CI/CD and Docker. I deliver platforms that sales can sell and clients
+                    actually use.
+                </p>
+
+                <div class="facts">
+                    <div class="fact">
+                        <div class="v">6+ yrs</div>
+                        <div class="l">Production</div>
+                    </div>
+                    <div class="fact">
+                        <div class="v">Full-Stack</div>
+                        <div class="l">Spring Boot • Next.js</div>
+                    </div>
+                    <div class="fact">
+                        <div class="v">Scale</div>
+                        <div class="l">Multi-tenant · 4K+ dealers</div>
+                    </div>
+                    <div class="fact">
+                        <div class="v">Ship Fast</div>
+                        <div class="l">API → UI → Deploy</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Experience -->
+            <section id="experience">
+                <div class="h-eyebrow"><i class="las la-briefcase"></i> Experience</div>
+                <h2 class="h-title">What I run <span>in production</span></h2>
+                <p class="muted">Real users. Real traffic. Not school projects.</p>
+
+                <div class="timeline mt-2">
+                    <article class="card">
+                        <div class="t-head">
+                            <div class="t-role">Senior Full-Stack Developer <span class="chip"><i
+                                        class="las la-building"></i> Auto Dealers Digital</span></div>
+                            <div class="t-date">Dec 27, 2019 → Present</div>
+                        </div>
+                        <div class="list mt-1">
+                            <div><i class="las la-check"></i> Architected dealer platforms: inventory dashboards,
+                                lead/CRM systems, SEO sites for 4,000+ dealers.</div>
+                            <div><i class="las la-check"></i> Built secure REST APIs with Spring Boot; integrated
+                                external data sources and partner services.</div>
+                            <div><i class="las la-check"></i> Implemented a <strong>multi-tenant site
+                                    generator</strong>: per-dealer themes, pages, SEO, forms.</div>
+                            <div><i class="las la-check"></i> Delivered responsive Next.js UIs with real-time inventory
+                                sync — zero manual vehicle entry.</div>
+                            <div><i class="las la-check"></i> Automated Docker + CI/CD deployments for stable,
+                                zero-downtime releases.</div>
+                            <div><i class="las la-check"></i> Set up GA4 & Search Console programmatically to track
+                                calls, forms, and organic growth.</div>
+                            <div><i class="las la-check"></i> Performance & SEO work (SSR, structured data, caching)
+                                that increased qualified leads.</div>
+                        </div>
+                    </article>
+
+                    <article class="card">
+                        <div class="t-head">
+                            <div class="t-role">Full-Stack Engineer (Freelance) <span class="chip"><i
+                                        class="las la-laptop-code"></i> Client Work · SaaS</span></div>
+                            <div class="t-date">2023 → Present</div>
+                        </div>
+                        <div class="list mt-1">
+                            <div><i class="las la-check"></i> Spring Boot APIs with JWT & role-based access, PostgreSQL
+                                schemas & migrations.</div>
+                            <div><i class="las la-check"></i> Next.js dashboards for e-commerce, internal tools,
+                                analytics & reporting.</div>
+                            <div><i class="las la-check"></i> End-to-end delivery: architecture → code → Docker → deploy
+                                → monitor.</div>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <!-- Impact -->
+            <section id="impact">
+                <div class="h-eyebrow"><i class="las la-trophy"></i> Impact</div>
+                <h2 class="h-title">What I <span>deliver</span></h2>
+                <div class="cards mt-2">
+                    <article class="card">
+                        <h3><i class="las la-network-wired" style="color:var(--accent)"></i> Multi-tenant platforms at
+                            scale</h3>
+                        <div class="list">
+                            <div>One codebase powers thousands of sites with isolated theming, pages, SEO, and lead
+                                capture.</div>
+                            <div>Clients manage content without engineering help while I keep infra, security, and
+                                delivery rock-solid.</div>
+                        </div>
+                    </article>
+                    <article class="card">
+                        <h3><i class="las la-lock" style="color:var(--accent)"></i> Backend you can trust</h3>
+                        <div class="list">
+                            <div>Spring Boot REST APIs · validation · rate-limits · partner integrations · audit trails.
+                            </div>
+                            <div>PostgreSQL designed for reporting. Backups, migrations, and predictable performance.
+                            </div>
+                        </div>
+                    </article>
+                    <article class="card">
+                        <h3><i class="las la-rocket" style="color:var(--accent)"></i> Fast time to market</h3>
+                        <div class="list">
+                            <div>Vertical slices: DB → API → UI → deploy. CI/CD + Docker for safe, repeatable releases.
+                            </div>
+                            <div>Sales can launch new clients quickly — the system scales with business needs.</div>
+                        </div>
+                    </article>
+                    <article class="card">
+                        <h3><i class="las la-search" style="color:var(--accent)"></i> SEO & growth built-in</h3>
+                        <div class="list">
+                            <div>Next.js SSR, structured data, fast UI, and GA4/Search Console automation per client.
+                            </div>
+                            <div>More inbound calls and qualified form leads — measurable ROI.</div>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <!-- Skills (updated: +Typesense, +shadcn/ui, +Google Analytics; removed Laravel) -->
+            <section id="skills">
+                <div class="h-eyebrow"><i class="las la-shapes"></i> Core Stack</div>
+                <h2 class="h-title">Tech I <span>run every day</span></h2>
+
+                <div class="skills mt-2">
+                    <div class="pill" aria-label="Spring Boot">
+                        <div class="flex">
+                            <img src="assets/images/springboot.svg" alt="Spring Boot" />
+                            <small> Spring Boot </small>
+                        </div>
+                        <small>REST APIs · services · security</small>
+                    </div>
+
+                    <div class="pill" aria-label="Next.js and React">
+                        <div class="flex">
+                            <img src="assets/images/react.svg" alt="Next.js / React" />
+                            <small> Next.js / React </small>
+                        </div>
+                        <small>SSR · SEO · dashboards</small>
+                    </div>
+
+                    <div class="pill" aria-label="Typesense Search">
+                        <div class="flex">
+                            <img src="assets/images/typesense.svg" alt="Typesense" />
+                            <small> Typesense Search </small>
+                        </div>
+                        <small>instant search · filters · synonyms</small>
+                    </div>
+
+                    <div class="pill" aria-label="Docker and CI/CD">
+                        <div class="flex">
+                            <img src="assets/images/docker.svg" alt="Docker" />
+                            <small> Docker & CI/CD </small>
+                        </div>
+                        <small>pipelines · zero-downtime</small>
+                    </div>
+
+                    <div class="pill" aria-label="PostgreSQL and MySQL">
+                        <div class="flex">
+                            <img src="assets/images/postgresql.svg" alt="PostgreSQL" />
+                            <small> PostgreSQL / MySQL </small>
+                        </div>
+                        <small>schema design · migrations</small>
+                    </div>
+
+                    <div class="pill" aria-label="Redis">
+                        <div class="flex">
+                            <img src="assets/images/redis.svg" alt="Redis" />
+                            <small> Redis / Caching </small>
+                        </div>
+                        <small>speed · scale · stability</small>
+                    </div>
+
+                    <div class="pill" aria-label="Google Analytics and SEO">
+                        <div class="flex">
+                            <img src="assets/images/ga.svg" alt="Google Analytics" />
+                            <small> Google Analytics & SEO </small>
+                        </div>
+                        <small>GA4 · Search Console automation</small>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- Certifications & Education (kept) -->
+            <section class="cert-section" id="certs">
+                <div class="h-eyebrow"><i class="las la-certificate"></i> Certifications</div>
+                <h2 class="h-title">My <span>Certifications</span></h2>
+
+                <div class="certs-grid mt-2">
+                    <a class="cert-card" href="https://brightcoding.dev/certificate/yassine-remmani/A3CB37D3"
+                        target="_blank" rel="noopener">
+                        <div class="cert-head">
+                            <i class="las la-certificate"></i>
+                            <span class="text-uppercase">Certified in Node.js</span>
+                        </div>
+                        <div class="cert-body">
+                            <img class="certified-img" src="assets/images/nodejs.svg" alt="Node.js certificate icon">
+                            <p>Expertise in building scalable server-side applications, creating RESTful APIs, and
+                                handling asynchronous operations.</p>
+                        </div>
+                    </a>
+
+                    <a class="cert-card" href="https://brightcoding.dev/certificate/yassine-remmani/8fbedfa9"
+                        target="_blank" rel="noopener">
+                        <div class="cert-head">
+                            <i class="las la-certificate"></i>
+                            <span class="text-uppercase">Certified in Git</span>
+                        </div>
+                        <div class="cert-body">
+                            <img class="certified-img" src="assets/images/git.svg" alt="Git certificate icon">
+                            <p>Proficient in version control, branching strategies, and collaborative workflows.
+                                Experienced in managing repositories and streamlining development processes.</p>
+                        </div>
+                    </a>
+
+                    <a class="cert-card" href="https://brightcoding.dev/certificate/yassine-remmani/A07BA3FF"
+                        target="_blank" rel="noopener">
+                        <div class="cert-head">
+                            <i class="las la-certificate"></i>
+                            <span class="text-uppercase">Certified in ReactProjectsjs</span>
+                        </div>
+                        <div class="cert-body">
+                            <img class="certified-img" src="assets/images/react.svg" alt="React certificate icon">
+                            <p>Skilled in building dynamic, responsive UIs. Proficient in component-based architecture
+                                and state management for scalable web applications.</p>
+                        </div>
                     </a>
                 </div>
+            </section>
 
-                <section class="hero-section page-section scroll-to-page" id="home">
 
-                    <div class="custom-container">
-                        <div class="hero-content content-width">
-                            <div class="section-header">
-                                <h4 class="subtitle scroll-animation" data-animation="fade_from_bottom">
-                                    <i class="las la-home"></i> Introduce
-                                </h4>
-                                <div class="scroll-animation">
-                                    <span class="text-uppercase hi">
-                                        Hi there! i'm
-                                    </span>
-                                </div>
-                                <div class="title">
-                                    <h1 class="scroll-animation" data-animation="fade_from_bottom"> <span>Yassine</span>
-                                        REMMANI</h1>
-                                    <div class="scroll-animation text-center">
-                                        <span class="under-title text-uppercase" data-animation="fade_from_bottom">Full
-                                            Stack Web Developer</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <p class="scroll-animation" data-animation="fade_from_bottom">Logical and results-driven
-                                full stack web developer with 6 years experience leading both front and back end
-                                development. Dedicated to building and optimizing user-focused websites. Mastering the
-                                SpringBoot, Laravel, NodeJs, ReactJs and Vuejs...</p>
-                            <a href="#portfolio" class="go-to-project-btn scroll-to scroll-animation"
-                                data-animation="rotate_up">
-                                <img src="assets/images/round-text.png" alt="round-text">
-                                <i class="las la-arrow-down"></i>
-                            </a>
+            <!-- Contact -->
+            <section id="contact">
+                <div class="h-eyebrow"><i class="las la-envelope"></i> Contact</div>
+                <h2 class="h-title">Let’s build something <span>that matters</span></h2>
+                <p class="muted">Open to senior full-stack / backend / platform roles. If you want someone who designs,
+                    builds, deploys, and keeps it running — reach out.</p>
 
-                            <div class="facts d-flex">
-                                <div class="left scroll-animation" data-animation="fade_from_left">
-                                    <h1>6+</h1>
-                                    <p>Years of <br>Experience</p>
-                                </div>
-                            </div>
-                        </div>
+                <div class="card contact mt-2">
+                    <div class="links">
+                        <a href="mailto:remmanidev@gmail.com"><i class="las la-envelope"></i> remmanidev@gmail.com</a>
+                        <a href="tel:+212620963660"><i class="las la-phone"></i> +212 6 20 96 36 60</a>
                     </div>
-                </section>
 
-                <section class="about-area page-section scroll-to-page" id="about">
-                    <div class="custom-container">
-                        <div class="about-content content-width">
-                            <div class="section-header">
-                                <h4 class="subtitle scroll-animation" data-animation="fade_from_bottom">
-                                    <i class="lar la-user"></i> About
-                                </h4>
-                                <h1 class="scroll-animation" data-animation="fade_from_bottom">Every great developer
-                                    begin with<br>
-                                    an even <span>better story</span></h1>
-                            </div>
-                            <p class="scroll-animation" data-animation="fade_from_bottom">Web programming is what I
-                                really enjoy doing. I’ve been into it for 6 years already. I am getting more skilled day
-                                after day because there is no day I spend without learning something new.
-
-                                I am a professional PHP developer. I know how to write clean and efficient code, and I
-                                always do so.
-                                Moreover, I am willing to do a small test task to prove I could cope with your project.
-
-                                What I am looking for is friendly responsive clients and interesting projects.
-
-                                Working with me you can be sure you'll get all your questions answered and you'll be
-                                always aware of what's going on with your site. I am used to writing daily updates to
-                                clients about the work done.
-
-                                Let’s implement the ideas you have!</p>
+                    <form id="contact-form" action="https://formspree.io/f/mblkopgg" method="POST" class="grid two">
+                        <div>
+                            <label for="email">Email *</label>
+                            <input id="email" name="email" type="email" placeholder="you@company.com" required />
                         </div>
-                    </div>
-                </section>
 
-
-                <section class="resume-area page-section scroll-to-page" id="resume">
-                    <div class="custom-container">
-                        <div class="resume-content content-width">
-                            <div class="section-header">
-                                <h4 class="subtitle scroll-animation" data-animation="fade_from_bottom">
-                                    <i class="las la-briefcase"></i> Resume
-                                </h4>
-                                <h1 class="scroll-animation" data-animation="fade_from_bottom">Education &
-                                    <span>Experience</span>
-                                </h1>
-                            </div>
-
-                            <div class="resume-timeline">
-                                <div class="item scroll-animation" data-animation="fade_from_right">
-                                    <span class="date">2024 - Present</span>
-                                    <h2 class="mb-3">Full-Stack Web Developer SpringBoot | ReactJs</h2>
-                                    <h6 class="mb-3">Tech stack: Spring Boot · Laravel · React.js · PostgreSQL</h6>
-                                    <p class="mb-2">
-                                        <i class="primary-color las la-check"></i>
-                                       Delivered custom web applications for clients across e-commerce and admin dashboards
-                                    </p>
-                                    <p class="mb-2">
-                                        <i class="primary-color las la-check"></i>
-                                       Developed and deployed RESTful APIs using Spring Boot and Laravel
-                                    </p>
-                                    <p class="mb-2">
-                                        <i class="primary-color las la-check"></i>
-                                       Built responsive React.js interfaces with dynamic API integrations
-                                    </p>
-                                    <p class="mb-3">
-                                        <i class="primary-color las la-check"></i>
-                                       Handled full-cycle development: architecture, coding, deployment, and maintenance
-                                    </p>
-                                    <p class="mb-3">
-                                        <i class="primary-color las la-check"></i>
-                                        Deployed apps using Docker, with CI/CD pipelines and Git version control
-                                    </p>
-                                    <p class="company-icon"><i class="las la-building"></i> Freelance & Personal Projects</p>
-                                </div>
-                                <div class="item scroll-animation" data-animation="fade_from_right">
-                                    <span class="date">2023 - Present</span>
-                                    <h2 class="mb-3">Full-Stack Web Developer SpringBoot | ReactJs</h2>
-                                    <p class="mb-2">
-                                        <i class="primary-color las la-check"></i>
-                                        Designed and developed RESTful APIs using Spring Boot and JPA with a focus on clean architecture.
-                                    </p>
-                                    <p class="mb-2">
-                                        <i class="primary-color las la-check"></i>
-                                        Integrated role-based security with Spring Security and JWT tokens.
-                                    </p>
-                                    <p class="mb-2">
-                                        <i class="primary-color las la-check"></i>
-                                        Used PostgreSQL database with Flyway for versioned migrations.
-                                    </p>
-                                    <p class="mb-3">
-                                        <i class="primary-color las la-check"></i>
-                                        Dockerized services and configured CI/CD pipelines for deployments.
-                                    </p>
-                                    <p class="company-icon"><i class="las la-building"></i> Auto Dealers Digital</p>
-                                </div>
-                                <div class="item scroll-animation" data-animation="fade_from_right">
-
-                                    <span class="date">2021 - 2023</span>
-                                    <h2 class="mb-3">Full-Stack Web Developer Laravel | VueJs</h2>
-                                    <p class="mb-2">
-                                        <i class="primary-color las la-check"></i>
-                                        Integrate google analytics and google search console Apis Automatically.
-                                    </p>
-                                    <p class="mb-2">
-                                        <i class="primary-color las la-check"></i>
-                                        Automatically create websites for clients using Laravel and WordPress.
-                                    </p>
-                                    <p class="mb-2">
-                                        <i class="primary-color las la-check"></i>
-                                        Develop a classified website with Laravel Scout and Typesense for enhanced
-                                        search functionality.
-                                    </p>
-                                    <p class="mb-2">
-                                        <i class="primary-color las la-check"></i>
-                                        Build custom plugins to integrate inventory from external modules.
-                                    </p>
-                                    <p class="mb-3">
-                                        <i class="primary-color las la-check"></i>
-                                        Develop secure REST APIs using Laravel.
-                                    </p>
-
-                                    <p class="company-icon"><i class="las la-building"></i> Auto Dealers Digital</p>
-                                </div>
-                                <div class="item scroll-animation" data-animation="fade_from_right">
-                                    <span class="date">2019 - 2021</span>
-                                    <h2 class="mb-3">Front-End Web Developer</h2>
-                                    <p class="mb-3">
-                                        <i class="primary-color las la-check"></i>
-                                        Create Progressive Web Applications (PWAs) with Vue.js.
-                                    </p>
-                                    <p class="company-icon"><i class="las la-building"></i> Auto Dealers Digital</p>
-                                </div>
-                                <div class="item scroll-animation" data-animation="fade_from_right">
-                                    <span class="date">2019 - 2019</span>
-                                    <h2 class="mb-3">Full-Stack Web Developer</h2>
-                                    <p class="mb-3">
-                                        <i class="primary-color las la-check"></i>
-                                        Develop secure REST APIs using Laravel.
-                                    </p>
-                                    <p class="company-icon"><i class="las la-building"></i> At STG Group</p>
-                                </div>
-                                <div class="item scroll-animation" data-animation="fade_from_right">
-                                    <span class="date">2024 - Present</span>
-                                    <h2 class="mb-3">Master's in Computer Science and Artificial Intelligence for Big Data</h2>
-                                    <p class="university-icon"><i class="las la-university"></i>  At EST Ibn Tofail</p>
-                                </div>
-                                <div class="item scroll-animation" data-animation="fade_from_right">
-                                    <span class="date">2018 - 2019</span>
-                                    <h2 class="mb-3">Professional License / Software Engineering</h2>
-                                    <p class="university-icon"><i class="las la-university"></i> At EST Safi</p>
-                                </div>
-                                <div class="item scroll-animation" data-animation="fade_from_right">
-                                    <span class="date">2016 - 2018</span>
-                                    <h2 class="mb-3">Technical University Degree / Software Engineering</h2>
-                                    <p class="university-icon"><i class="las la-university"></i> At EST Meknes</p>
-                                </div>
-                                <div class="item scroll-animation" data-animation="fade_from_right">
-                                    <span class="date">2015 - 2016</span>
-                                    <h2 class="mb-3">Baccalaureate / SVT</h2>
-                                    <p class="university-icon"><i class="las la-university"></i> At ELQODS CHEMMAIA HIGH
-                                        SCHOOL</p>
-                                </div>
-                            </div>
-
+                        <div class="two" style="grid-column:1/-1">
+                            <label for="message">Message *</label>
+                            <textarea id="message" name="message" placeholder="Write your message here..."
+                                required></textarea>
                         </div>
-                    </div>
-                </section>
 
-
-                <section class="services-area page-section scroll-to-page" id="services">
-                    <div class="custom-container">
-                        <div class="services-content content-width">
-                            <div class="section-header">
-                                <h4 class="subtitle scroll-animation" data-animation="fade_from_bottom">
-                                    <i class="las la-stream"></i> Services
-                                </h4>
-                                <h1 class="scroll-animation" data-animation="fade_from_bottom">My
-                                    <span>Specializations</span>
-                                </h1>
-                            </div>
-
-                            <div class="services-items">
-
-                                <div class="service-item scroll-animation" data-animation="fade_from_bottom">
-                                    <i class="las la-server"></i>
-                                    <h2 class="text-uppercase">Spring Boot Backend Services</h2>
-                                    <p>Specialized in building enterprise-grade REST APIs using Spring Boot. Skilled in designing modular microservices, integrating databases, applying security best practices, and deploying with Docker and CI/CD tools.</p>
-                                </div>
-
-                                <div class="service-item scroll-animation" data-animation="fade_from_bottom">
-                                    <i class="las la-code"></i>
-                                    <h2 class="text-uppercase">Website Development</h2>
-                                    <p>Expert in building responsive and visually appealing websites using modern
-                                        technologies like HTML, CSS, JavaScript, and frameworks such as Laravel, Vue.js,
-                                        React, and Next.js. Proficient in creating user-friendly, fast-loading, and
-                                        secure websites that provide a seamless user experience across devices.</p>
-                                </div>
-                                <div class="service-item scroll-animation" data-animation="fade_from_bottom">
-                                    <i class="las la-code"></i>
-                                    <h2 class="text-uppercase">Web Applications (PWA)</h2>
-                                    <p>Skilled in developing Progressive Web Applications (PWAs) that offer an app-like
-                                        experience on the web. Proficient in using technologies such as TypeScript,
-                                        React, and service workers to create reliable, fast, and engaging applications
-                                        that work offline and can be installed on devices.</p>
-                                </div>
-                                <div class="service-item scroll-animation" data-animation="fade_from_bottom">
-                                    <i class="las la-code"></i>
-                                    <h2 class="text-uppercase">Backend Development & API Integration</h2>
-                                    <p>Experienced in developing robust backend systems using Node.js and Laravel, with
-                                        a focus on creating secure and efficient APIs. Proficient in designing and
-                                        managing databases with MySQL, ensuring data integrity and performance
-                                        optimization.</p>
-                                </div>
-                                <div class="service-item scroll-animation" data-animation="fade_from_bottom">
-                                    <i class="las la-code"></i>
-                                    <h2 class="text-uppercase">WordPress Plugin Development</h2>
-                                    <p>Proficient in creating custom WordPress plugins to extend and enhance website
-                                        functionality. Experienced in developing secure, efficient, and user-friendly
-                                        plugins that integrate seamlessly with the WordPress ecosystem.</p>
-                                </div>
-                                <div class="service-item scroll-animation" data-animation="fade_from_bottom">
-                                    <i class="las la-code"></i>
-                                    <h2 class="text-uppercase">Search Engine Optimization (SEO)</h2>
-                                    <p>Experienced in optimizing websites for search engines to improve visibility and
-                                        ranking. Proficient in on-page and off-page SEO techniques, including keyword
-                                        research, content optimization, and technical SEO, ensuring websites are easily
-                                        discoverable by search engines and attract targeted traffic.</p>
-                                </div>
-
-                            </div>
-
+                        <div style="grid-column:1/-1">
+                            <button class="btn" type="submit">
+                                <i class="las la-paper-plane"></i> Send Message
+                            </button>
                         </div>
-                    </div>
-                </section>
+                    </form>
+
+                    <!-- Toast container (one per page) -->
+                    <div id="toast" aria-live="polite" aria-atomic="true"></div>
 
 
-                <section class="skills-area page-section scroll-to-page" id="skills">
-                    <div class="custom-container">
-                        <div class="skills-content content-width">
-                            <div class="section-header">
-                                <h4 class="subtitle scroll-animation" data-animation="fade_from_bottom">
-                                    <i class="las la-shapes"></i> my skills
-                                </h4>
-                                <h1 class="scroll-animation" data-animation="fade_from_bottom">My
-                                    <span>Advantages</span>
-                                </h1>
-                            </div>
+                    <p class="muted mt-2" style="text-align:center">Portfolio last updated <strong>Oct 2025</strong> ·
+                        Casablanca, Morocco · Open to relocation</p>
+                </div>
+            </section>
+        </main>
+    </div>
 
-                            <div class="skills text-center swiper skills-swiper">
-                                <div class="swiper-wrapper">
+    <!-- Minimal JS for year only (kept super light for SEO) -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            var y = document.getElementById('year'); if (y) y.textContent = new Date().getFullYear();
+        });
+    </script>
 
-                                    <div class="swiper-slide" data-animation="fade_from_top">
-                                        <img src="assets/images/springboot.svg" alt="Spring Boot">
-                                    </div>
+    <script>
+        (function () {
+            const form = document.getElementById('contact-form');
+            if (!form) return;
 
-                                    <div class="swiper-slide" data-animation="fade_from_bottom">
-                                        <img src="assets/images/laravel.svg" alt="Laravel/PHP">
-                                    </div>
-                                    <div class="swiper-slide" data-animation="fade_from_top">
-                                        <img src="assets/images/nestjs.svg" alt="nestjs">
-                                    </div>
-                                    <div class="swiper-slide" data-animation="fade_from_top">
-                                        <img src="assets/images/nodejs.svg" alt="nodejs">
-                                    </div>
-                                    <div class="swiper-slide" data-animation="fade_from_right">
-                                        <img src="assets/images/react.svg" alt="React">
-                                    </div>
-                                    <div class="swiper-slide" data-animation="fade_from_top">
-                                        <img src="assets/images/vue.svg" alt="vue">
-                                    </div>
-                                    <div class="swiper-slide" data-animation="fade_from_top">
-                                        <img src="assets/images/javascript.svg" alt="JavaScript">
-                                    </div>
-                                    <div class="swiper-slide" data-animation="fade_from_top">
-                                        <img src="assets/images/docker.svg" alt="Docker">
-                                    </div>
-                                    <div class="swiper-slide" data-animation="fade_from_top">
-                                        <img src="assets/images/redis.svg" alt="redis">
-                                    </div>
-                                    <div class="swiper-slide" data-animation="fade_from_top">
-                                        <img src="assets/images/mysql.svg" alt="mysql">
-                                    </div>
-                                    <div class="swiper-slide" data-animation="fade_from_top">
-                                        <img src="assets/images/git.svg" alt="git">
-                                    </div>
-                                    <div class="swiper-slide" data-animation="fade_from_top">
-                                        <img src="assets/images/vuetify.svg" alt="vuetify">
-                                    </div>
-                                    <div class="swiper-slide" data-animation="fade_from_top">
-                                        <img src="assets/images/tailwindcss.svg" alt="tailwind">
-                                    </div>
-                                    <div class="swiper-slide" data-animation="fade_from_top">
-                                        <img src="assets/images/bootstrap.svg" alt="bootstrap">
-                                    </div>
-                                    <div class="swiper-slide" data-animation="fade_from_top">
-                                        <img src="assets/images/jquery.svg" alt="jquery">
-                                    </div>
-                                    <div class="swiper-slide" data-animation="fade_from_left">
-                                        <img src="assets/images/wordpress.svg" alt="WordPress">
-                                    </div>
-                                    <div class="swiper-slide" data-animation="fade_from_left">
-                                        <img src="assets/images/ga.svg" alt="google analytics">
-                                    </div>
-                                </div>
-                                <div class="swiper-pagination"></div>
-                                <div class="swiper-button-next"></div>
-                                <div class="swiper-button-prev"></div>
-                            </div>
+            const toastRoot = document.getElementById('toast');
 
-                        </div>
-                    </div>
-                </section>
+            function showToast(message, type = 'success') {
+                const el = document.createElement('div');
+                el.className = `toast ${type}`;
+                el.innerHTML = `
+        <span class="icon">${type === 'success' ? '✅' : '⚠️'}</span>
+        <span>${message}</span>
+      `;
+                toastRoot.appendChild(el);
+                // auto remove after 4s
+                setTimeout(() => {
+                    el.style.opacity = '0';
+                    el.style.transform = 'translateY(6px)';
+                    setTimeout(() => el.remove(), 180);
+                }, 4000);
+            }
 
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const submitBtn = form.querySelector('button[type="submit"]');
+                const originalHTML = submitBtn ? submitBtn.innerHTML : null;
+                if (submitBtn) {
+                    submitBtn.disabled = true;
+                    submitBtn.innerHTML = 'Sending…';
+                }
+                try {
+                    const data = new FormData(form);
+                    const res = await fetch(form.action, {
+                        method: 'POST',
+                        headers: { 'Accept': 'application/json' }, // <- prevents redirect HTML
+                        body: data
+                    });
 
-                <!-- <section class="portfolio-area page-section scroll-to-page" id="portfolio">
-                    <div class="custom-container">
-                        <div class="portfolio-content content-width">
-                            <div class="section-header">
-                                <h4 class="subtitle scroll-animation" data-animation="fade_from_bottom">
-                                    <i class="las la-grip-vertical"></i> portfolio
-                                </h4>
-                                <h1 class="scroll-animation" data-animation="fade_from_bottom">My <span>Projects</span>
-                                </h1>
-                            </div>
-                            <p class="scroll-animation">
-                                Expert in building responsive websites using Laravel for backend, Tailwind CSS for
-                                design, and Redis for caching, ensuring fast, secure, and visually appealing web
-                                solutions with optimized performance.
-                            </p>
-
-                            <div class="skills text-center swiper projects-swiper">
-                                <div class="swiper-wrapper">
-                                    <div class="swiper-slide" data-animation="fade_from_bottom">
-                                        <img src="assets/images/portfolio.png" alt="portfolio">
-                                    </div>
-                                    <div class="swiper-slide" data-animation="fade_from_bottom">
-                                        <img src="assets/images/ole.png" alt="ole">
-                                    </div>
-                                    <div class="swiper-slide" data-animation="fade_from_bottom">
-                                        <img src="assets/images/t5.png" alt="t5">
-
-                                    </div>
-                                    <div class="swiper-slide" data-animation="fade_from_bottom">
-                                        <img src="assets/images/t4.png" alt="t4">
-
-                                    </div>
-                                    <div class="swiper-slide" data-animation="fade_from_bottom">
-                                        <img src="assets/images/t3.png" alt="t3">
-
-                                    </div>
-                                    <div class="swiper-slide" data-animation="fade_from_bottom">
-                                        <img src="assets/images/t2.png" alt="t2">
-
-                                    </div>
-                                    <div class="swiper-slide" data-animation="fade_from_bottom">
-                                        <img src="assets/images/t1.png" alt="t1">
-
-                                    </div>
-                                    <div class="swiper-slide" data-animation="fade_from_bottom">
-                                        <img src="assets/images/chat.png" alt="chat">
-                                    </div>
-                                    <div class="swiper-slide" data-animation="fade_from_bottom">
-                                        <img src="assets/images/statistics.png" alt="statistics">
-                                    </div>
-                                    <div class="swiper-slide" data-animation="fade_from_bottom">
-                                        <img src="assets/images/sara.png" alt="sara">
-                                    </div>
-                                </div>
-                                <div class="swiper-pagination"></div>
-                                <div class="swiper-button-next"></div>
-                                <div class="swiper-button-prev"></div>
-                            </div>
-                        </div>
-                    </div>
-                </section> -->
-
-
-                <section class="pricing-area page-section scroll-to-page" id="pricing">
-                    <div class="custom-container">
-                        <div class="pricing-content content-width">
-                            <div class="section-header">
-                                <h4 class="subtitle scroll-animation" data-animation="fade_from_bottom">
-                                    <i class="las la-certificate"></i> Certifications
-                                </h4>
-                                <h1 class="scroll-animation" data-animation="fade_from_bottom">My
-                                    <span>Certifications</span>
-                                </h1>
-                            </div>
-
-                            <div class="services-items mb-3">
-                                <a href="https://brightcoding.dev/certificate/yassine-remmani/A3CB37D3" target="_blank">
-                                    <div class="service-item scroll-animation" data-animation="fade_from_bottom">
-                                        <i class="las la-certificate"></i>
-                                        <h2 class="text-uppercase">Certified in Nodejs</h2>
-                                        <div class="d-flex justify-content-center align-items-center">
-                                            <img class="certified-img" src="assets/images/nodejs.svg" alt="nodejs">
-                                            <p class="m-0">With expertise in building scalable server-side applications,
-                                                creating RESTful APIs, and handling asynchronous operations.</p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="services-items mb-3">
-                                <a href="https://brightcoding.dev/certificate/yassine-remmani/8fbedfa9" target="_blank">
-                                    <div class="service-item scroll-animation" data-animation="fade_from_bottom">
-                                        <i class="las la-certificate"></i>
-                                        <h2 class="text-uppercase">Certified in Git</h2>
-                                        <div class="d-flex justify-content-center align-items-center">
-                                            <img class="certified-img" src="assets/images/git.svg" alt="git">
-                                            <p class="m-0">Proficient in version control, branching strategies, and
-                                                collaborative workflows. Experienced in managing code repositories and
-                                                streamlining development processes.</p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="services-items mb-3">
-                                <a href="https://brightcoding.dev/certificate/yassine-remmani/A07BA3FF" target="_blank">
-                                    <div class="service-item scroll-animation" data-animation="fade_from_bottom">
-                                        <i class="las la-certificate"></i>
-                                        <h2 class="text-uppercase">Certified in ReactProjectsjs</h2>
-                                        <div class="d-flex justify-content-center align-items-center">
-                                            <img class="certified-img" src="assets/images/react.svg" alt="react">
-                                            <p class="m-0">Skilled in building dynamic and responsive user interfaces.
-                                                Proficient in component-based architecture and state management for
-                                                scalable web applications.</p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-
-                        </div>
-                    </div>
-                </section>
-
-
-                <section class="contact-area page-section scroll-content" id="contact">
-                    <div class="custom-container">
-                        <div class="contact-content content-width">
-                            <div class="section-header">
-                                <h4 class="subtitle scroll-animation" data-animation="fade_from_bottom">
-                                    <i class="las la-envelope"></i> contact
-                                </h4>
-                                <h1 class="scroll-animation" data-animation="fade_from_bottom">Let's Work
-                                    <span>Together!</span>
-                                </h1>
-                            </div>
-                            <p class="scroll-animation mb-2" data-animation="fade_from_bottom">
-                                Sending us a message is easy! Just click on the "Send Message" button or fill out our
-                                contact form below. Whether it's about our products, services, or anything else you'd
-                                like to discuss, we're all ears.
-                            </p>
-                            <div class="scroll-animation d-grid mb-5" data-animation="fade_from_bottom">
-                                <a class="link" href="mailto:remmanidev@gmail.com"><i
-                                        class="primary-color las la-envelope"></i>
-                                    remmanidev@gmail.com</a>
-                                <a class="link" href="tel:0620963660"><i class="primary-color las la-phone"></i>
-                                    +212620963660</a>
-                            </div>
-
-                            <p id="required-msg">* Marked fields are required to fill.</p>
-
-                            <div class="alert alert-success messenger-box-contact__msg" id="success" style="display: none;" role="alert"></div>
-                            <div class="alert alert-danger messenger-box-contact__msg" id="danger" style="display: none;" role="alert"></div>
-
-                            <form class="contact-form scroll-animation" id="contact-form" data-animation="fade_from_bottom" action="https://formspree.io/f/mblkopgg" method="POST">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="input-group">
-                                            <label for="email">Email <sup>*</sup></label>
-                                            <input type="email" name="email" id="email" placeholder="Your email adress">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="input-group">
-                                            <label for="message">message</label>
-                                            <textarea name="message" id="message"
-                                                placeholder="Wrire your message here ..."></textarea>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-12">
-                                        <div class="input-group submit-btn-wrap">
-                                            <button class="theme-btn" name="submit" type="submit" id="submit-form">send
-                                                message</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-
-                        </div>
-                    </div>
-                </section>
-            </div>
-        </div>
-    </main>
-
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-
-    <script src="assets/js/app.js"></script>
-    <script src="assets/js/jquery.js"></script>
-    <script src="assets/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/js/owl.carousel.js"></script>
-    <script src="assets/js/gsap.min.js"></script>
-    <script src="assets/js/ScrollTrigger.min.js"></script>
-    <script src="assets/js/ScrollToPlugin.min.js"></script>
-    <script src="assets/js/lightbox.min.js"></script>
-
-    <script src="assets/js/main.js"></script>
-    <script src="assets/js/ajax-form.js"></script>
-    <script src="assets/js/color.js"></script>
+                    if (res.ok) {
+                        showToast('Thanks! Your message was sent.', 'success');
+                        form.reset();
+                    } else {
+                        // Try to get details from JSON (Formspree returns errors array)
+                        let msg = 'Something went wrong. Please try again.';
+                        try {
+                            const json = await res.json();
+                            if (json && Array.isArray(json.errors)) {
+                                msg = json.errors.map(e => e.message).join(', ');
+                            }
+                        } catch (_) { /* ignore */ }
+                        showToast(msg, 'error');
+                    }
+                } catch (err) {
+                    showToast('Network error. Please try again.', 'error');
+                } finally {
+                    if (submitBtn) {
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = originalHTML || 'Send';
+                    }
+                }
+            });
+        })();
+    </script>
 
 </body>
 
