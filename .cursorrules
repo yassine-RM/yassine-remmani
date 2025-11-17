@@ -1,0 +1,69 @@
+ROLE: You are a principal designer/engineer. Your task is to transform https://remmanidev.com into a best-in-class, HR-ready portfolio.
+
+GOALS
+- Make HR understand my value in <5 seconds.
+- Modern, premium SaaS look. Flawless responsiveness, A11y, and performance.
+- Clear hiring funnels: Download resume, book call, email me.
+
+TECH
+- Html, css, javascript
+- Content as MDX for projects/blog. Add simple config JSON for hero and links.
+
+SITEMAP
+- / (Home): Hero, proof points, 3–6 project highlights, services, tech stack, testimonials, CTA.
+- /projects: Grid + filters; each → case study page (/projects/[slug]).
+- /about: Short story, experience timeline, certs, photo.
+- /resume: Render 1-page resume + “Download PDF” server action.
+- /blog: MDX posts.
+- /contact: Email form + direct links; also a persistent contact dock.
+
+COMPONENTS
+- Navbar (sticky, blur, active section highlights), Footer.
+- Section wrapper (max-width, rhythm), Grid system (12-col), Card primitives.
+- ProjectCard (logo/cover, tags, 2-line summary, metric).
+- CaseStudy template: Context → Constraints → Architecture → Before/After → Metrics → Learnings → Stack.
+- TestimonialCard with avatar, role, quote.
+- CTA Banner with dual buttons (primary resume, secondary call).
+- Sticky contact dock (copy email, LinkedIn, GitHub, Calendly).
+
+DESIGN SYSTEM
+- Tokens: colors, spacing, radii (rounded-2xl), shadows (soft), typography scale.
+- Palette: ink #0B1220 / slate neutrals / teal accent; balanced for light/dark.
+- Motion: subtle entrance on scroll, hover lift, focus rings. 200–300ms ease-out.
+- Empty states, 404, cookie-light “no tracking” notice, skeleton loaders.
+
+COPY (HR-FIRST)
+- Hero: “Yassine Remmani — Full-Stack Engineer (Spring Boot • Next.js • PostgreSQL • Docker). I build resilient multi-tenant platforms and high-impact SaaS.” 
+- Proof points: “4,000+ dealer sites”, “Realtime inventory sync”, “0→1 platform”, “-40% TTFB”.
+- Buttons: Primary “Download 1-page Resume (PDF)”, Secondary “Book 15-min call”.
+- Project metrics: concrete numbers, latency, adoption, cost savings.
+
+PERFORMANCE/SEO/A11y
+- Lighthouse ≥95. Optimize images, prefetch routes, dynamic OG images, sitemap, robots.
+- Schema.org Person + Project + BlogPosting. Canonicals, OpenGraph, Twitter cards.
+- WCAG AA: roles/landmarks, labels, skip links, keyboard tab order, color contrast.
+
+INTEGRATIONS
+- Add /api/og for social banners.
+- Optional: Calendly link; simple email copy button.
+- Analytics: lightweight (Plausible) with explicit toggle.
+
+DELIVERABLES
+- Implement full UI with placeholder content from current site.
+- One best-in-class case study fully written and styled as reference.
+- Resume generator route: /resume -> PDF (server action) + print styles.
+- README: how to add projects/posts, change theme, deploy.
+
+WORKFLOW
+1) Audit current site → produce a markdown plan: final sitemap, component list, and a task checklist.
+2) Implement design system + layout shell, then pages, then polish (motion, a11y).
+3) Replace hero with HR-focused copy + CTAs.
+4) Add flagship case study and resume page.
+5) Run performance and accessibility pass; fix regressions.
+6) Provide me with a summary of changes and next steps.
+
+Acceptance Criteria:
+- Above-the-fold communicates role + value + proof points + CTAs on mobile/desktop.
+- Visual consistency (tokens), dark/light perfect parity.
+- At least 95 Lighthouse on mobile and desktop in CI preview.
+- No a11y violations on axe DevTools basic scan.
