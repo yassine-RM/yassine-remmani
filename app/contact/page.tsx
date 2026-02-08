@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
 import { buildMetadata, canonicalUrl } from '@/lib/seo'
+import { webPageSchema } from '@/lib/seo-schema'
 import { SeoJsonLd } from '@/components/seo/SeoJsonLd'
 
 export const metadata: Metadata = buildMetadata({
@@ -17,6 +18,12 @@ const links = [
 export default function ContactPage() {
   return (
     <>
+      <SeoJsonLd data={webPageSchema({
+        name: 'Contact — Yassine REMMANI',
+        description: 'Open to senior full-stack, backend, or platform engineering roles. Email, LinkedIn, GitHub.',
+        pathname: '/contact',
+        breadcrumbs: [{ name: 'Home', url: canonicalUrl('/') }, { name: 'Contact', url: canonicalUrl('/contact') }],
+      })} />
       <SeoJsonLd
         data={{
           '@context': 'https://schema.org',

@@ -2,6 +2,7 @@ import { Metadata } from 'next'
 import { buildMetadata, canonicalUrl } from '@/lib/seo'
 import { projects } from '@/lib/constants'
 import { SeoJsonLd } from '@/components/seo/SeoJsonLd'
+import { webPageSchema, projectsItemListSchema } from '@/lib/seo-schema'
 import { ProjectCard } from '@/components/cards/ProjectCard'
 
 export const metadata: Metadata = buildMetadata({
@@ -13,6 +14,13 @@ export const metadata: Metadata = buildMetadata({
 export default function ProjectsPage() {
   return (
     <>
+      <SeoJsonLd data={webPageSchema({
+        name: 'Projects — Yassine REMMANI',
+        description: 'Production-grade platforms: TravelOS, Automotive Digital Platform, Multi-Tenant Classified Ads. Spring Boot, Next.js, PostgreSQL, Docker.',
+        pathname: '/projects',
+        breadcrumbs: [{ name: 'Home', url: canonicalUrl('/') }, { name: 'Projects', url: canonicalUrl('/projects') }],
+      })} />
+      <SeoJsonLd data={projectsItemListSchema(projects)} />
       <SeoJsonLd
         data={{
           '@context': 'https://schema.org',

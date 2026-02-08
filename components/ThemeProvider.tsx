@@ -4,6 +4,8 @@ import { createContext, useContext, useEffect, useState } from 'react'
 
 type Theme = 'light' | 'dark'
 
+const THEME_STORAGE_KEY = 'theme'
+
 interface ThemeContextType {
   theme: Theme
   setTheme: (theme: Theme) => void
@@ -12,13 +14,20 @@ interface ThemeContextType {
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
 
-/** Reads theme from DOM (set by blocking script) or localStorage/system pref */
+/**
+ * Reads theme from DOM (set by blocking inline script before paint) or localStorage or system preference.
+ * Order: 1) DOM (blocking script), 2) localStorage (persisted user choice), 3) prefers-color-scheme.
+ */
 function getInitialTheme(): Theme {
   if (typeof document === 'undefined') return 'dark'
   const fromDom = document.documentElement.getAttribute('data-theme')
   if (fromDom === 'light' || fromDom === 'dark') return fromDom
-  const stored = localStorage.getItem('theme') as Theme | null
-  if (stored === 'light' || stored === 'dark') return stored
+  try {
+    const stored = localStorage.getItem(THEME_STORAGE_KEY) as Theme | null
+    if (stored === 'light' || stored === 'dark') return stored
+  } catch {
+    // localStorage may be unavailable (private mode, etc.)
+  }
   return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
 }
 
@@ -35,11 +44,14 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     document.documentElement.setAttribute('data-theme', initial)
   }, [])
 
-  // Persist on toggle
+  // Persist theme to DOM + localStorage when it changes (avoids FOUC on subsequent navigations)
   useEffect(() => {
-    if (mounted) {
-      document.documentElement.setAttribute('data-theme', theme)
-      localStorage.setItem('theme', theme)
+    if (!mounted) return
+    document.documentElement.setAttribute('data-theme', theme)
+    try {
+      localStorage.setItem(THEME_STORAGE_KEY, theme)
+    } catch {
+      // localStorage may be unavailable
     }
   }, [theme, mounted])
 

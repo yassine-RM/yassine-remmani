@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
 import { buildMetadata, canonicalUrl } from '@/lib/seo'
+import { webPageSchema } from '@/lib/seo-schema'
 import { SeoJsonLd } from '@/components/seo/SeoJsonLd'
 import { experience, education } from '@/lib/constants'
 
@@ -12,6 +13,12 @@ export const metadata: Metadata = buildMetadata({
 export default function ExperiencePage() {
   return (
     <>
+      <SeoJsonLd data={webPageSchema({
+        name: 'Experience & Education — Yassine REMMANI',
+        description: 'Senior Full-Stack Developer. 6+ years building high-traffic APIs, event-driven systems, multi-tenant platforms. Master\'s in Computer Science & AI.',
+        pathname: '/experience',
+        breadcrumbs: [{ name: 'Home', url: canonicalUrl('/') }, { name: 'Experience', url: canonicalUrl('/experience') }],
+      })} />
       <SeoJsonLd
         data={{
           '@context': 'https://schema.org',

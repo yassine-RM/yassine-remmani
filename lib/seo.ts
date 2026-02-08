@@ -2,6 +2,8 @@ import { Metadata } from 'next'
 
 export const siteUrl = 'https://remmanidev.com'
 export const siteName = 'Yassine REMMANI — Senior Full-Stack Developer'
+/** Twitter/X handle for cards (optional). Omit @ prefix. */
+export const twitterHandle = 'remmanidev'
 
 export const defaultKeywords = [
   'Spring Boot Developer',
@@ -34,6 +36,8 @@ export interface PageMetadata {
   modifiedTime?: string
   authors?: string[]
   keywords?: string[]
+  /** Override default image alt for OpenGraph */
+  imageAlt?: string
 }
 
 export function buildMetadata({
@@ -46,6 +50,7 @@ export function buildMetadata({
   modifiedTime,
   authors = ['Yassine REMMANI'],
   keywords,
+  imageAlt,
 }: PageMetadata): Metadata {
   const canonical = canonicalUrl(pathname)
   const ogImage = image.startsWith('http') ? image : `${siteUrl}${image}`
@@ -69,7 +74,7 @@ export function buildMetadata({
           url: ogImage,
           width: 1200,
           height: 630,
-          alt: title,
+          alt: imageAlt ?? title,
         },
       ],
       publishedTime,
@@ -81,6 +86,8 @@ export function buildMetadata({
       title,
       description,
       images: [ogImage],
+      creator: `@${twitterHandle}`,
+      site: `@${twitterHandle}`,
     },
     robots: {
       index: true,

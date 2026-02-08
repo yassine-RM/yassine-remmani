@@ -12,6 +12,7 @@ const navItems = [
   { href: '/', label: 'Home' },
   { href: '/about', label: 'About' },
   { href: '/skills', label: 'Skills' },
+  { href: '/#microservices', label: 'Microservices' },
   { href: '/projects', label: 'Projects' },
   { href: '/experience', label: 'Experience' },
   { href: '/contact', label: 'Contact' },
@@ -42,7 +43,7 @@ export function Navbar() {
 
           <nav className="hidden md:flex items-center gap-1" aria-label="Main navigation">
             {navItems.map((item) => {
-              const isActive = pathname === item.href
+              const isActive = pathname === item.href || (pathname === '/' && item.href.startsWith('/#microservices'))
               return (
                 <Link
                   key={item.href}
@@ -62,10 +63,19 @@ export function Navbar() {
 
           <div className="flex items-center gap-2">
             <button
-              onClick={toggleTheme}
+              type="button"
+              role="switch"
+              aria-checked={theme === 'dark'}
               aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
-              aria-pressed={theme === 'dark'}
-              className="p-2 rounded-lg text-[var(--foreground-muted)] hover:text-foreground hover:bg-card transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+              tabIndex={0}
+              onClick={toggleTheme}
+              onKeyDown={(e) => {
+                if (e.key === ' ' || e.key === 'Enter') {
+                  e.preventDefault()
+                  toggleTheme()
+                }
+              }}
+              className="p-2 rounded-lg text-[var(--foreground-muted)] hover:text-foreground hover:bg-card transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background touch-manipulation"
             >
               {theme === 'dark' ? (
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -114,7 +124,7 @@ export function Navbar() {
           >
             <nav className="container mx-auto px-4 py-4 space-y-1" aria-label="Mobile navigation">
               {navItems.map((item) => {
-                const isActive = pathname === item.href
+                const isActive = pathname === item.href || (pathname === '/' && item.href.startsWith('/#microservices'))
                 return (
                   <Link
                     key={item.href}

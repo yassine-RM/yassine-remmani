@@ -1,6 +1,7 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
 import { buildMetadata, canonicalUrl } from '@/lib/seo'
+import { webPageSchema } from '@/lib/seo-schema'
 import { SeoJsonLd } from '@/components/seo/SeoJsonLd'
 import Image from 'next/image'
 
@@ -14,6 +15,12 @@ export const metadata: Metadata = buildMetadata({
 export default function AboutPage() {
   return (
     <>
+      <SeoJsonLd data={webPageSchema({
+        name: 'About — Yassine REMMANI',
+        description: 'Yassine REMMANI: Senior Full-Stack Developer, Backend Engineer. 6+ years building scalable APIs, production-ready systems, multi-tenant platforms.',
+        pathname: '/about',
+        breadcrumbs: [{ name: 'Home', url: canonicalUrl('/') }, { name: 'About', url: canonicalUrl('/about') }],
+      })} />
       <SeoJsonLd
         data={{
           '@context': 'https://schema.org',

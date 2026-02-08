@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation'
 import { buildMetadata, canonicalUrl } from '@/lib/seo'
 import { projects } from '@/lib/constants'
 import { SeoJsonLd } from '@/components/seo/SeoJsonLd'
-import { softwareApplicationSchema, caseStudySchema } from '@/lib/seo-schema'
+import { softwareApplicationSchema, caseStudySchema, webPageSchema } from '@/lib/seo-schema'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
@@ -48,6 +48,16 @@ export default async function CaseStudyPage({ params }: PageProps) {
 
   return (
     <>
+      <SeoJsonLd data={webPageSchema({
+        name: `${project.title} — Case Study`,
+        description: project.summary,
+        pathname: `/projects/${slug}`,
+        breadcrumbs: [
+          { name: 'Home', url: canonicalUrl('/') },
+          { name: 'Projects', url: canonicalUrl('/projects') },
+          { name: project.title, url: projectUrl },
+        ],
+      })} />
       <SeoJsonLd data={caseStudySchema({
         name: project.title,
         description: project.summary,

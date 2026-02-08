@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     template: '%s | Yassine REMMANI',
   },
   description: 'Senior Full-Stack Developer (6+ years). Spring Boot, Next.js, PostgreSQL, Docker. I build scalable APIs, multi-tenant SaaS, and production-ready systems.',
-  keywords: ['Spring Boot Developer', 'Full-Stack Developer Spring Boot Next.js', 'Backend Engineer Java Spring', 'Scalable API Developer', 'Full-Stack Developer', 'Spring Boot', 'Next.js', 'PostgreSQL', 'Docker', 'React', 'Java', 'TypeScript', 'SaaS'],
+  keywords: ['Spring Boot Developer', 'Full-Stack Developer Spring Boot Next.js', 'Backend Engineer Java Spring', 'Scalable API Developer', 'Full-Stack Developer', 'Spring Boot', 'Next.js', 'PostgreSQL', 'Docker', 'React', 'Java', 'TypeScript', 'SaaS', 'Kafka', 'Microservices'],
   authors: [{ name: 'Yassine REMMANI' }],
   creator: 'Yassine REMMANI',
   openGraph: {
@@ -52,6 +52,7 @@ export const metadata: Metadata = {
     title: 'Yassine REMMANI — Senior Full-Stack Developer | Spring Boot & Next.js',
     description: 'I build scalable APIs, multi-tenant SaaS, and production-ready systems.',
     images: ['/images/me.png'],
+    creator: '@remmanidev',
   },
   robots: {
     index: true,
@@ -67,10 +68,10 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning data-theme="dark">
       <head>
-        {/* Critical: runs before paint to prevent theme flash (FOUC) */}
+        {/* Critical: runs synchronously before paint to prevent theme flash (FOUC). Reads localStorage → system pref. */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var s=localStorage.getItem('theme');var d=window.matchMedia('(prefers-color-scheme: dark)').matches;var t=s==='light'||s==='dark'?s:(d?'dark':'light');document.documentElement.setAttribute('data-theme',t)}catch(e){}})();`,
+            __html: `(function(){try{var s=localStorage.getItem('theme');var d=window.matchMedia('(prefers-color-scheme: dark)').matches;var t=s==='light'||s==='dark'?s:(d?'dark':'light');document.documentElement.setAttribute('data-theme',t)}catch(e){document.documentElement.setAttribute('data-theme','dark')}})();`,
           }}
         />
       </head>

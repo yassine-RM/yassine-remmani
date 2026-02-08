@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
 import { buildMetadata, canonicalUrl } from '@/lib/seo'
+import { webPageSchema } from '@/lib/seo-schema'
 import { SeoJsonLd } from '@/components/seo/SeoJsonLd'
 import { skills } from '@/lib/constants'
 
@@ -19,6 +20,12 @@ const categories = [
 export default function SkillsPage() {
   return (
     <>
+      <SeoJsonLd data={webPageSchema({
+        name: 'Skills — Yassine REMMANI',
+        description: 'Backend: Spring Boot, Java, PostgreSQL. Frontend: Next.js, React, TypeScript. DevOps: Docker, CI/CD. Architecture: Clean Architecture, DDD, REST.',
+        pathname: '/skills',
+        breadcrumbs: [{ name: 'Home', url: canonicalUrl('/') }, { name: 'Skills', url: canonicalUrl('/skills') }],
+      })} />
       <SeoJsonLd
         data={{
           '@context': 'https://schema.org',

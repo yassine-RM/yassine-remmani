@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
 import { buildMetadata, canonicalUrl } from '@/lib/seo'
+import { webPageSchema } from '@/lib/seo-schema'
 import { SeoJsonLd } from '@/components/seo/SeoJsonLd'
 
 export const metadata: Metadata = buildMetadata({
@@ -11,6 +12,12 @@ export const metadata: Metadata = buildMetadata({
 export default function BlogPage() {
   return (
     <>
+      <SeoJsonLd data={webPageSchema({
+        name: 'Blog — Articles & Insights',
+        description: 'Thoughts on full-stack development, Spring Boot, Next.js, and software engineering.',
+        pathname: '/blog',
+        breadcrumbs: [{ name: 'Home', url: canonicalUrl('/') }, { name: 'Blog', url: canonicalUrl('/blog') }],
+      })} />
       <SeoJsonLd
         data={{
           '@context': 'https://schema.org',

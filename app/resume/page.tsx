@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
 import { buildMetadata, canonicalUrl } from '@/lib/seo'
+import { webPageSchema } from '@/lib/seo-schema'
 import { SeoJsonLd } from '@/components/seo/SeoJsonLd'
 import Link from 'next/link'
 
@@ -12,6 +13,12 @@ export const metadata: Metadata = buildMetadata({
 export default function ResumePage() {
   return (
     <>
+      <SeoJsonLd data={webPageSchema({
+        name: 'Resume — Download PDF',
+        description: 'Download Yassine REMMANI\'s 1-page resume as PDF. Full-Stack Engineer with 6+ years experience.',
+        pathname: '/resume',
+        breadcrumbs: [{ name: 'Home', url: canonicalUrl('/') }, { name: 'Resume', url: canonicalUrl('/resume') }],
+      })} />
       <SeoJsonLd
         data={{
           '@context': 'https://schema.org',

@@ -111,11 +111,29 @@ export function softwareApplicationSchema(options: {
     url,
     applicationCategory,
     operatingSystem: 'Web',
-    image: image || `${canonicalUrl('')}/images/projects/travelos.jpg`,
+    image: image || `${canonicalUrl('')}/images/projects/travelos.png`,
     author: {
       '@type': 'Person',
       name: 'Yassine REMMANI',
     },
+  }
+}
+
+/** ItemList schema for projects/case studies index page */
+export function projectsItemListSchema(projects: { slug: string; title: string; summary: string }[]) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'Projects & Case Studies',
+    description: 'Production-grade platforms: TravelOS, Automotive Digital Platform, Multi-Tenant Classified Ads.',
+    numberOfItems: projects.length,
+    itemListElement: projects.map((p, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: p.title,
+      description: p.summary,
+      url: canonicalUrl(`/projects/${p.slug}`),
+    })),
   }
 }
 
