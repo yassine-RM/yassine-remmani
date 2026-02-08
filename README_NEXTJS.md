@@ -1,4 +1,4 @@
-# Yassine Remmani — Portfolio (Next.js 15)
+# Yassine REMMANI — Portfolio (Next.js 15)
 
 A world-class, HR-centric portfolio built with Next.js 15, TypeScript, Tailwind CSS, and Framer Motion.
 

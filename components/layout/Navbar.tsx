@@ -1,18 +1,19 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { useState } from 'react'
 import { useTheme } from '@/components/ThemeProvider'
 import { cn } from '@/lib/utils'
-import Image from 'next/image'
+import { motion, AnimatePresence } from 'framer-motion'
 
 const navItems = [
   { href: '/', label: 'Home' },
-  { href: '/projects', label: 'Projects' },
   { href: '/about', label: 'About' },
-  { href: '/blog', label: 'Blog' },
-  { href: '/resume', label: 'Resume' },
+  { href: '/skills', label: 'Skills' },
+  { href: '/projects', label: 'Projects' },
+  { href: '/experience', label: 'Experience' },
   { href: '/contact', label: 'Contact' },
 ]
 
@@ -22,25 +23,23 @@ export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-[var(--border-color)] bg-[var(--bg-primary)]/80 backdrop-blur-md">
-      <div className="container mx-auto px-4 md:px-8">
+    <header className="sticky top-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur-xl">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-3" aria-label="Yassine Remmani - Home">
+          <Link
+            href="/"
+            className="flex items-center"
+            aria-label="Home"
+          >
             <Image
-              src="/assets/images/my-logo.png"
+              src="/images/my-logo.png"
               alt="Logo"
-              width={32}
-              height={32}
-              className="rounded"
+              width={40}
+              height={40}
+              className="h-8 w-auto"
             />
-            <div className="hidden sm:block">
-              <div className="font-heading font-bold text-[var(--text-primary)]">Yassine Remmani</div>
-              <div className="text-xs text-[var(--text-secondary)]">Full-Stack Engineer</div>
-            </div>
           </Link>
 
-          {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-1" aria-label="Main navigation">
             {navItems.map((item) => {
               const isActive = pathname === item.href
@@ -49,10 +48,10 @@ export function Navbar() {
                   key={item.href}
                   href={item.href}
                   className={cn(
-                    'px-4 py-2 rounded-md text-sm font-semibold transition-colors',
+                    'px-4 py-2 rounded-lg text-sm font-medium transition-colors',
                     isActive
-                      ? 'bg-[var(--bg-surface-hover)] text-teal'
-                      : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-surface-hover)]'
+                      ? 'bg-accent-muted text-accent'
+                      : 'text-[var(--foreground-muted)] hover:text-foreground hover:bg-card'
                   )}
                 >
                   {item.label}
@@ -61,12 +60,11 @@ export function Navbar() {
             })}
           </nav>
 
-          {/* Actions */}
           <div className="flex items-center gap-2">
             <button
               onClick={toggleTheme}
               aria-label="Toggle theme"
-              className="p-2 rounded-md text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-surface-hover)] transition-colors"
+              className="p-2 rounded-lg text-[var(--foreground-muted)] hover:text-foreground hover:bg-card transition-colors"
             >
               {theme === 'dark' ? (
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -80,7 +78,7 @@ export function Navbar() {
             </button>
             <Link
               href="/contact"
-              className="hidden md:inline-flex items-center gap-2 px-4 py-2 bg-teal text-black rounded-md font-bold hover:bg-teal-hover transition-colors"
+              className="hidden md:inline-flex items-center px-4 py-2 bg-accent text-white rounded-lg text-sm font-medium hover:bg-accent-hover transition-colors"
             >
               Contact
             </Link>
@@ -88,7 +86,7 @@ export function Navbar() {
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-label="Toggle menu"
               aria-expanded={mobileMenuOpen}
-              className="md:hidden p-2 rounded-md text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-surface-hover)] transition-colors"
+              className="md:hidden p-2 rounded-lg text-[var(--foreground-muted)] hover:text-foreground hover:bg-card transition-colors"
             >
               {mobileMenuOpen ? (
                 <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -104,39 +102,45 @@ export function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Menu */}
-      {mobileMenuOpen && (
-        <div className="md:hidden border-t border-[var(--border-color)] bg-[var(--bg-primary)]">
-          <nav className="container mx-auto px-4 py-4 space-y-1" aria-label="Mobile navigation">
-            {navItems.map((item) => {
-              const isActive = pathname === item.href
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={cn(
-                    'block px-4 py-2 rounded-md text-base font-semibold transition-colors',
-                    isActive
-                      ? 'bg-[var(--bg-surface-hover)] text-teal'
-                      : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-surface-hover)]'
-                  )}
-                >
-                  {item.label}
-                </Link>
-              )
-            })}
-            <Link
-              href="/contact"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block mt-4 px-4 py-3 bg-teal text-black rounded-md font-bold text-center hover:bg-teal-hover transition-colors"
-            >
-              Contact
-            </Link>
-          </nav>
-        </div>
-      )}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.2 }}
+            className="md:hidden border-t border-border bg-background overflow-hidden"
+          >
+            <nav className="container mx-auto px-4 py-4 space-y-1" aria-label="Mobile navigation">
+              {navItems.map((item) => {
+                const isActive = pathname === item.href
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={cn(
+                      'block px-4 py-3 rounded-lg text-base font-medium transition-colors',
+                      isActive
+                        ? 'bg-accent-muted text-accent'
+                        : 'text-[var(--foreground-muted)] hover:text-foreground hover:bg-card'
+                    )}
+                  >
+                    {item.label}
+                  </Link>
+                )
+              })}
+              <Link
+                href="/contact"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block mt-4 px-4 py-3 bg-accent text-white rounded-lg font-medium text-center hover:bg-accent-hover transition-colors"
+              >
+                Contact
+              </Link>
+            </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   )
 }
-

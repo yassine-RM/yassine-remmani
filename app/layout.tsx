@@ -20,49 +20,42 @@ const jakarta = Plus_Jakarta_Sans({
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://remmanidev.com'),
-  title: {
-    default: 'Yassine Remmani — Full-Stack Engineer | Spring Boot • Next.js • PostgreSQL • Docker',
-    template: '%s | Yassine Remmani',
+  icons: {
+    icon: '/images/favicon.png',
   },
-  description: 'Full-Stack Engineer (Spring Boot • Next.js • PostgreSQL • Docker). I build resilient multi-tenant platforms and high-impact SaaS. 4,000+ dealer sites, 0→1 platform, -40% TTFB.',
-  keywords: ['Full-Stack Engineer', 'Spring Boot', 'Next.js', 'PostgreSQL', 'Docker', 'React', 'Java', 'TypeScript'],
-  authors: [{ name: 'Yassine Remmani' }],
-  creator: 'Yassine Remmani',
+  title: {
+    default: 'Yassine REMMANI — Senior Full-Stack Developer | Spring Boot & Next.js',
+    template: '%s | Yassine REMMANI',
+  },
+  description: 'Senior Full-Stack Developer (6+ years). Spring Boot, Next.js, PostgreSQL, Docker. I build scalable APIs, multi-tenant SaaS, and production-ready systems.',
+  keywords: ['Spring Boot Developer', 'Full-Stack Developer Spring Boot Next.js', 'Backend Engineer Java Spring', 'Scalable API Developer', 'Full-Stack Developer', 'Spring Boot', 'Next.js', 'PostgreSQL', 'Docker', 'React', 'Java', 'TypeScript', 'SaaS'],
+  authors: [{ name: 'Yassine REMMANI' }],
+  creator: 'Yassine REMMANI',
   openGraph: {
     type: 'website',
     locale: 'en_US',
     url: 'https://remmanidev.com',
-    siteName: 'Yassine Remmani — Full-Stack Engineer',
-    title: 'Yassine Remmani — Full-Stack Engineer | Spring Boot • Next.js • PostgreSQL • Docker',
-    description: 'I build resilient multi-tenant platforms and high-impact SaaS. 4,000+ dealer sites, realtime inventory sync, 0→1 platform, -40% TTFB.',
+    siteName: 'Yassine REMMANI — Senior Full-Stack Developer',
+    title: 'Yassine REMMANI — Senior Full-Stack Developer | Spring Boot & Next.js',
+    description: 'I build scalable APIs, multi-tenant SaaS, and production-ready systems. 6+ years of full-stack experience.',
     images: [
       {
-        url: '/assets/images/me.png',
+        url: '/images/me.png',
         width: 1200,
         height: 630,
-        alt: 'Yassine Remmani — Full-Stack Engineer',
+        alt: 'Yassine REMMANI — Senior Full-Stack Developer',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Yassine Remmani — Full-Stack Engineer | Spring Boot • Next.js • PostgreSQL • Docker',
-    description: 'I build resilient multi-tenant platforms and high-impact SaaS. 4,000+ dealer sites, realtime inventory sync, 0→1 platform, -40% TTFB.',
-    images: ['/assets/images/me.png'],
+    title: 'Yassine REMMANI — Senior Full-Stack Developer | Spring Boot & Next.js',
+    description: 'I build scalable APIs, multi-tenant SaaS, and production-ready systems.',
+    images: ['/images/me.png'],
   },
   robots: {
     index: true,
     follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
-  },
-  verification: {
-    // Add Google Search Console verification when available
   },
 }
 
@@ -75,7 +68,10 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning data-theme="dark">
       <body className={`${inter.variable} ${jakarta.variable} font-sans`}>
         <ThemeProvider>
-          <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:bg-teal focus:text-black focus:px-4 focus:py-2 focus:rounded-md focus:font-bold">
+          <a
+            href="#main"
+            className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:bg-accent focus:text-white focus:px-4 focus:py-2 focus:rounded-lg focus:font-medium"
+          >
             Skip to content
           </a>
           <Navbar />
@@ -87,4 +83,3 @@ export default function RootLayout({
     </html>
   )
 }
-

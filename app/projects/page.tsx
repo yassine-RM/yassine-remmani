@@ -1,12 +1,12 @@
 import { Metadata } from 'next'
 import { buildMetadata, canonicalUrl } from '@/lib/seo'
-import { ProjectCard } from '@/components/cards/ProjectCard'
 import { projects } from '@/lib/constants'
 import { SeoJsonLd } from '@/components/seo/SeoJsonLd'
+import { ProjectCard } from '@/components/cards/ProjectCard'
 
 export const metadata: Metadata = buildMetadata({
-  title: 'Projects — High-Impact Work',
-  description: 'Production systems serving thousands of users with measurable business impact. Multi-tenant platforms, REST APIs, and modern frontends.',
+  title: 'Projects',
+  description: 'Production-grade platforms: TravelOS (travel discovery), Automotive Digital Platform, Multi-Tenant Classified Ads. Spring Boot, Next.js, PostgreSQL, Docker.',
   pathname: '/projects',
 })
 
@@ -18,38 +18,17 @@ export default function ProjectsPage() {
           '@context': 'https://schema.org',
           '@type': 'BreadcrumbList',
           itemListElement: [
-            {
-              '@type': 'ListItem',
-              position: 1,
-              name: 'Home',
-              item: canonicalUrl('/'),
-            },
-            {
-              '@type': 'ListItem',
-              position: 2,
-              name: 'Projects',
-              item: canonicalUrl('/projects'),
-            },
+            { '@type': 'ListItem', position: 1, name: 'Home', item: canonicalUrl('/') },
+            { '@type': 'ListItem', position: 2, name: 'Projects', item: canonicalUrl('/projects') },
           ],
         }}
       />
-      <section className="container mx-auto px-4 md:px-8 py-16 md:py-24">
-        <div className="mb-12">
-          <div className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-teal mb-4">
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-            </svg>
-            All Projects
-          </div>
-          <h1 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-            High-Impact <span className="text-teal">Work</span>
-          </h1>
-          <p className="text-lg text-[var(--text-secondary)] max-w-2xl">
-            Production systems serving thousands of users with measurable business impact.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <section className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+        <h1 className="font-heading text-3xl md:text-4xl font-bold mb-4">Projects</h1>
+        <p className="text-[var(--foreground-muted)] mb-12 max-w-2xl">
+          Scalable, production-grade platforms. Travel discovery, automotive tech, multi-tenant systems. Spring Boot, Next.js, PostgreSQL, Redis.
+        </p>
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {projects.map((project) => (
             <ProjectCard key={project.slug} project={project} />
           ))}
@@ -58,4 +37,3 @@ export default function ProjectsPage() {
     </>
   )
 }
-

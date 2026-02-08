@@ -171,7 +171,7 @@ Migrate from vanilla HTML/CSS/JS to **Next.js 15 App Router** with TypeScript, T
 
 1. **Hero Copy (HR-First):**
    ```
-   "Yassine Remmani — Full-Stack Engineer (Spring Boot • Next.js • PostgreSQL • Docker). 
+   "Yassine REMMANI — Full-Stack Engineer (Spring Boot • Next.js • PostgreSQL • Docker). 
    I build resilient multi-tenant platforms and high-impact SaaS."
    ```
 
@@ -227,7 +227,7 @@ Migrate from vanilla HTML/CSS/JS to **Next.js 15 App Router** with TypeScript, T
 ### From Current Site
 
 **Hero:**
-- Name: Yassine Remmani
+- Name: Yassine REMMANI
 - Title: Full-Stack Engineer
 - Tech: Spring Boot • Next.js • PostgreSQL • Docker
 - Value Prop: "I build resilient multi-tenant platforms and high-impact SaaS"

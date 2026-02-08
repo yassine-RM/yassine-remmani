@@ -1,90 +1,36 @@
 import { Hero } from '@/components/sections/Hero'
+import { About } from '@/components/sections/About'
+import { Skills } from '@/components/sections/Skills'
 import { Projects } from '@/components/sections/Projects'
-import { Services } from '@/components/sections/Services'
-import { TechStack } from '@/components/sections/TechStack'
-import { Testimonials } from '@/components/sections/Testimonials'
-import { CTABanner } from '@/components/sections/CTABanner'
+import { Experience } from '@/components/sections/Experience'
+import { Contact } from '@/components/sections/Contact'
 import { SeoJsonLd } from '@/components/seo/SeoJsonLd'
+import { personSchema, webSiteSchema, webPageSchema, softwareApplicationSchema } from '@/lib/seo-schema'
+import { canonicalUrl } from '@/lib/seo'
 
 export default function HomePage() {
   return (
     <>
-      <SeoJsonLd
-        data={{
-          '@context': 'https://schema.org',
-          '@type': 'Person',
-          name: 'Yassine Remmani',
-          jobTitle: 'Full-Stack Engineer',
-          url: 'https://remmanidev.com',
-          sameAs: [
-            'https://www.linkedin.com/in/yassine-remmani/',
-            'https://github.com/yassine-RM',
-          ],
-          email: 'remmanidev@gmail.com',
-          address: {
-            '@type': 'PostalAddress',
-            addressLocality: 'Casablanca',
-            addressCountry: 'Morocco',
-          },
-          knowsAbout: [
-            'Spring Boot',
-            'Next.js',
-            'PostgreSQL',
-            'Docker',
-            'React',
-            'JavaScript',
-            'Java',
-            'Multi-tenant Architecture',
-            'Full-Stack Development',
-            'RESTful APIs',
-            'Microservices',
-            'CI/CD',
-          ],
-          image: 'https://remmanidev.com/assets/images/me.png',
-        }}
-      />
-      <SeoJsonLd
-        data={{
-          '@context': 'https://schema.org',
-          '@type': 'WebSite',
-          name: 'Yassine Remmani — Full-Stack Engineer',
-          url: 'https://remmanidev.com',
-          description: 'Full-Stack Engineer (Spring Boot • Next.js • PostgreSQL • Docker). I build resilient multi-tenant platforms and high-impact SaaS.',
-          publisher: {
-            '@type': 'Person',
-            name: 'Yassine Remmani',
-          },
-          potentialAction: {
-            '@type': 'SearchAction',
-            target: {
-              '@type': 'EntryPoint',
-              urlTemplate: 'https://remmanidev.com/search?q={search_term_string}',
-            },
-            'query-input': 'required name=search_term_string',
-          },
-        }}
-      />
-      <SeoJsonLd
-        data={{
-          '@context': 'https://schema.org',
-          '@type': 'BreadcrumbList',
-          itemListElement: [
-            {
-              '@type': 'ListItem',
-              position: 1,
-              name: 'Home',
-              item: 'https://remmanidev.com/',
-            },
-          ],
-        }}
-      />
+      <SeoJsonLd data={personSchema()} />
+      <SeoJsonLd data={webSiteSchema()} />
+      <SeoJsonLd data={webPageSchema({
+        name: 'Yassine REMMANI — Senior Full-Stack Developer | Spring Boot & Next.js',
+        description: 'Technical authority on Spring Boot, Next.js, and scalable platform architecture. Senior Full-Stack Developer building production-grade systems.',
+        pathname: '/',
+        breadcrumbs: [{ name: 'Home', url: canonicalUrl('/') }],
+      })} />
+      <SeoJsonLd data={softwareApplicationSchema({
+        name: 'TravelOS',
+        description: 'Travel discovery & content platform. SEO-first architecture, high-performance REST APIs. Spring Boot, Next.js, PostgreSQL, Redis.',
+        url: canonicalUrl('/projects/travelos'),
+        applicationCategory: 'TravelApplication',
+      })} />
       <Hero />
+      <About />
+      <Skills />
       <Projects />
-      <Services />
-      <TechStack />
-      <Testimonials />
-      <CTABanner />
+      <Experience />
+      <Contact />
     </>
   )
 }
-

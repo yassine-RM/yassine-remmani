@@ -9,7 +9,7 @@ export function CTABanner() {
           Ready to Build Something Great?
         </h2>
         <p className="text-[var(--text-secondary)] mb-8 max-w-2xl mx-auto">
-          Open to senior full-stack, backend, or platform engineering roles. Let's discuss how I can help your team.
+          Open to senior full-stack, backend, or platform engineering roles. Let&apos;s discuss how I can help your team.
         </p>
         <div className="flex flex-wrap gap-4 justify-center">
           <Link

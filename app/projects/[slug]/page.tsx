@@ -3,8 +3,10 @@ import { notFound } from 'next/navigation'
 import { buildMetadata, canonicalUrl } from '@/lib/seo'
 import { projects } from '@/lib/constants'
 import { SeoJsonLd } from '@/components/seo/SeoJsonLd'
+import { softwareApplicationSchema, caseStudySchema } from '@/lib/seo-schema'
 import Image from 'next/image'
 import Link from 'next/link'
+import { Button } from '@/components/ui/button'
 
 interface PageProps {
   params: Promise<{ slug: string }>
@@ -19,7 +21,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params
   const project = projects.find((p) => p.slug === slug)
-  
+
   if (!project) {
     return {}
   }
@@ -41,53 +43,42 @@ export default async function CaseStudyPage({ params }: PageProps) {
     notFound()
   }
 
+  const projectUrl = canonicalUrl(`/projects/${slug}`)
+  const projectImage = `${canonicalUrl('')}${project.coverImage}`
+
   return (
     <>
-      <SeoJsonLd
-        data={{
-          '@context': 'https://schema.org',
-          '@type': 'Project',
-          name: project.title,
-          description: project.summary,
-          url: canonicalUrl(`/projects/${slug}`),
-          image: `${canonicalUrl('')}${project.coverImage}`,
-          creator: {
-            '@type': 'Person',
-            name: 'Yassine Remmani',
-          },
-          keywords: project.tags.join(', '),
-        }}
-      />
+      <SeoJsonLd data={caseStudySchema({
+        name: project.title,
+        description: project.summary,
+        url: projectUrl,
+        image: projectImage,
+        keywords: project.tags,
+      })} />
+      {slug === 'travelos' && (
+        <SeoJsonLd data={softwareApplicationSchema({
+          name: 'TravelOS',
+          description: project.description,
+          url: projectUrl,
+          image: projectImage,
+          applicationCategory: 'TravelApplication',
+        })} />
+      )}
       <SeoJsonLd
         data={{
           '@context': 'https://schema.org',
           '@type': 'BreadcrumbList',
           itemListElement: [
-            {
-              '@type': 'ListItem',
-              position: 1,
-              name: 'Home',
-              item: canonicalUrl('/'),
-            },
-            {
-              '@type': 'ListItem',
-              position: 2,
-              name: 'Projects',
-              item: canonicalUrl('/projects'),
-            },
-            {
-              '@type': 'ListItem',
-              position: 3,
-              name: project.title,
-              item: canonicalUrl(`/projects/${slug}`),
-            },
+            { '@type': 'ListItem', position: 1, name: 'Home', item: canonicalUrl('/') },
+            { '@type': 'ListItem', position: 2, name: 'Projects', item: canonicalUrl('/projects') },
+            { '@type': 'ListItem', position: 3, name: project.title, item: canonicalUrl(`/projects/${slug}`) },
           ],
         }}
       />
-      <article className="container mx-auto px-4 md:px-8 py-16 md:py-24 max-w-4xl">
+      <article className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 max-w-3xl">
         <Link
           href="/projects"
-          className="inline-flex items-center gap-2 text-sm text-[var(--text-secondary)] hover:text-teal mb-8 transition-colors"
+          className="inline-flex items-center gap-2 text-sm text-[var(--foreground-muted)] hover:text-accent mb-8 transition-colors"
         >
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -96,80 +87,100 @@ export default async function CaseStudyPage({ params }: PageProps) {
         </Link>
 
         <header className="mb-12">
-          <div className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-teal mb-4">
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-            </svg>
-            Case Study
-          </div>
-          <h1 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
+          <h1 className="font-heading text-3xl md:text-4xl font-bold mb-2">
             {project.title}
           </h1>
-          <p className="text-xl text-[var(--text-secondary)] mb-6">
+          {project.role && (
+            <p className="text-sm font-medium text-accent mb-4">{project.role}</p>
+          )}
+          <p className="text-xl text-[var(--foreground-muted)] mb-6">
             {project.summary}
           </p>
           <div className="flex flex-wrap gap-2 mb-6">
             {project.tags.map((tag) => (
               <span
                 key={tag}
-                className="inline-flex items-center px-3 py-1 text-xs font-semibold bg-[var(--bg-surface)] border border-[var(--border-color)] rounded-md text-[var(--text-secondary)]"
+                className="px-3 py-1 text-xs font-medium bg-accent-muted text-accent rounded-lg"
               >
                 {tag}
               </span>
             ))}
           </div>
-          <div className="flex items-center gap-2 px-4 py-2 bg-[var(--color-teal-light)] border border-[var(--border-accent)] rounded-md text-sm font-semibold text-teal w-fit">
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-            </svg>
-            {project.metric.value}
+          <div className="flex flex-wrap gap-2">
+            <Button variant="secondary" size="sm" asChild>
+              <Link href="#architecture">Architecture</Link>
+            </Button>
+            {project.demo && (
+              <Button variant="outline" size="sm" asChild>
+                <a href={project.demo} target="_blank" rel="noopener noreferrer">
+                  Live
+                </a>
+              </Button>
+            )}
           </div>
         </header>
 
         <div className="mb-12">
           <Image
             src={project.coverImage}
-            alt={project.title}
+            alt={`${project.title} — Case study cover`}
             width={1200}
             height={600}
-            className="w-full h-auto rounded-xl shadow-card"
+            sizes="(max-width: 768px) 100vw, 720px"
+            className="w-full h-auto rounded-xl border border-border"
             priority
           />
         </div>
 
-        <div className="prose prose-invert max-w-none">
-          <section className="mb-12">
-            <h2 className="font-heading text-2xl font-bold mb-4">Context</h2>
-            <p className="text-[var(--text-secondary)] leading-relaxed">
-              {project.description || 'Full case study content coming soon. This project demonstrates expertise in building scalable, production-ready systems.'}
+        <div className="space-y-12">
+          <section>
+            <h2 className="font-heading text-xl font-semibold mb-4">Problem</h2>
+            <p className="text-[var(--foreground-muted)] leading-relaxed">
+              {project.problem}
             </p>
           </section>
 
-          <section className="mb-12">
-            <h2 className="font-heading text-2xl font-bold mb-4">Approach</h2>
-            <p className="text-[var(--text-secondary)] leading-relaxed">
-              Detailed technical approach and architecture decisions will be documented here.
+          <section>
+            <h2 className="font-heading text-xl font-semibold mb-4">Solution</h2>
+            <p className="text-[var(--foreground-muted)] leading-relaxed">
+              {project.solution}
             </p>
           </section>
 
-          <section className="mb-12">
-            <h2 className="font-heading text-2xl font-bold mb-4">Results</h2>
-            <p className="text-[var(--text-secondary)] leading-relaxed">
-              Key metrics and business impact will be highlighted here.
+          <section id="architecture">
+            <h2 className="font-heading text-xl font-semibold mb-4">Architecture</h2>
+            <p className="text-[var(--foreground-muted)] leading-relaxed">
+              {project.architecture}
             </p>
           </section>
+
+          {slug === 'travelos' && (
+            <section>
+              <h2 className="font-heading text-xl font-semibold mb-4">How TravelOS is Built: SEO & Performance</h2>
+              <p className="text-[var(--foreground-muted)] leading-relaxed mb-4">
+                TravelOS is built as a software product, not a blog. SEO-first architecture: SSR for all destination pages, dynamic metadata, OpenGraph, and Schema.org structured data. Redis caching for sub-second page loads. See <Link href="/nextjs-for-scalable-products" className="text-accent hover:underline">Next.js for scalable products</Link> for the frontend patterns.
+              </p>
+              <p className="text-[var(--foreground-muted)] leading-relaxed">
+                Backend: Spring Boot REST APIs with clean architecture. PostgreSQL for content, Redis for speed. Docker and CI/CD for production deployment. Travel platform engineering at scale.
+              </p>
+            </section>
+          )}
         </div>
 
-        <div className="mt-12 pt-8 border-t border-[var(--border-color)]">
-          <Link
-            href="/contact"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-teal text-black rounded-md font-bold hover:bg-teal-hover transition-all shadow-accent"
-          >
-            Let's Discuss Your Project
-          </Link>
+        <div className="mt-12 pt-8 border-t border-border space-y-6">
+          <div>
+            <p className="text-sm font-medium text-[var(--foreground-muted)] mb-2">Related architecture</p>
+            <div className="flex flex-wrap gap-2">
+              <Link href="/spring-boot-architecture" className="text-sm text-accent hover:underline">Spring Boot</Link>
+              <Link href="/nextjs-for-scalable-products" className="text-sm text-accent hover:underline">Next.js</Link>
+              <Link href="/event-driven-systems-kafka" className="text-sm text-accent hover:underline">Event-driven Kafka</Link>
+            </div>
+          </div>
+          <Button asChild>
+            <Link href="/contact">Get in touch</Link>
+          </Button>
         </div>
       </article>
     </>
   )
 }
-

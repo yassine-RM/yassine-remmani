@@ -33,7 +33,7 @@ DESIGN SYSTEM
 - Empty states, 404, cookie-light “no tracking” notice, skeleton loaders.
 
 COPY (HR-FIRST)
-- Hero: “Yassine Remmani — Full-Stack Engineer (Spring Boot • Next.js • PostgreSQL • Docker). I build resilient multi-tenant platforms and high-impact SaaS.” 
+- Hero: “Yassine REMMANI — Full-Stack Engineer (Spring Boot • Next.js • PostgreSQL • Docker). I build resilient multi-tenant platforms and high-impact SaaS.” 
 - Proof points: “4,000+ dealer sites”, “Realtime inventory sync”, “0→1 platform”, “-40% TTFB”.
 - Buttons: Primary “Download 1-page Resume (PDF)”, Secondary “Book 15-min call”.
 - Project metrics: concrete numbers, latency, adoption, cost savings.

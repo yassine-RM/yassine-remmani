@@ -1,32 +1,90 @@
-import { ProjectCard } from '@/components/cards/ProjectCard'
+'use client'
+
+import Link from 'next/link'
+import { motion } from 'framer-motion'
 import { projects } from '@/lib/constants'
+import { Button } from '@/components/ui/button'
 
 export function Projects() {
-  const featuredProjects = projects.slice(0, 3)
+  const featured = projects.slice(0, 3)
 
   return (
-    <section className="container mx-auto px-4 md:px-8 py-16 md:py-24">
-      <div className="mb-12">
-        <div className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-teal mb-4">
-          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-          </svg>
-          Featured Projects
-        </div>
-        <h2 className="font-heading text-2xl md:text-3xl lg:text-4xl font-bold mb-4">
-          High-Impact <span className="text-teal">Work</span>
+    <section id="projects" className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.4 }}
+        className="mb-12"
+      >
+        <h2 className="font-heading text-2xl md:text-3xl font-bold mb-4">
+          Projects
         </h2>
-        <p className="text-[var(--text-secondary)] max-w-2xl">
-          Production systems serving thousands of users with measurable business impact.
+        <p className="text-[var(--foreground-muted)] max-w-2xl">
+          Scalable, production-grade platforms. Travel discovery (<Link href="/projects/travelos" className="text-accent hover:underline">TravelOS</Link>), automotive tech, multi-tenant systems. Spring Boot & Next.js architecture.
         </p>
-      </div>
+      </motion.div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {featuredProjects.map((project) => (
-          <ProjectCard key={project.slug} project={project} />
+      <div className="grid gap-6 md:gap-8">
+        {featured.map((project, idx) => (
+          <motion.article
+            key={project.slug}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4, delay: idx * 0.1 }}
+            className="rounded-xl border border-border bg-card p-6 md:p-8 hover:border-border-hover transition-colors"
+          >
+            <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
+              <div>
+                <h3 className="font-heading text-xl font-semibold mb-2">
+                  {project.title}
+                </h3>
+                <p className="text-[var(--foreground-muted)] mb-4">
+                  {project.summary}
+                </p>
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {project.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="px-3 py-1 text-xs font-medium bg-accent-muted text-accent rounded-lg"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              <div className="flex flex-wrap gap-2 shrink-0">
+                <Button variant="secondary" size="sm" asChild>
+                  <Link href={`/projects/${project.slug}#architecture`}>Architecture</Link>
+                </Button>
+                <Button variant="secondary" size="sm" asChild>
+                  <Link href={`/projects/${project.slug}`}>Case Study</Link>
+                </Button>
+                {project.demo && (
+                  <Button variant="outline" size="sm" asChild>
+                    <a href={project.demo} target="_blank" rel="noopener noreferrer">
+                      Live
+                    </a>
+                  </Button>
+                )}
+              </div>
+            </div>
+          </motion.article>
         ))}
       </div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.4 }}
+        className="mt-8"
+      >
+        <Button variant="secondary" asChild>
+          <Link href="/projects">View all projects</Link>
+        </Button>
+      </motion.div>
     </section>
   )
 }
-

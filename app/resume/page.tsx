@@ -5,7 +5,7 @@ import Link from 'next/link'
 
 export const metadata: Metadata = buildMetadata({
   title: 'Resume — Download PDF',
-  description: 'Download Yassine Remmani\'s 1-page resume as PDF. Full-Stack Engineer with 6+ years experience in Spring Boot, Next.js, PostgreSQL, Docker.',
+  description: 'Download Yassine REMMANI\'s 1-page resume as PDF. Full-Stack Engineer with 6+ years experience in Spring Boot, Next.js, PostgreSQL, Docker.',
   pathname: '/resume',
 })
 
@@ -44,10 +44,10 @@ export default function ResumePage() {
             Download My <span className="text-teal">Resume</span>
           </h1>
           <p className="text-[var(--text-secondary)] mb-8">
-            Click the button below to download as PDF or use your browser's print function.
+            Click the button below to download as PDF or use your browser&apos;s print function.
           </p>
           <Link
-            href="/assets/images/EL_MAKHFI_MOHAMED_CV (3).pdf"
+            href="/documents/resume.pdf"
             download
             className="inline-flex items-center gap-2 px-6 py-3 bg-teal text-black rounded-md font-bold hover:bg-teal-hover transition-all shadow-accent hover:shadow-lg hover:-translate-y-0.5 min-h-[44px]"
           >
@@ -60,7 +60,7 @@ export default function ResumePage() {
 
         <div className="bg-[var(--bg-surface)] border border-[var(--border-color)] rounded-xl p-8 md:p-12 shadow-card">
           <header className="text-center mb-8 pb-6 border-b-2 border-[var(--border-color)]">
-            <h2 className="font-heading text-3xl font-bold mb-2">Yassine Remmani</h2>
+            <h2 className="font-heading text-3xl font-bold mb-2">Yassine REMMANI</h2>
             <p className="text-[var(--text-secondary)] mb-4">Full-Stack Engineer | Spring Boot • Next.js • PostgreSQL • Docker</p>
             <div className="flex flex-wrap gap-3 justify-center text-sm text-[var(--text-secondary)]">
               <span>📧 remmanidev@gmail.com</span>
