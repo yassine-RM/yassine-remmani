@@ -63,8 +63,9 @@ export function Navbar() {
           <div className="flex items-center gap-2">
             <button
               onClick={toggleTheme}
-              aria-label="Toggle theme"
-              className="p-2 rounded-lg text-[var(--foreground-muted)] hover:text-foreground hover:bg-card transition-colors"
+              aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+              aria-pressed={theme === 'dark'}
+              className="p-2 rounded-lg text-[var(--foreground-muted)] hover:text-foreground hover:bg-card transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             >
               {theme === 'dark' ? (
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">

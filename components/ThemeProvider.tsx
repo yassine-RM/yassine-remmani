@@ -12,19 +12,30 @@ interface ThemeContextType {
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
 
+/** Reads theme from DOM (set by blocking script) or localStorage/system pref */
+function getInitialTheme(): Theme {
+  if (typeof document === 'undefined') return 'dark'
+  const fromDom = document.documentElement.getAttribute('data-theme')
+  if (fromDom === 'light' || fromDom === 'dark') return fromDom
+  const stored = localStorage.getItem('theme') as Theme | null
+  if (stored === 'light' || stored === 'dark') return stored
+  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+}
+
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
+  // SSR-safe: always 'dark' to avoid hydration mismatch; sync on mount
   const [theme, setTheme] = useState<Theme>('dark')
   const [mounted, setMounted] = useState(false)
 
+  // Sync React state with DOM (blocking script already set data-theme before paint)
   useEffect(() => {
     setMounted(true)
-    const stored = localStorage.getItem('theme') as Theme | null
-    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-    const initialTheme = stored || (systemPrefersDark ? 'dark' : 'light')
-    setTheme(initialTheme)
-    document.documentElement.setAttribute('data-theme', initialTheme)
+    const initial = getInitialTheme()
+    setTheme(initial)
+    document.documentElement.setAttribute('data-theme', initial)
   }, [])
 
+  // Persist on toggle
   useEffect(() => {
     if (mounted) {
       document.documentElement.setAttribute('data-theme', theme)

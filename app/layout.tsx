@@ -66,6 +66,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning data-theme="dark">
+      <head>
+        {/* Critical: runs before paint to prevent theme flash (FOUC) */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var s=localStorage.getItem('theme');var d=window.matchMedia('(prefers-color-scheme: dark)').matches;var t=s==='light'||s==='dark'?s:(d?'dark':'light');document.documentElement.setAttribute('data-theme',t)}catch(e){}})();`,
+          }}
+        />
+      </head>
       <body className={`${inter.variable} ${jakarta.variable} font-sans`}>
         <ThemeProvider>
           <a
