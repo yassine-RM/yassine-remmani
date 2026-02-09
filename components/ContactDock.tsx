@@ -81,7 +81,7 @@ export function ContactDock() {
         aria-label={isOpen ? 'Close contact menu' : 'Open contact menu'}
         aria-expanded={isOpen}
         className={cn(
-          'w-14 h-14 rounded-full bg-accent text-white flex items-center justify-center shadow-lg transition-all hover:bg-accent-hover hover:scale-105',
+          'w-14 h-14 rounded-full bg-accent-gradient text-white flex items-center justify-center shadow-lg transition-all hover:opacity-90 hover:scale-105',
           isOpen && 'rotate-45'
         )}
       >

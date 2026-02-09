@@ -15,9 +15,9 @@ export function CTABanner() {
           <Link
             href="/resume"
             className={cn(
-              'inline-flex items-center gap-2 px-6 py-3 bg-teal text-black rounded-md font-bold',
-              'hover:bg-teal-hover transition-all shadow-accent hover:shadow-lg hover:-translate-y-0.5',
-              'min-h-[44px] focus:outline-none focus:ring-2 focus:ring-teal focus:ring-offset-2 focus:ring-offset-[var(--bg-surface)]'
+              'inline-flex items-center gap-2 px-6 py-3 bg-accent-gradient text-white rounded-md font-bold',
+              'hover:opacity-90 transition-all shadow-lg hover:-translate-y-0.5',
+              'min-h-[44px] focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-background'
             )}
           >
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -29,8 +29,8 @@ export function CTABanner() {
             href="/contact"
             className={cn(
               'inline-flex items-center gap-2 px-6 py-3 bg-transparent text-[var(--text-primary)] border border-[var(--border-color)] rounded-md font-bold',
-              'hover:border-teal hover:bg-[var(--bg-surface-hover)] transition-all',
-              'min-h-[44px] focus:outline-none focus:ring-2 focus:ring-teal focus:ring-offset-2 focus:ring-offset-[var(--bg-surface)]'
+              'hover:border-accent hover:bg-card-hover transition-all',
+              'min-h-[44px] focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-background'
             )}
           >
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">

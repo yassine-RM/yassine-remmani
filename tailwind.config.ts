@@ -44,6 +44,9 @@ const config: Config = {
       transitionTimingFunction: {
         out: 'cubic-bezier(0, 0, 0.2, 1)',
       },
+      backgroundImage: {
+        'accent-gradient': 'var(--accent-gradient)',
+      },
     },
   },
   plugins: [],

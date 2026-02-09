@@ -5,6 +5,7 @@ import { Navbar } from '@/components/layout/Navbar'
 import { Footer } from '@/components/layout/Footer'
 import { ContactDock } from '@/components/ContactDock'
 import { ThemeProvider } from '@/components/ThemeProvider'
+import { GoogleAnalytics } from '@/components/GoogleAnalytics'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -76,6 +77,7 @@ export default function RootLayout({
         />
       </head>
       <body className={`${inter.variable} ${jakarta.variable} font-sans`}>
+        <GoogleAnalytics />
         <ThemeProvider>
           <a
             href="#main"

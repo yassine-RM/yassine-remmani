@@ -41,14 +41,14 @@ export default function ResumePage() {
       />
       <section className="container mx-auto px-4 md:px-8 py-16 md:py-24 max-w-4xl">
         <div className="mb-12 text-center">
-          <div className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-teal mb-4">
+          <div className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-accent mb-4">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
             </svg>
             Resume
           </div>
           <h1 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-            Download My <span className="text-teal">Resume</span>
+            Download My <span className="text-accent">Resume</span>
           </h1>
           <p className="text-[var(--text-secondary)] mb-8">
             Click the button below to download as PDF or use your browser&apos;s print function.
@@ -56,7 +56,7 @@ export default function ResumePage() {
           <Link
             href="/documents/resume.pdf"
             download
-            className="inline-flex items-center gap-2 px-6 py-3 bg-teal text-black rounded-md font-bold hover:bg-teal-hover transition-all shadow-accent hover:shadow-lg hover:-translate-y-0.5 min-h-[44px]"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-accent-gradient text-white rounded-md font-bold hover:opacity-90 transition-all shadow-lg hover:-translate-y-0.5 min-h-[44px]"
           >
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />

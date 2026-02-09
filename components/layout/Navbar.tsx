@@ -12,7 +12,6 @@ const navItems = [
   { href: '/', label: 'Home' },
   { href: '/about', label: 'About' },
   { href: '/skills', label: 'Skills' },
-  { href: '/#microservices', label: 'Microservices' },
   { href: '/projects', label: 'Projects' },
   { href: '/experience', label: 'Experience' },
   { href: '/contact', label: 'Contact' },
@@ -43,7 +42,7 @@ export function Navbar() {
 
           <nav className="hidden md:flex items-center gap-1" aria-label="Main navigation">
             {navItems.map((item) => {
-              const isActive = pathname === item.href || (pathname === '/' && item.href.startsWith('/#microservices'))
+              const isActive = pathname === item.href
               return (
                 <Link
                   key={item.href}
@@ -89,7 +88,7 @@ export function Navbar() {
             </button>
             <Link
               href="/contact"
-              className="hidden md:inline-flex items-center px-4 py-2 bg-accent text-white rounded-lg text-sm font-medium hover:bg-accent-hover transition-colors"
+              className="hidden md:inline-flex items-center px-4 py-2 bg-accent-gradient text-white rounded-lg text-sm font-medium hover:opacity-90 transition-opacity"
             >
               Contact
             </Link>
@@ -124,7 +123,7 @@ export function Navbar() {
           >
             <nav className="container mx-auto px-4 py-4 space-y-1" aria-label="Mobile navigation">
               {navItems.map((item) => {
-                const isActive = pathname === item.href || (pathname === '/' && item.href.startsWith('/#microservices'))
+                const isActive = pathname === item.href
                 return (
                   <Link
                     key={item.href}
@@ -144,7 +143,7 @@ export function Navbar() {
               <Link
                 href="/contact"
                 onClick={() => setMobileMenuOpen(false)}
-                className="block mt-4 px-4 py-3 bg-accent text-white rounded-lg font-medium text-center hover:bg-accent-hover transition-colors"
+                className="block mt-4 px-4 py-3 bg-accent-gradient text-white rounded-lg font-medium text-center hover:opacity-90 transition-opacity"
               >
                 Contact
               </Link>
