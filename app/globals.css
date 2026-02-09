@@ -69,25 +69,3 @@
   }
 }
 
-/* Resume print: only the CV is visible for Save as PDF */
-@media print {
-  body * {
-    visibility: hidden;
-  }
-  #resume-print,
-  #resume-print * {
-    visibility: visible;
-  }
-  #resume-print {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    padding: 2rem;
-    margin: 0;
-    background: #fff;
-    color: #111;
-    box-shadow: none;
-    border: none;
-  }
-}

@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   pageExtensions: ['ts', 'tsx', 'js', 'jsx'],
+  transpilePackages: ['@react-pdf/renderer'],
   images: {
     formats: ['image/avif', 'image/webp'],
     remotePatterns: [],

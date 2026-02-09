@@ -12,6 +12,7 @@
     "seo:validate": "node scripts/validate-jsonld.js"
   },
   "dependencies": {
+    "@react-pdf/renderer": "^4.0.0",
     "@mdx-js/loader": "^3.0.0",
     "@mdx-js/react": "^3.0.0",
     "@next/mdx": "^15.0.0",
