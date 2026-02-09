@@ -12,7 +12,7 @@ const links = [
 
 export function Contact() {
   return (
-    <section id="contact" className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <section id="contact" className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 scroll-mt-20">
       <div className="max-w-2xl mx-auto text-center">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}

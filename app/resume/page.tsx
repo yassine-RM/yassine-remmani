@@ -2,20 +2,27 @@ import { Metadata } from 'next'
 import { buildMetadata, canonicalUrl } from '@/lib/seo'
 import { webPageSchema } from '@/lib/seo-schema'
 import { SeoJsonLd } from '@/components/seo/SeoJsonLd'
-import Link from 'next/link'
+import { ResumeDownload } from '@/components/ResumeDownload'
 
 export const metadata: Metadata = buildMetadata({
   title: 'Resume — Download PDF',
-  description: 'Download Yassine REMMANI\'s 1-page resume as PDF. Full-Stack Engineer with 6+ years experience in Spring Boot, Next.js, PostgreSQL, Docker.',
+  description: 'Download Yassine REMMANI\'s 1-page resume as PDF. Full-Stack Engineer, 6+ years — Spring Boot, Next.js, PostgreSQL, Docker.',
   pathname: '/resume',
 })
+
+const formations = [
+  { degree: "Master's in Computer Science and Artificial Intelligence for Big Data", institution: 'Ibn Tofail University' },
+  { degree: 'Professional license / Software engineering', institution: 'EST Safi' },
+  { degree: 'Technical University degree / Software engineering', institution: 'EST Meknes' },
+  { degree: 'Baccalaureate / SVT', institution: 'EL QODS CHEMMAIA HIGH SCHOOL' },
+]
 
 export default function ResumePage() {
   return (
     <>
       <SeoJsonLd data={webPageSchema({
         name: 'Resume — Download PDF',
-        description: 'Download Yassine REMMANI\'s 1-page resume as PDF. Full-Stack Engineer with 6+ years experience.',
+        description: 'Download Yassine REMMANI\'s 1-page resume as PDF. Full-Stack Engineer, 6+ years.',
         pathname: '/resume',
         breadcrumbs: [{ name: 'Home', url: canonicalUrl('/') }, { name: 'Resume', url: canonicalUrl('/resume') }],
       })} />
@@ -24,98 +31,89 @@ export default function ResumePage() {
           '@context': 'https://schema.org',
           '@type': 'BreadcrumbList',
           itemListElement: [
-            {
-              '@type': 'ListItem',
-              position: 1,
-              name: 'Home',
-              item: canonicalUrl('/'),
-            },
-            {
-              '@type': 'ListItem',
-              position: 2,
-              name: 'Resume',
-              item: canonicalUrl('/resume'),
-            },
+            { '@type': 'ListItem', position: 1, name: 'Home', item: canonicalUrl('/') },
+            { '@type': 'ListItem', position: 2, name: 'Resume', item: canonicalUrl('/resume') },
           ],
         }}
       />
-      <section className="container mx-auto px-4 md:px-8 py-16 md:py-24 max-w-4xl">
-        <div className="mb-12 text-center">
-          <div className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-accent mb-4">
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-            </svg>
-            Resume
-          </div>
-          <h1 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-            Download My <span className="text-accent">Resume</span>
+      <section className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 max-w-4xl">
+        <div className="mb-10 text-center">
+          <p className="text-sm font-medium text-accent mb-2">Resume</p>
+          <h1 className="font-heading text-2xl sm:text-3xl md:text-4xl font-bold mb-3">
+            Download My Resume
           </h1>
-          <p className="text-[var(--text-secondary)] mb-8">
-            Click the button below to download as PDF or use your browser&apos;s print function.
+          <p className="text-[var(--foreground-muted)] text-sm sm:text-base mb-6 max-w-md mx-auto">
+            Use the button below to print or save as PDF from your browser.
           </p>
-          <Link
-            href="/documents/resume.pdf"
-            download
-            className="inline-flex items-center gap-2 px-6 py-3 bg-accent-gradient text-white rounded-md font-bold hover:opacity-90 transition-all shadow-lg hover:-translate-y-0.5 min-h-[44px]"
-          >
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-            </svg>
-            Download PDF
-          </Link>
+          <ResumeDownload />
         </div>
 
-        <div className="bg-[var(--bg-surface)] border border-[var(--border-color)] rounded-xl p-8 md:p-12 shadow-card">
-          <header className="text-center mb-8 pb-6 border-b-2 border-[var(--border-color)]">
-            <h2 className="font-heading text-3xl font-bold mb-2">Yassine REMMANI</h2>
-            <p className="text-[var(--text-secondary)] mb-4">Full-Stack Engineer | Spring Boot • Next.js • PostgreSQL • Docker</p>
-            <div className="flex flex-wrap gap-3 justify-center text-sm text-[var(--text-secondary)]">
-              <span>📧 remmanidev@gmail.com</span>
-              <span>📱 +212 6 20 96 36 60</span>
-              <span>🔗 linkedin.com/in/yassine-remmani</span>
-              <span>💻 github.com/yassine-RM</span>
-              <span>📍 Casablanca, Morocco</span>
+        <div
+          id="resume-print"
+          className="bg-card border border-border rounded-2xl p-6 sm:p-8 md:p-10 shadow-[var(--shadow-card)] print:bg-white print:shadow-none print:border-0 print:rounded-none print:p-0"
+        >
+          {/* Header — recruiter sees name + role + contact first */}
+          <header className="text-center mb-8 pb-6 border-b-2 border-border print:border-gray-300">
+            <h2 className="font-heading text-2xl sm:text-3xl font-bold mb-1 print:text-gray-900">Yassine REMMANI</h2>
+            <p className="text-[var(--foreground-muted)] font-medium text-sm sm:text-base mb-4 print:text-gray-700">
+              Full-Stack Engineer · Spring Boot · Next.js · PostgreSQL · Docker
+            </p>
+            <div className="flex flex-wrap gap-x-4 gap-y-1 justify-center text-xs sm:text-sm text-[var(--foreground-muted)] print:text-gray-600">
+              <span>remmanidev@gmail.com</span>
+              <span>+212 6 20 96 36 60</span>
+              <span>Casablanca, Morocco</span>
+              <span>linkedin.com/in/yassine-remmani</span>
+              <span>github.com/yassine-RM</span>
             </div>
           </header>
 
+          {/* Summary */}
           <section className="mb-8">
-            <h3 className="font-heading text-xl font-bold mb-3 pb-2 border-b border-[var(--border-color)]">Summary</h3>
-            <p className="text-[var(--text-secondary)] leading-relaxed">
-              Full-Stack Engineer with 6+ years building production platforms serving 4,000+ dealer sites. 
-              Expert in Spring Boot, Next.js, PostgreSQL, Docker, and multi-tenant architectures. 
-              Delivered 0→1 platform, reduced TTFB by 40%, and integrated real-time inventory sync across multiple systems.
+            <h3 className="font-heading text-lg font-bold mb-2 pb-1.5 border-b border-border print:text-gray-900 print:border-gray-300">Summary</h3>
+            <p className="text-[var(--foreground-muted)] text-sm leading-relaxed print:text-gray-700">
+              Full-Stack Engineer with 6+ years building production platforms serving 4,000+ dealer sites. Expert in Spring Boot, Next.js, PostgreSQL, Docker, and multi-tenant architectures. Delivered 0→1 platform, reduced TTFB by 40%, and integrated real-time inventory sync. Event-driven systems (Kafka), REST APIs, and Keycloak-based auth.
             </p>
           </section>
 
+          {/* Experience */}
           <section className="mb-8">
-            <h3 className="font-heading text-xl font-bold mb-3 pb-2 border-b border-[var(--border-color)]">Experience</h3>
-            <div className="mb-6">
-              <div className="flex flex-wrap justify-between items-start gap-2 mb-2">
-                <div>
-                  <div className="font-bold">Senior Full-Stack Developer</div>
-                  <div className="text-sm text-[var(--text-secondary)]">Auto Dealers Digital</div>
-                </div>
-                <div className="text-sm text-[var(--text-secondary)] font-semibold">Dec 2019 → Present</div>
+            <h3 className="font-heading text-lg font-bold mb-3 pb-1.5 border-b border-border print:text-gray-900 print:border-gray-300">Experience</h3>
+            <div>
+              <div className="flex flex-wrap justify-between items-baseline gap-2 mb-1.5">
+                <span className="font-semibold print:text-gray-900">Senior Full-Stack Developer</span>
+                <span className="text-sm text-[var(--foreground-muted)] print:text-gray-600">Dec 2019 → Present</span>
               </div>
-              <ul className="list-disc pl-6 space-y-1 text-[var(--text-secondary)] leading-relaxed">
-                <li>Designed and developed a multi-tenant dealer platform serving 4,000+ clients with website builder, CRM dashboard, and real-time inventory synchronization</li>
-                <li>Built inventory APIs with Spring Boot & PostgreSQL integrating vehicles, media, and leads from multiple partner systems</li>
-                <li>Engineered Next.js 15 front-ends with SSR, dynamic routes, i18n, and SEO optimization, achieving 40% reduction in Time to First Byte</li>
-                <li>Developed CRM dashboard for managing leads, appointments, and dealer activities with live analytics and permissions</li>
-                <li>Implemented Keycloak-based authentication with fine-grained RBAC across backend and front-end services</li>
-                <li>Enhanced SEO & performance through caching, structured data, and GA4/Search Console integrations</li>
-                <li>Introduced AI-powered features (content generation, SEO audits, lead enrichment) leveraging OpenAI and Typesense APIs</li>
+              <div className="text-sm text-[var(--foreground-muted)] mb-3 print:text-gray-600">Auto Dealers Digital</div>
+              <ul className="list-disc pl-5 space-y-1.5 text-sm text-[var(--foreground-muted)] leading-relaxed print:text-gray-700">
+                <li>Multi-tenant dealer platform (4,000+ sites): website builder, CRM dashboard, real-time inventory sync</li>
+                <li>Spring Boot & PostgreSQL APIs; Next.js 15 front-ends with SSR, i18n, SEO (−40% TTFB)</li>
+                <li>Keycloak-based auth and RBAC across backend and front-end</li>
+                <li>AI-powered features (content, SEO audits, lead enrichment) with OpenAI and Typesense</li>
               </ul>
             </div>
           </section>
 
+          {/* Education / Formations */}
           <section className="mb-8">
-            <h3 className="font-heading text-xl font-bold mb-3 pb-2 border-b border-[var(--border-color)]">Technical Skills</h3>
+            <h3 className="font-heading text-lg font-bold mb-3 pb-1.5 border-b border-border print:text-gray-900 print:border-gray-300">Education</h3>
+            <div className="space-y-3">
+              {formations.map((item) => (
+                <div key={item.institution}>
+                  <div className="font-semibold text-sm print:text-gray-900">{item.degree}</div>
+                  <div className="text-xs text-[var(--foreground-muted)] print:text-gray-600">{item.institution}</div>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* Technical Skills */}
+          <section className="mb-8">
+            <h3 className="font-heading text-lg font-bold mb-2 pb-1.5 border-b border-border print:text-gray-900 print:border-gray-300">Technical Skills</h3>
             <div className="flex flex-wrap gap-2">
-              {['Spring Boot', 'Next.js', 'React', 'PostgreSQL', 'MySQL', 'Docker', 'Redis', 'Typesense', 'Keycloak', 'CI/CD', 'SEO', 'Git'].map((skill) => (
+              {['Spring Boot', 'Next.js', 'React', 'PostgreSQL', 'MySQL', 'Docker', 'Redis', 'Kafka', 'Typesense', 'Keycloak', 'CI/CD', 'Git'].map((skill) => (
                 <span
                   key={skill}
-                  className="inline-flex items-center px-3 py-1 text-xs font-semibold bg-[var(--bg-surface)] border border-[var(--border-color)] rounded-md text-[var(--text-secondary)]"
+                  className="inline-flex items-center px-2.5 py-1 text-xs font-medium bg-accent-muted border border-border rounded-md text-[var(--foreground-muted)] print:bg-transparent print:border-gray-300 print:text-gray-700"
                 >
                   {skill}
                 </span>
@@ -123,17 +121,18 @@ export default function ResumePage() {
             </div>
           </section>
 
+          {/* Certifications */}
           <section>
-            <h3 className="font-heading text-xl font-bold mb-3 pb-2 border-b border-[var(--border-color)]">Certifications</h3>
-            <div className="space-y-3">
+            <h3 className="font-heading text-lg font-bold mb-2 pb-1.5 border-b border-border print:text-gray-900 print:border-gray-300">Certifications</h3>
+            <div className="space-y-2">
               {[
                 { name: 'Node.js Certification', issuer: 'Bright Coding' },
                 { name: 'Git Certification', issuer: 'Bright Coding' },
                 { name: 'React Certification', issuer: 'Bright Coding' },
               ].map((cert) => (
                 <div key={cert.name}>
-                  <div className="font-bold">{cert.name}</div>
-                  <div className="text-sm text-[var(--text-secondary)]">{cert.issuer}</div>
+                  <span className="font-semibold text-sm print:text-gray-900">{cert.name}</span>
+                  <span className="text-xs text-[var(--foreground-muted)] print:text-gray-600"> — {cert.issuer}</span>
                 </div>
               ))}
             </div>
@@ -143,4 +142,3 @@ export default function ResumePage() {
     </>
   )
 }
-

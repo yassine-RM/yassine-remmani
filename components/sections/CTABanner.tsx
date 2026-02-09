@@ -4,11 +4,11 @@ import { cn } from '@/lib/utils'
 export function CTABanner() {
   return (
     <section className="container mx-auto px-4 md:px-8 py-16 md:py-24">
-      <div className="bg-[var(--bg-surface)] border border-[var(--border-color)] rounded-xl p-8 md:p-12 text-center shadow-card">
+      <div className="bg-card border border-border rounded-xl p-8 md:p-12 text-center shadow-[var(--shadow-card)]">
         <h2 className="font-heading text-2xl md:text-3xl lg:text-4xl font-bold mb-4">
           Ready to Build Something Great?
         </h2>
-        <p className="text-[var(--text-secondary)] mb-8 max-w-2xl mx-auto">
+        <p className="text-[var(--foreground-muted)] mb-8 max-w-2xl mx-auto">
           Open to senior full-stack, backend, or platform engineering roles. Let&apos;s discuss how I can help your team.
         </p>
         <div className="flex flex-wrap gap-4 justify-center">
@@ -28,8 +28,8 @@ export function CTABanner() {
           <Link
             href="/contact"
             className={cn(
-              'inline-flex items-center gap-2 px-6 py-3 bg-transparent text-[var(--text-primary)] border border-[var(--border-color)] rounded-md font-bold',
-              'hover:border-accent hover:bg-card-hover transition-all',
+              'inline-flex items-center gap-2 px-6 py-3 bg-transparent text-foreground border border-border rounded-md font-bold',
+              'hover:border-accent hover:bg-card-hover transition-colors',
               'min-h-[44px] focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-background'
             )}
           >

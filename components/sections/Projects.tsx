@@ -9,7 +9,7 @@ export function Projects() {
   const featured = projects.slice(0, 3)
 
   return (
-    <section id="projects" className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <section id="projects" className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 scroll-mt-20">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}

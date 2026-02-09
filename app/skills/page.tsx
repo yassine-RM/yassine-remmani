@@ -13,7 +13,7 @@ export const metadata: Metadata = buildMetadata({
 const categories = [
   { key: 'backend', label: 'Backend' },
   { key: 'frontend', label: 'Frontend' },
-  { key: 'devops', label: 'DevOps' },
+  { key: 'cloudDevops', label: 'Cloud & DevOps' },
   { key: 'architecture', label: 'Architecture' },
 ] as const
 

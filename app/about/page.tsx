@@ -6,10 +6,10 @@ import { SeoJsonLd } from '@/components/seo/SeoJsonLd'
 import Image from 'next/image'
 
 export const metadata: Metadata = buildMetadata({
-  title: 'About — Senior Full-Stack Developer | Spring Boot & Next.js',
-  description: 'Yassine REMMANI: Senior Full-Stack Developer, Backend Engineer, Spring Boot Developer. 6+ years building scalable APIs, production-ready systems, multi-tenant platforms. Next.js, PostgreSQL, Kafka.',
+  title: 'About — Backend Engineer | Spring Boot & Next.js',
+  description: 'Yassine REMMANI: Senior Backend Engineer, Spring Boot Developer. 6+ years building scalable APIs, event-driven systems, multi-tenant platforms. AWS, Docker, PostgreSQL.',
   pathname: '/about',
-  keywords: ['Spring Boot Developer', 'Backend Engineer', 'Full-Stack Developer', 'Yassine REMMANI'],
+  keywords: ['Backend Engineer', 'Spring Boot Developer', 'API Developer', 'Full-Stack Developer', 'Yassine REMMANI'],
 })
 
 export default function AboutPage() {
@@ -17,7 +17,7 @@ export default function AboutPage() {
     <>
       <SeoJsonLd data={webPageSchema({
         name: 'About — Yassine REMMANI',
-        description: 'Yassine REMMANI: Senior Full-Stack Developer, Backend Engineer. 6+ years building scalable APIs, production-ready systems, multi-tenant platforms.',
+        description: 'Backend Engineer with 6+ years building scalable APIs, event-driven systems, multi-tenant platforms. Spring Boot, Next.js, PostgreSQL, Kafka.',
         pathname: '/about',
         breadcrumbs: [{ name: 'Home', url: canonicalUrl('/') }, { name: 'About', url: canonicalUrl('/about') }],
       })} />
@@ -26,7 +26,7 @@ export default function AboutPage() {
           '@context': 'https://schema.org',
           '@type': 'Person',
           name: 'Yassine REMMANI',
-          jobTitle: 'Senior Full-Stack Developer',
+          jobTitle: 'Senior Backend Engineer',
           url: canonicalUrl('/about'),
           sameAs: [
             'https://www.linkedin.com/in/yassine-remmani/',
@@ -52,26 +52,26 @@ export default function AboutPage() {
         }}
       />
       <section className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 max-w-3xl">
-        <h1 className="font-heading text-3xl md:text-4xl font-bold mb-12">About Yassine REMMANI — Senior Full-Stack Developer</h1>
+        <h1 className="font-heading text-3xl md:text-4xl font-bold mb-12">About Yassine REMMANI — Backend Engineer</h1>
 
         <div className="grid md:grid-cols-[180px_1fr] gap-8 mb-12">
           <Image
             src="/images/me.png"
-            alt="Yassine REMMANI — Senior Full-Stack Developer"
+            alt="Yassine REMMANI — Backend Engineer"
             width={180}
             height={180}
             className="rounded-xl object-cover w-full"
           />
           <div className="space-y-4">
-            <h2 className="font-heading text-xl font-semibold mb-2">Backend Engineer · Spring Boot Developer</h2>
+            <h2 className="font-heading text-xl font-semibold mb-2">Full-Stack Engineer · 6+ Years</h2>
             <p className="text-[var(--foreground-muted)] leading-relaxed">
-              Senior Full-Stack Developer building scalable APIs and production-ready systems. I specialize in Spring Boot and Next.js — backend-first architecture, event-driven workflows, multi-tenant platforms.
+              I build production systems. I care about system design, performance, and maintainability. I focus on scalable APIs, event-driven workflows, and multi-tenant platforms.
             </p>
             <p className="text-[var(--foreground-muted)] leading-relaxed">
-              6+ years. High-traffic environments. I design clean architectures, optimize databases, and ship features that perform. Docker, CI/CD, PostgreSQL, Kafka.
+              Real systems: inventory sync, campaign attribution, dealer sites, real-time search. Clean architecture, DDD, proper auth (JWT, OAuth2, Keycloak). Docker, CI/CD, PostgreSQL optimization. No buzzword stuffing—shipping code that scales.
             </p>
             <p className="text-[var(--foreground-muted)] leading-relaxed">
-              Real systems. No fluff. Open to senior full-stack, backend, or platform engineering roles.
+              Open to senior full-stack, backend, or platform engineering roles. Passion for building platforms, not just features.
             </p>
           </div>
         </div>
@@ -82,6 +82,10 @@ export default function AboutPage() {
             <li className="flex gap-3">
               <span className="text-accent shrink-0">→</span>
               <span>Scalable REST APIs with Spring Boot</span>
+            </li>
+            <li className="flex gap-3">
+              <span className="text-accent shrink-0">→</span>
+              <span>Event-driven systems with Kafka</span>
             </li>
             <li className="flex gap-3">
               <span className="text-accent shrink-0">→</span>

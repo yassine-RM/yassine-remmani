@@ -24,7 +24,7 @@ export function Footer() {
               © {currentYear} Yassine REMMANI · Casablanca, Morocco · Open to relocation
             </p>
             <p className="text-xs text-[var(--foreground-muted)] max-w-sm">
-              Senior Full-Stack Developer. Spring Boot, Next.js, PostgreSQL, Docker. Scalable APIs and production-grade platforms.
+              Backend Engineer. Spring Boot, Next.js, PostgreSQL, Docker, Kafka. Scalable APIs, event-driven systems, multi-tenant platforms.
             </p>
           </div>
           <div className="flex flex-col sm:flex-row gap-8">

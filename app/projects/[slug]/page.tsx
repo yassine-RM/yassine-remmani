@@ -166,12 +166,15 @@ export default async function CaseStudyPage({ params }: PageProps) {
 
           {slug === 'travelos' && (
             <section>
-              <h2 className="font-heading text-xl font-semibold mb-4">How TravelOS is Built: SEO & Performance</h2>
+              <h2 className="font-heading text-xl font-semibold mb-4">Architecture Decisions: Why Spring Boot, Docker & PostgreSQL</h2>
               <p className="text-[var(--foreground-muted)] leading-relaxed mb-4">
-                TravelOS is built as a software product, not a blog. SEO-first architecture: SSR for all destination pages, dynamic metadata, OpenGraph, and Schema.org structured data. Redis caching for sub-second page loads. See <Link href="/nextjs-for-scalable-products" className="text-accent hover:underline">Next.js for scalable products</Link> for the frontend patterns.
+                <strong className="text-foreground">Spring Boot</strong>: Mature ecosystem, clean architecture, security (JWT/OAuth2), DDD-friendly. <strong className="text-foreground">PostgreSQL</strong>: Relational integrity for content, migrations, indexing for search. <strong className="text-foreground">Docker</strong>: Reproducible dev/prod, CI/CD. Keycloak-compatible auth layer for future SSO.
+              </p>
+              <p className="text-[var(--foreground-muted)] leading-relaxed mb-4">
+                SEO-first: SSR for all destination pages, dynamic metadata, OpenGraph, Schema.org. Redis for sub-second page loads. See <Link href="/nextjs-for-scalable-products" className="text-accent hover:underline">Next.js for scalable products</Link> for frontend patterns.
               </p>
               <p className="text-[var(--foreground-muted)] leading-relaxed">
-                Backend: Spring Boot REST APIs with clean architecture. PostgreSQL for content, Redis for speed. Docker and CI/CD for production deployment. Travel platform engineering at scale.
+                Built as a platform, not a blog. Production-grade deployment with zero-downtime CI/CD.
               </p>
             </section>
           )}

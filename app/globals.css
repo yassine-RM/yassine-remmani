@@ -17,6 +17,13 @@
     --border-hover: rgba(255, 255, 255, 0.12);
     --card: #171717;
     --card-hover: #262626;
+    --bg-surface: #171717;
+    --bg-surface-hover: #262626;
+    --bg-primary: #0a0a0a;
+    --text-primary: #fafafa;
+    --text-secondary: #a1a1aa;
+    --border-color: rgba(255, 255, 255, 0.08);
+    --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
   }
 
   [data-theme="light"] {
@@ -32,6 +39,13 @@
     --border-hover: rgba(0, 0, 0, 0.12);
     --card: #ffffff;
     --card-hover: #f4f4f5;
+    --bg-surface: #ffffff;
+    --bg-surface-hover: #f4f4f5;
+    --bg-primary: #fafafa;
+    --text-primary: #0a0a0a;
+    --text-secondary: #52525b;
+    --border-color: rgba(0, 0, 0, 0.08);
+    --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
   }
 
   html {
@@ -52,5 +66,28 @@
   }
   .bg-accent-gradient {
     background: var(--accent-gradient);
+  }
+}
+
+/* Resume print: only the CV is visible for Save as PDF */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #resume-print,
+  #resume-print * {
+    visibility: visible;
+  }
+  #resume-print {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    padding: 2rem;
+    margin: 0;
+    background: #fff;
+    color: #111;
+    box-shadow: none;
+    border: none;
   }
 }

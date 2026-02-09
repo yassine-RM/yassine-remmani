@@ -5,8 +5,8 @@ import { SeoJsonLd } from '@/components/seo/SeoJsonLd'
 import { experience, education } from '@/lib/constants'
 
 export const metadata: Metadata = buildMetadata({
-  title: 'Experience & Education',
-  description: 'Senior Full-Stack Developer. 6+ years building high-traffic APIs, event-driven systems, multi-tenant platforms. Master\'s in Computer Science & AI.',
+  title: 'Experience & Education — Backend Engineer',
+  description: 'Backend Engineer. 6+ years building high-traffic REST APIs, event-driven Kafka systems, multi-tenant platforms. Spring Boot, Next.js, PostgreSQL, Docker.',
   pathname: '/experience',
 })
 
@@ -52,6 +52,37 @@ export default function ExperiencePage() {
                     {job.period}
                   </p>
                 </div>
+                {'contextSummary' in job && job.contextSummary && (
+                  <div className="mb-3">
+                    <span className="text-xs font-semibold text-accent uppercase tracking-wider">Context</span>
+                    <p className="text-sm text-[var(--foreground-muted)] mt-1 leading-relaxed">{job.contextSummary}</p>
+                  </div>
+                )}
+                {'actionSummary' in job && job.actionSummary && (
+                  <div className="mb-3">
+                    <span className="text-xs font-semibold text-accent uppercase tracking-wider">Action</span>
+                    <p className="text-sm text-[var(--foreground-muted)] mt-1 leading-relaxed">{job.actionSummary}</p>
+                  </div>
+                )}
+                {'tech' in job && job.tech && job.tech.length > 0 && (
+                  <div className="mb-3">
+                    <span className="text-xs font-semibold text-accent uppercase tracking-wider">Tech</span>
+                    <p className="text-sm text-[var(--foreground-muted)] mt-1">{job.tech.join(' · ')}</p>
+                  </div>
+                )}
+                {'impact' in job && job.impact && job.impact.length > 0 && (
+                  <div className="mb-3">
+                    <span className="text-xs font-semibold text-accent uppercase tracking-wider">Impact</span>
+                    <ul className="mt-1 space-y-1">
+                      {job.impact.map((i) => (
+                        <li key={i} className="flex gap-2 text-sm text-[var(--foreground-muted)]">
+                          <span className="text-accent shrink-0">→</span>
+                          <span>{i}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
                 <ul className="space-y-2 text-[var(--foreground-muted)]">
                   {job.highlights.map((h) => (
                     <li key={h} className="flex gap-2">

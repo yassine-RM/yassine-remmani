@@ -1,25 +1,24 @@
 import { Metadata } from 'next'
 
 export const siteUrl = 'https://remmanidev.com'
-export const siteName = 'Yassine REMMANI — Senior Full-Stack Developer'
+export const siteName = 'Yassine REMMANI — Backend Engineer'
 /** Twitter/X handle for cards (optional). Omit @ prefix. */
 export const twitterHandle = 'remmanidev'
 
 export const defaultKeywords = [
+  'Backend Engineer',
   'Spring Boot Developer',
-  'Full-Stack Developer Spring Boot Next.js',
-  'Backend Engineer Java Spring',
-  'Scalable API Developer',
+  'API Developer',
   'Full-Stack Developer',
   'Spring Boot',
   'Next.js',
   'PostgreSQL',
   'Docker',
-  'React',
-  'Java',
-  'TypeScript',
-  'Multi-tenant Architecture',
-  'REST APIs',
+  'Kafka',
+  'AWS',
+  'Microservices',
+  'Event-driven systems',
+  'Multi-tenant',
 ]
 
 export function canonicalUrl(pathname: string): string {

@@ -21,7 +21,7 @@ const pillars = [
   },
   {
     title: 'Multi-Tenant APIs',
-    description: 'Tenant-scoped data isolation, shared infrastructure. Designed platforms serving 4,000+ dealer sites with tenant-specific configurations.',
+    description: 'Next.js frontend with Spring Boot backend. Tenant-scoped data isolation, shared infrastructure. Platforms serving 4,000+ dealer sites with tenant-specific configurations.',
     icon: 'layer',
   },
 ]
@@ -80,12 +80,16 @@ export function Microservices() {
               <span className="text-xs text-[var(--foreground-subtle)]">Spring Boot</span>
             </div>
             <div className="p-4 rounded-xl bg-background border border-border text-center">
-              <span className="text-sm font-medium block">Campaign API</span>
+              <span className="text-sm font-medium block">Digital ADS API</span>
               <span className="text-xs text-[var(--foreground-subtle)]">Spring Boot</span>
             </div>
             <div className="p-4 rounded-xl bg-background border border-border text-center">
               <span className="text-sm font-medium block">Dealer API</span>
-              <span className="text-xs text-[var(--foreground-subtle)]">Multi-tenant</span>
+              <span className="text-xs text-[var(--foreground-subtle)]">Multi-tenant · Next.js + Spring</span>
+            </div>
+            <div className="p-4 rounded-xl bg-background border border-border text-center">
+              <span className="text-sm font-medium block">CRM API</span>
+              <span className="text-xs text-[var(--foreground-subtle)]">Spring Boot</span>
             </div>
             <div className="p-4 rounded-xl bg-background border border-border text-center">
               <span className="text-sm font-medium block">Search API</span>
@@ -144,7 +148,7 @@ export function Microservices() {
         </div>
         <div className="px-4 py-2 rounded-xl bg-accent-muted/50 border border-border">
           <span className="text-sm font-semibold text-accent">Multi-tenant</span>
-          <span className="text-sm text-[var(--foreground-muted)] ml-2">APIs</span>
+          <span className="text-sm text-[var(--foreground-muted)] ml-2">Next.js + Spring</span>
         </div>
       </div>
     </Section>

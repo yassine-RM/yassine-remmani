@@ -25,20 +25,20 @@ export const metadata: Metadata = {
     icon: '/images/favicon.png',
   },
   title: {
-    default: 'Yassine REMMANI — Senior Full-Stack Developer | Spring Boot & Next.js',
+    default: 'Yassine REMMANI — Backend Engineer | Spring Boot & Next.js',
     template: '%s | Yassine REMMANI',
   },
-  description: 'Senior Full-Stack Developer (6+ years). Spring Boot, Next.js, PostgreSQL, Docker. I build scalable APIs, multi-tenant SaaS, and production-ready systems.',
-  keywords: ['Spring Boot Developer', 'Full-Stack Developer Spring Boot Next.js', 'Backend Engineer Java Spring', 'Scalable API Developer', 'Full-Stack Developer', 'Spring Boot', 'Next.js', 'PostgreSQL', 'Docker', 'React', 'Java', 'TypeScript', 'SaaS', 'Kafka', 'Microservices'],
+  description: 'Backend Engineer (6+ years). Spring Boot, Next.js, PostgreSQL, Docker, Kafka. Scalable APIs, event-driven systems, multi-tenant platforms. AWS, Microservices.',
+  keywords: ['Backend Engineer', 'Spring Boot Developer', 'API Developer', 'Full-Stack Developer', 'Spring Boot', 'Next.js', 'PostgreSQL', 'Docker', 'Kafka', 'AWS', 'Microservices', 'Event-driven systems', 'Multi-tenant'],
   authors: [{ name: 'Yassine REMMANI' }],
   creator: 'Yassine REMMANI',
   openGraph: {
     type: 'website',
     locale: 'en_US',
     url: 'https://remmanidev.com',
-    siteName: 'Yassine REMMANI — Senior Full-Stack Developer',
-    title: 'Yassine REMMANI — Senior Full-Stack Developer | Spring Boot & Next.js',
-    description: 'I build scalable APIs, multi-tenant SaaS, and production-ready systems. 6+ years of full-stack experience.',
+    siteName: 'Yassine REMMANI — Backend Engineer',
+    title: 'Yassine REMMANI — Backend Engineer | Spring Boot & Next.js',
+    description: 'Backend Engineer. Scalable APIs, event-driven systems, multi-tenant platforms. 6+ years. Spring Boot, Next.js, PostgreSQL, Docker, Kafka, AWS.',
     images: [
       {
         url: '/images/me.png',
@@ -50,8 +50,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Yassine REMMANI — Senior Full-Stack Developer | Spring Boot & Next.js',
-    description: 'I build scalable APIs, multi-tenant SaaS, and production-ready systems.',
+    title: 'Yassine REMMANI — Backend Engineer | Spring Boot & Next.js',
+    description: 'Backend Engineer. Scalable APIs, event-driven systems, multi-tenant platforms. Spring Boot, Next.js, PostgreSQL, Docker, Kafka.',
     images: ['/images/me.png'],
     creator: '@remmanidev',
   },
