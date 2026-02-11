@@ -36,7 +36,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const summary = translated?.summary ?? project.summary
 
   return buildMetadata({
-    title: `${title} — ${t.nav.caseStudy}`,
+    title: `${title} — ${t.projectsSection.caseStudy}`,
     description: summary,
     pathname: `/${locale}/projects/${slug}`,
     image: project.coverImage,
