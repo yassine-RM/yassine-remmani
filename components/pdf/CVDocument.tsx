@@ -286,6 +286,10 @@ export function CVDocument({ locale, photoUrl }: CVDocumentProps) {
               <Text style={styles.skillGroupTitle}>{cv.skillLabels.architecture}</Text>
               <Text style={styles.skillTags}>{cv.skills.architecture.join(', ')}</Text>
             </View>
+            <View style={styles.skillGroup}>
+              <Text style={styles.skillGroupTitle}>{cv.skillLabels.ai}</Text>
+              <Text style={styles.skillTags}>{cv.skills.ai.join(', ')}</Text>
+            </View>
             <View style={styles.languagesSection}>
               <Text style={styles.sidebarSectionTitle}>{cv.skillLabels.languages}</Text>
               {cv.languages.map((lang, i) => (

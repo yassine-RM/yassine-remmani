@@ -2,15 +2,17 @@
 
 import { useTranslations } from '@/hooks/useTranslations'
 
-const categoryKeys = ['backend', 'frontend', 'cloudDevops', 'architecture'] as const
+const categoryKeys = ['backend', 'frontend', 'databases', 'cloudDevops', 'architecture', 'ai'] as const
 
 export function Skills() {
   const t = useTranslations()
   const labels = {
     backend: t.skillsSection.backend,
     frontend: t.skillsSection.frontend,
+    databases: t.skillsSection.databases,
     cloudDevops: t.skillsSection.cloudDevops,
     architecture: t.skillsSection.architecture,
+    ai: t.skillsSection.ai,
   }
   return (
     <section id="skills" className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 scroll-mt-20">

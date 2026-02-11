@@ -6,8 +6,8 @@ export function personSchema(options?: { pathname?: string }) {
     '@context': 'https://schema.org',
     '@type': 'Person',
     name: 'Yassine REMMANI',
-    jobTitle: 'Backend Engineer',
-    description: 'Backend Engineer specializing in Spring Boot, Next.js, scalable APIs, event-driven systems, and multi-tenant platforms. Production-grade systems.',
+    jobTitle: 'Full-Stack Engineer',
+    description: 'Full-Stack Engineer specializing in Spring Boot and Next.js, with AI integration (LLM APIs, AWS Bedrock). Scalable APIs, event-driven systems, multi-tenant platforms. Production-grade systems that match high-impact job offers.',
     url: canonicalUrl(pathname),
     sameAs: [
       'https://www.linkedin.com/in/yassine-remmani/',
@@ -22,6 +22,9 @@ export function personSchema(options?: { pathname?: string }) {
     knowsAbout: [
       'Spring Boot',
       'Next.js',
+      'AI integration',
+      'LLM APIs',
+      'AWS Bedrock',
       'PostgreSQL',
       'Docker',
       'Kafka',
@@ -44,9 +47,9 @@ export function webSiteSchema(options?: { pathname?: string }) {
   return {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    name: 'Yassine REMMANI — Backend Engineer',
+    name: 'Yassine REMMANI — Full-Stack Engineer (Spring Boot & Next.js)',
     url: canonicalUrl(pathname),
-    description: 'Backend Engineer. Scalable APIs, event-driven systems, multi-tenant platforms. Spring Boot, Next.js, PostgreSQL, Docker, Kafka, AWS.',
+    description: 'Full-Stack Engineer. Spring Boot, Next.js, AI integration. Scalable APIs, event-driven systems, multi-tenant platforms. PostgreSQL, Docker, Kafka, AWS.',
     publisher: {
       '@type': 'Person',
       name: 'Yassine REMMANI',

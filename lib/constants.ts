@@ -95,6 +95,7 @@ export const techStack: TechStackItem[] = [
   { name: 'Docker', icon: '/images/tech/docker.svg', description: 'pipelines · zero-downtime' },
   { name: 'Redis', icon: '/images/tech/redis.svg', description: 'speed · scale · stability' },
   { name: 'Typesense', icon: '/images/tech/typesense.svg', description: 'instant search · filters' },
+  { name: 'AI / LLM', icon: '/images/tech/react.svg', description: 'Bedrock · APIs · RAG-ready' },
 ]
 
 export const skills = {

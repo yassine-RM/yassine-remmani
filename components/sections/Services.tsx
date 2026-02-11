@@ -7,6 +7,7 @@ const iconMap: Record<string, string> = {
   code: 'M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4',
   'layer-group': 'M4 5a1 1 0 011-1h4a1 1 0 011 1v7a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM14 5a1 1 0 011-1h4a1 1 0 011 1v7a1 1 0 01-1 1h-4a1 1 0 01-1-1V5zM4 16a1 1 0 011-1h4a1 1 0 011 1v3a1 1 0 01-1 1H5a1 1 0 01-1-1v-3zM14 16a1 1 0 011-1h4a1 1 0 011 1v3a1 1 0 01-1 1h-4a1 1 0 01-1-1v-3z',
   rocket: 'M13 10V3L4 14h7v7l9-11h-7z',
+  sparkles: 'M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z',
 }
 
 const serviceKeys = [
@@ -14,6 +15,7 @@ const serviceKeys = [
   { icon: 'code' as const, titleKey: 'frontendTitle' as const, descKey: 'frontendDesc' as const },
   { icon: 'layer-group' as const, titleKey: 'multiTenantTitle' as const, descKey: 'multiTenantDesc' as const },
   { icon: 'rocket' as const, titleKey: 'devopsTitle' as const, descKey: 'devopsDesc' as const },
+  { icon: 'sparkles' as const, titleKey: 'aiTitle' as const, descKey: 'aiDesc' as const },
 ]
 
 export function Services() {
@@ -33,7 +35,7 @@ export function Services() {
         </h2>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {serviceKeys.map(({ icon, titleKey, descKey }) => (
           <article
             key={titleKey}

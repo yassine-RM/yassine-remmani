@@ -16,10 +16,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { locale } = await params
   const pathname = `/${locale}/about`
   return buildMetadata({
-    title: 'About — Backend Engineer | Spring Boot & Next.js',
-    description: 'Yassine REMMANI: Senior Backend Engineer, Spring Boot Developer. 6+ years building scalable APIs, event-driven systems, multi-tenant platforms. AWS, Docker, PostgreSQL.',
+    title: 'About — Full-Stack Engineer | Spring Boot, Next.js & AI',
+    description: 'Yassine REMMANI: Full-Stack Engineer, Spring Boot & Next.js specialist. 6+ years building scalable APIs, event-driven systems, AI integration, multi-tenant platforms. AWS, Docker, PostgreSQL.',
     pathname,
-    keywords: ['Backend Engineer', 'Spring Boot Developer', 'API Developer', 'Full-Stack Developer', 'Yassine REMMANI'],
+    keywords: ['Full-Stack Engineer', 'Spring Boot Developer', 'Next.js Developer', 'AI integration', 'Yassine REMMANI'],
   })
 }
 
@@ -33,7 +33,7 @@ export default async function AboutPage({ params }: PageProps) {
     <>
       <SeoJsonLd data={webPageSchema({
         name: 'About — Yassine REMMANI',
-        description: 'Backend Engineer with 6+ years building scalable APIs, event-driven systems, multi-tenant platforms. Spring Boot, Next.js, PostgreSQL, Kafka.',
+        description: 'Full-Stack Engineer with 6+ years building scalable APIs, event-driven systems, AI integration, multi-tenant platforms. Spring Boot, Next.js, PostgreSQL, Kafka.',
         pathname,
         breadcrumbs: [{ name: t.nav.home, url: canonicalUrl(homePath) }, { name: t.nav.about, url: canonicalUrl(pathname) }],
       })} />
@@ -42,7 +42,7 @@ export default async function AboutPage({ params }: PageProps) {
           '@context': 'https://schema.org',
           '@type': 'Person',
           name: 'Yassine REMMANI',
-          jobTitle: 'Senior Backend Engineer',
+          jobTitle: 'Senior Full-Stack Engineer',
           url: canonicalUrl(pathname),
           sameAs: [
             'https://www.linkedin.com/in/yassine-remmani/',

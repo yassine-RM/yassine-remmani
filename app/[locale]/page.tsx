@@ -23,8 +23,8 @@ export default async function HomePage({ params }: HomePageProps) {
       <SeoJsonLd data={personSchema({ pathname: homePath })} />
       <SeoJsonLd data={webSiteSchema({ pathname: homePath })} />
       <SeoJsonLd data={webPageSchema({
-        name: 'Yassine REMMANI — Backend Engineer | Spring Boot & Next.js',
-        description: 'Backend Engineer. Scalable APIs, event-driven systems, multi-tenant platforms. Spring Boot, Next.js, PostgreSQL, Docker, Kafka, AWS.',
+        name: 'Yassine REMMANI — Full-Stack Engineer | Spring Boot, Next.js & AI',
+        description: 'Full-Stack Engineer specializing in Spring Boot and Next.js, with AI integration. Scalable APIs, event-driven systems, multi-tenant platforms. PostgreSQL, Docker, Kafka, AWS.',
         pathname: homePath,
         breadcrumbs: [{ name: 'Home', url: canonicalUrl(homePath) }],
       })} />

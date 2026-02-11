@@ -13,12 +13,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { locale } = await params
   return buildMetadata({
     title: 'Skills',
-    description: 'Backend: Spring Boot, Java, PostgreSQL. Frontend: Next.js, React, TypeScript. DevOps: Docker, CI/CD. Architecture: Clean Architecture, DDD, REST.',
+    description: 'Backend: Spring Boot, Java, PostgreSQL. Frontend: Next.js, React, TypeScript. AI: AWS Bedrock, LLM APIs. DevOps: Docker, CI/CD. Architecture: Clean Architecture, DDD, REST.',
     pathname: `/${locale}/skills`,
   })
 }
 
-const categoryKeys = ['backend', 'frontend', 'cloudDevops', 'architecture'] as const
+const categoryKeys = ['backend', 'frontend', 'databases', 'cloudDevops', 'architecture', 'ai'] as const
 
 export default async function SkillsPage({ params }: PageProps) {
   const { locale } = await params
@@ -30,7 +30,7 @@ export default async function SkillsPage({ params }: PageProps) {
     <>
       <SeoJsonLd data={webPageSchema({
         name: 'Skills — Yassine REMMANI',
-        description: 'Backend: Spring Boot, Java, PostgreSQL. Frontend: Next.js, React, TypeScript. DevOps: Docker, CI/CD. Architecture: Clean Architecture, DDD, REST.',
+        description: 'Backend: Spring Boot, Java, PostgreSQL. Frontend: Next.js, React, TypeScript. AI: AWS Bedrock, LLM APIs. DevOps: Docker, CI/CD. Architecture: Clean Architecture, DDD, REST.',
         pathname,
         breadcrumbs: [{ name: t.nav.home, url: canonicalUrl(homePath) }, { name: t.nav.skills, url: canonicalUrl(pathname) }],
       })} />

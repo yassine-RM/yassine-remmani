@@ -1,17 +1,19 @@
 import { Metadata } from 'next'
 
 export const siteUrl = 'https://remmanidev.com'
-export const siteName = 'Yassine REMMANI — Backend Engineer'
+export const siteName = 'Yassine REMMANI — Full-Stack Engineer (Spring Boot & Next.js)'
 /** Twitter/X handle for cards (optional). Omit @ prefix. */
 export const twitterHandle = 'remmanidev'
 
 export const defaultKeywords = [
-  'Backend Engineer',
+  'Full-Stack Engineer',
   'Spring Boot Developer',
-  'API Developer',
-  'Full-Stack Developer',
+  'Next.js Developer',
   'Spring Boot',
   'Next.js',
+  'AI integration',
+  'LLM APIs',
+  'AWS Bedrock',
   'PostgreSQL',
   'Docker',
   'Kafka',

@@ -12,8 +12,8 @@ interface PageProps {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale } = await params
   return buildMetadata({
-    title: 'Experience & Education — Backend Engineer',
-    description: 'Backend Engineer. 6+ years building high-traffic REST APIs, event-driven Kafka systems, multi-tenant platforms. Spring Boot, Next.js, PostgreSQL, Docker.',
+    title: 'Experience & Education — Full-Stack Engineer',
+    description: 'Full-Stack Engineer. 6+ years building high-traffic REST APIs, event-driven Kafka systems, AI integration, multi-tenant platforms. Spring Boot, Next.js, PostgreSQL, Docker.',
     pathname: `/${locale}/experience`,
   })
 }
