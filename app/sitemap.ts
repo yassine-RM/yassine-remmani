@@ -1,31 +1,46 @@
 import { MetadataRoute } from 'next'
 import { projects } from '@/lib/constants'
+import { locales } from '@/lib/i18n'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://remmanidev.com'
   const currentDate = new Date().toISOString()
 
-  const routes = [
-    { url: baseUrl, lastModified: currentDate, changeFrequency: 'weekly' as const, priority: 1.0 },
-    { url: `${baseUrl}/about`, lastModified: currentDate, changeFrequency: 'monthly' as const, priority: 0.9 },
-    { url: `${baseUrl}/projects`, lastModified: currentDate, changeFrequency: 'monthly' as const, priority: 0.9 },
-    { url: `${baseUrl}/resume`, lastModified: currentDate, changeFrequency: 'monthly' as const, priority: 0.9 },
-    { url: `${baseUrl}/blog`, lastModified: currentDate, changeFrequency: 'weekly' as const, priority: 0.8 },
-    { url: `${baseUrl}/skills`, lastModified: currentDate, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${baseUrl}/experience`, lastModified: currentDate, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${baseUrl}/contact`, lastModified: currentDate, changeFrequency: 'monthly' as const, priority: 0.8 },
-    // Authority pages — high-intent SEO
-    { url: `${baseUrl}/spring-boot-architecture`, lastModified: currentDate, changeFrequency: 'monthly' as const, priority: 0.9 },
-    { url: `${baseUrl}/nextjs-for-scalable-products`, lastModified: currentDate, changeFrequency: 'monthly' as const, priority: 0.9 },
-    { url: `${baseUrl}/event-driven-systems-kafka`, lastModified: currentDate, changeFrequency: 'monthly' as const, priority: 0.9 },
+  const staticPaths = [
+    '',
+    '/about',
+    '/projects',
+    '/resume',
+    '/blog',
+    '/skills',
+    '/experience',
+    '/contact',
+    '/spring-boot-architecture',
+    '/nextjs-for-scalable-products',
+    '/event-driven-systems-kafka',
   ]
 
-  const projectRoutes = projects.map((project) => ({
-    url: `${baseUrl}/projects/${project.slug}`,
-    lastModified: currentDate,
-    changeFrequency: 'monthly' as const,
-    priority: project.slug === 'travelos' ? 0.9 : 0.8,
-  }))
+  const routes: MetadataRoute.Sitemap = []
 
-  return [...routes, ...projectRoutes]
+  for (const locale of locales) {
+    const prefix = `/${locale}`
+    for (const path of staticPaths) {
+      const url = path ? `${baseUrl}${prefix}${path}` : `${baseUrl}${prefix}`
+      routes.push({
+        url,
+        lastModified: currentDate,
+        changeFrequency: path === '' ? 'weekly' : path === '/blog' ? 'weekly' : 'monthly',
+        priority: path === '' ? 1.0 : path === '/about' || path === '/projects' ? 0.9 : path === '/blog' ? 0.8 : 0.8,
+      })
+    }
+    const projectRoutes = projects.map((project) => ({
+      url: `${baseUrl}${prefix}/projects/${project.slug}`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly' as const,
+      priority: project.slug === 'travelos' ? 0.9 : 0.8,
+    }))
+    routes.push(...projectRoutes)
+  }
+
+  return routes
 }

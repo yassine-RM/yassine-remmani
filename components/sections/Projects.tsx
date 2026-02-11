@@ -2,11 +2,20 @@
 
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { projects } from '@/lib/constants'
+import { projects as projectsConst } from '@/lib/constants'
 import { Button } from '@/components/ui/button'
+import { useLocale } from '@/components/LocaleProvider'
+import { localePath } from '@/lib/i18n'
+import { useTranslations } from '@/hooks/useTranslations'
 
 export function Projects() {
-  const featured = projects.slice(0, 3)
+  const locale = useLocale()
+  const t = useTranslations()
+  const featured = projectsConst.slice(0, 3).map((p) => ({
+    ...p,
+    title: t.data.projects.find((x) => x.slug === p.slug)?.title ?? p.title,
+    summary: t.data.projects.find((x) => x.slug === p.slug)?.summary ?? p.summary,
+  }))
 
   return (
     <section id="projects" className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 scroll-mt-20">
@@ -18,10 +27,12 @@ export function Projects() {
         className="mb-12"
       >
         <h2 className="font-heading text-2xl md:text-3xl font-bold mb-4">
-          Projects
+          {t.projectsSection.title}
         </h2>
         <p className="text-[var(--foreground-muted)] max-w-2xl">
-          Scalable, production-grade platforms. Travel discovery (<Link href="/projects/travelos" className="text-accent hover:underline">TravelOS</Link>), automotive tech, multi-tenant systems. Spring Boot & Next.js architecture.
+          {t.projectsSection.introBeforeLink}
+          <Link href={localePath(locale, '/projects/travelos')} className="text-accent hover:underline">{t.projectsSection.introLinkText}</Link>
+          {t.projectsSection.introAfterLink}
         </p>
       </motion.div>
 
@@ -56,15 +67,15 @@ export function Projects() {
               </div>
               <div className="flex flex-wrap gap-2 shrink-0">
                 <Button variant="secondary" size="sm" asChild>
-                  <Link href={`/projects/${project.slug}#architecture`}>Architecture</Link>
+                  <Link href={localePath(locale, `/projects/${project.slug}#architecture`)}>{t.projectsSection.architecture}</Link>
                 </Button>
                 <Button variant="secondary" size="sm" asChild>
-                  <Link href={`/projects/${project.slug}`}>Case Study</Link>
+                  <Link href={localePath(locale, `/projects/${project.slug}`)}>{t.projectsSection.caseStudy}</Link>
                 </Button>
                 {project.demo && (
                   <Button variant="outline" size="sm" asChild>
                     <a href={project.demo} target="_blank" rel="noopener noreferrer">
-                      Live
+                      {t.projectsSection.live}
                     </a>
                   </Button>
                 )}
@@ -82,7 +93,7 @@ export function Projects() {
         className="mt-8"
       >
         <Button variant="secondary" asChild>
-          <Link href="/projects">View all projects</Link>
+          <Link href={localePath(locale, '/projects')}>{t.projectsSection.viewAllProjects}</Link>
         </Button>
       </motion.div>
     </section>

@@ -8,16 +8,8 @@ import {
   Image,
   StyleSheet,
 } from '@react-pdf/renderer'
-import {
-  cvContact,
-  cvSummary,
-  cvSkills,
-  cvLanguages,
-  cvHobbies,
-  cvExperience,
-  cvProjects,
-  cvEducation,
-} from '@/lib/cv-data'
+import { getCvData } from '@/lib/cv-data'
+import type { Locale } from '@/lib/i18n'
 
 const SPRING_GREEN = '#6DB33F'
 const INK = '#0B1220'
@@ -230,16 +222,18 @@ const styles = StyleSheet.create({
 })
 
 export interface CVDocumentProps {
+  locale: Locale
   photoUrl?: string
 }
 
-export function CVDocument({ photoUrl }: CVDocumentProps) {
+export function CVDocument({ locale, photoUrl }: CVDocumentProps) {
+  const cv = getCvData(locale)
   const contactParts = [
-    cvContact.email,
-    cvContact.phone,
-    cvContact.linkedin,
-    cvContact.github,
-    cvContact.portfolio,
+    cv.contact.email,
+    cv.contact.phone,
+    cv.contact.linkedin,
+    cv.contact.github,
+    cv.contact.portfolio,
   ].filter(Boolean)
   const contactLine = contactParts.join(' | ')
 
@@ -256,9 +250,9 @@ export function CVDocument({ photoUrl }: CVDocumentProps) {
               </View>
             ) : null}
             <View style={styles.headerText}>
-              <Text style={styles.name}>{cvContact.fullName}</Text>
-              <Text style={styles.title}>{cvContact.title}</Text>
-              <Text style={styles.location}>{cvContact.location}</Text>
+              <Text style={styles.name}>{cv.contact.fullName}</Text>
+              <Text style={styles.title}>{cv.contact.title}</Text>
+              <Text style={styles.location}>{cv.contact.location}</Text>
               <Text style={styles.contactLine}>{contactLine}</Text>
             </View>
           </View>
@@ -267,40 +261,40 @@ export function CVDocument({ photoUrl }: CVDocumentProps) {
         {/* 2. Two-column body: sidebar (30%) + main (70%) */}
         <View style={styles.bodyRow}>
           <View style={styles.sidebar}>
-            <Text style={styles.sidebarSectionTitle}>Skills</Text>
+            <Text style={styles.sidebarSectionTitle}>{cv.skillLabels.skills}</Text>
             <View style={styles.skillGroup}>
-              <Text style={styles.skillGroupTitle}>Backend</Text>
-              <Text style={styles.skillTags}>{cvSkills.backend.join(', ')}</Text>
+              <Text style={styles.skillGroupTitle}>{cv.skillLabels.backend}</Text>
+              <Text style={styles.skillTags}>{cv.skills.backend.join(', ')}</Text>
             </View>
             <View style={styles.skillGroup}>
-              <Text style={styles.skillGroupTitle}>Frontend</Text>
-              <Text style={styles.skillTags}>{cvSkills.frontend.join(', ')}</Text>
+              <Text style={styles.skillGroupTitle}>{cv.skillLabels.frontend}</Text>
+              <Text style={styles.skillTags}>{cv.skills.frontend.join(', ')}</Text>
             </View>
             <View style={styles.skillGroup}>
-              <Text style={styles.skillGroupTitle}>Databases</Text>
-              <Text style={styles.skillTags}>{cvSkills.database.join(', ')}</Text>
+              <Text style={styles.skillGroupTitle}>{cv.skillLabels.databases}</Text>
+              <Text style={styles.skillTags}>{cv.skills.database.join(', ')}</Text>
             </View>
             <View style={styles.skillGroup}>
-              <Text style={styles.skillGroupTitle}>Security</Text>
-              <Text style={styles.skillTags}>{cvSkills.security.join(', ')}</Text>
+              <Text style={styles.skillGroupTitle}>{cv.skillLabels.security}</Text>
+              <Text style={styles.skillTags}>{cv.skills.security.join(', ')}</Text>
             </View>
             <View style={styles.skillGroup}>
-              <Text style={styles.skillGroupTitle}>Cloud & DevOps</Text>
-              <Text style={styles.skillTags}>{cvSkills.cloudDevops.join(', ')}</Text>
+              <Text style={styles.skillGroupTitle}>{cv.skillLabels.cloudDevops}</Text>
+              <Text style={styles.skillTags}>{cv.skills.cloudDevops.join(', ')}</Text>
             </View>
             <View style={styles.skillGroup}>
-              <Text style={styles.skillGroupTitle}>Architecture</Text>
-              <Text style={styles.skillTags}>{cvSkills.architecture.join(', ')}</Text>
+              <Text style={styles.skillGroupTitle}>{cv.skillLabels.architecture}</Text>
+              <Text style={styles.skillTags}>{cv.skills.architecture.join(', ')}</Text>
             </View>
             <View style={styles.languagesSection}>
-              <Text style={styles.sidebarSectionTitle}>Languages</Text>
-              {cvLanguages.map((lang, i) => (
+              <Text style={styles.sidebarSectionTitle}>{cv.skillLabels.languages}</Text>
+              {cv.languages.map((lang, i) => (
                 <Text key={i} style={styles.languageItem}>{lang}</Text>
               ))}
             </View>
             <View style={styles.hobbiesSection}>
-              <Text style={styles.sidebarSectionTitle}>Hobbies</Text>
-              {cvHobbies.map((hobby, i) => (
+              <Text style={styles.sidebarSectionTitle}>{cv.skillLabels.hobbies}</Text>
+              {cv.hobbies.map((hobby, i) => (
                 <Text key={i} style={styles.hobbyItem}>{hobby}</Text>
               ))}
             </View>
@@ -308,13 +302,13 @@ export function CVDocument({ photoUrl }: CVDocumentProps) {
 
           <View style={styles.main}>
             <View style={styles.section}>
-              <Text style={styles.sectionTitle}>Summary</Text>
-              <Text style={styles.summaryText}>{cvSummary}</Text>
+              <Text style={styles.sectionTitle}>{cv.sectionLabels.summary}</Text>
+              <Text style={styles.summaryText}>{cv.summary}</Text>
             </View>
 
             <View style={styles.section}>
-              <Text style={styles.sectionTitle}>Experience</Text>
-              {cvExperience.map((job, i) => (
+              <Text style={styles.sectionTitle}>{cv.sectionLabels.experience}</Text>
+              {cv.experience.map((job, i) => (
                 <View key={i} style={styles.experienceBlock}>
                   <View style={styles.jobHeader}>
                     <Text style={styles.jobTitle}>{job.jobTitle}</Text>
@@ -331,8 +325,8 @@ export function CVDocument({ photoUrl }: CVDocumentProps) {
             </View>
 
             <View style={styles.section}>
-              <Text style={styles.sectionTitle}>Projects</Text>
-              {cvProjects.map((proj, i) => (
+              <Text style={styles.sectionTitle}>{cv.sectionLabels.projects}</Text>
+              {cv.projects.map((proj, i) => (
                 <View key={i} style={styles.experienceBlock}>
                   <Text style={styles.projectName}>{proj.name}</Text>
                   <Text style={styles.projectStack}>{proj.stack}</Text>
@@ -342,8 +336,8 @@ export function CVDocument({ photoUrl }: CVDocumentProps) {
             </View>
 
             <View style={styles.section}>
-              <Text style={styles.sectionTitle}>Education</Text>
-              {cvEducation.map((edu, i) => (
+              <Text style={styles.sectionTitle}>{cv.sectionLabels.education}</Text>
+              {cv.education.map((edu, i) => (
                 <View key={i} style={styles.educationRow}>
                   <Text style={styles.educationDegree}>{edu.degree}</Text>
                   <Text style={styles.educationInstitution}>{edu.institution}</Text>

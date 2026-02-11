@@ -5,21 +5,20 @@ import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { useState } from 'react'
 import { useTheme } from '@/components/ThemeProvider'
+import { useLocale } from '@/components/LocaleProvider'
+import { localePath } from '@/lib/i18n'
+import { useTranslations } from '@/hooks/useTranslations'
 import { cn } from '@/lib/utils'
 import { motion, AnimatePresence } from 'framer-motion'
 
-const navItems = [
-  { href: '/', label: 'Home' },
-  { href: '/about', label: 'About' },
-  { href: '/skills', label: 'Skills' },
-  { href: '/projects', label: 'Projects' },
-  { href: '/experience', label: 'Experience' },
-  { href: '/resume', label: 'Resume' },
-  { href: '/contact', label: 'Contact' },
-]
+const navPaths = ['/', '/about', '/skills', '/projects', '/experience', '/resume', '/contact'] as const
+const navKeys = ['home', 'about', 'skills', 'projects', 'experience', 'resume', 'contact'] as const
 
 export function Navbar() {
   const pathname = usePathname()
+  const locale = useLocale()
+  const t = useTranslations()
+  const navItems = navPaths.map((path, i) => ({ path, label: t.nav[navKeys[i]] }))
   const { theme, toggleTheme } = useTheme()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
@@ -28,7 +27,7 @@ export function Navbar() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           <Link
-            href="/"
+            href={localePath(locale, '/')}
             className="flex items-center"
             aria-label="Home"
           >
@@ -43,11 +42,12 @@ export function Navbar() {
 
           <nav className="hidden md:flex items-center gap-1" aria-label="Main navigation">
             {navItems.map((item) => {
-              const isActive = pathname === item.href
+              const href = localePath(locale, item.path)
+              const isActive = pathname === href || (item.path !== '/' && pathname?.startsWith(href))
               return (
                 <Link
-                  key={item.href}
-                  href={item.href}
+                  key={item.path}
+                  href={href}
                   className={cn(
                     'px-4 py-2 rounded-lg text-sm font-medium transition-colors',
                     isActive
@@ -62,6 +62,32 @@ export function Navbar() {
           </nav>
 
           <div className="flex items-center gap-2">
+            <nav className="flex items-center gap-0.5" aria-label="Language">
+              <Link
+                href={pathname?.replace(/^\/fr/, '/en') ?? '/en'}
+                className={cn(
+                  'px-2.5 py-1.5 rounded-lg text-sm font-medium transition-colors',
+                  locale === 'en'
+                    ? 'bg-accent-muted text-accent'
+                    : 'text-[var(--foreground-muted)] hover:text-foreground hover:bg-card'
+                )}
+                aria-current={locale === 'en' ? 'true' : undefined}
+              >
+                EN
+              </Link>
+              <Link
+                href={pathname?.replace(/^\/en/, '/fr') ?? '/fr'}
+                className={cn(
+                  'px-2.5 py-1.5 rounded-lg text-sm font-medium transition-colors',
+                  locale === 'fr'
+                    ? 'bg-accent-muted text-accent'
+                    : 'text-[var(--foreground-muted)] hover:text-foreground hover:bg-card'
+                )}
+                aria-current={locale === 'fr' ? 'true' : undefined}
+              >
+                FR
+              </Link>
+            </nav>
             <button
               type="button"
               role="switch"
@@ -88,7 +114,7 @@ export function Navbar() {
               )}
             </button>
             <Link
-              href="/contact"
+              href={localePath(locale, '/contact')}
               className="hidden md:inline-flex items-center px-4 py-2 bg-accent-gradient text-white rounded-lg text-sm font-medium hover:opacity-90 transition-opacity"
             >
               Contact
@@ -124,11 +150,12 @@ export function Navbar() {
           >
             <nav className="container mx-auto px-4 py-4 space-y-1" aria-label="Mobile navigation">
               {navItems.map((item) => {
-                const isActive = pathname === item.href
+                const href = localePath(locale, item.path)
+                const isActive = pathname === href || (item.path !== '/' && pathname?.startsWith(href))
                 return (
                   <Link
-                    key={item.href}
-                    href={item.href}
+                    key={item.path}
+                    href={href}
                     onClick={() => setMobileMenuOpen(false)}
                     className={cn(
                       'block px-4 py-3 rounded-lg text-base font-medium transition-colors',
@@ -142,7 +169,7 @@ export function Navbar() {
                 )
               })}
               <Link
-                href="/contact"
+                href={localePath(locale, '/contact')}
                 onClick={() => setMobileMenuOpen(false)}
                 className="block mt-4 px-4 py-3 bg-accent-gradient text-white rounded-lg font-medium text-center hover:opacity-90 transition-opacity"
               >

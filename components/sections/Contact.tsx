@@ -3,14 +3,15 @@
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/button'
-
-const links = [
-  { href: 'mailto:remmanidev@gmail.com', label: 'Email' },
-  { href: 'https://www.linkedin.com/in/yassine-remmani/', label: 'LinkedIn', external: true },
-  { href: 'https://github.com/yassine-RM', label: 'GitHub', external: true },
-]
+import { useTranslations } from '@/hooks/useTranslations'
 
 export function Contact() {
+  const t = useTranslations()
+  const links = [
+    { href: 'mailto:remmanidev@gmail.com', label: t.contactSection.email },
+    { href: 'https://www.linkedin.com/in/yassine-remmani/', label: t.contactSection.linkedin, external: true },
+    { href: 'https://github.com/yassine-RM', label: t.contactSection.github, external: true },
+  ]
   return (
     <section id="contact" className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 scroll-mt-20">
       <div className="max-w-2xl mx-auto text-center">
@@ -21,7 +22,7 @@ export function Contact() {
           transition={{ duration: 0.4 }}
           className="font-heading text-2xl md:text-3xl font-bold mb-4"
         >
-          Get in touch
+          {t.contactSection.title}
         </motion.h2>
         <motion.p
           initial={{ opacity: 0, y: 20 }}
@@ -30,8 +31,7 @@ export function Contact() {
           transition={{ duration: 0.4, delay: 0.1 }}
           className="text-[var(--foreground-muted)] mb-8"
         >
-          Open to senior full-stack, backend, or platform engineering roles.
-          Reach out to discuss how I can help your team.
+          {t.contactSection.subtitle}
         </motion.p>
         <motion.div
           initial={{ opacity: 0, y: 20 }}

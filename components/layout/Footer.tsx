@@ -1,18 +1,20 @@
+'use client'
+
 import Link from 'next/link'
+import { useLocale } from '@/components/LocaleProvider'
+import { localePath } from '@/lib/i18n'
+import { useTranslations } from '@/hooks/useTranslations'
+import { replaceParams } from '@/lib/translations'
 
-const socialLinks = [
-  { href: 'mailto:remmanidev@gmail.com', label: 'Email' },
-  { href: 'https://www.linkedin.com/in/yassine-remmani/', label: 'LinkedIn', external: true },
-  { href: 'https://github.com/yassine-RM', label: 'GitHub', external: true },
-]
-
-const architectureLinks = [
-  { href: '/spring-boot-architecture', label: 'Spring Boot' },
-  { href: '/nextjs-for-scalable-products', label: 'Next.js' },
-  { href: '/event-driven-systems-kafka', label: 'Event-driven Kafka' },
+const architecturePaths = [
+  { path: '/spring-boot-architecture', labelKey: 'springBoot' as const },
+  { path: '/nextjs-for-scalable-products', labelKey: 'nextjs' as const },
+  { path: '/event-driven-systems-kafka', labelKey: 'eventDrivenKafka' as const },
 ]
 
 export function Footer() {
+  const locale = useLocale()
+  const t = useTranslations()
   const currentYear = new Date().getFullYear()
 
   return (
@@ -21,43 +23,46 @@ export function Footer() {
         <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-8">
           <div>
             <p className="text-sm text-[var(--foreground-muted)] mb-4">
-              © {currentYear} Yassine REMMANI · Casablanca, Morocco · Open to relocation
+              {replaceParams(t.footer.copyright, { year: String(currentYear) })}
             </p>
             <p className="text-xs text-[var(--foreground-muted)] max-w-sm">
-              Backend Engineer. Spring Boot, Next.js, PostgreSQL, Docker, Kafka. Scalable APIs, event-driven systems, multi-tenant platforms.
+              {t.footer.tagline}
             </p>
           </div>
           <div className="flex flex-col sm:flex-row gap-8">
             <nav aria-label="Architecture & technical content">
-              <h3 className="text-xs font-semibold uppercase tracking-wider text-[var(--foreground-muted)] mb-3">Architecture</h3>
+              <h3 className="text-xs font-semibold uppercase tracking-wider text-[var(--foreground-muted)] mb-3">{t.footer.architecture}</h3>
               <ul className="space-y-2">
-                {architectureLinks.map((link) => (
-                  <li key={link.href}>
+                {architecturePaths.map((link) => (
+                  <li key={link.path}>
                     <Link
-                      href={link.href}
+                      href={localePath(locale, link.path)}
                       className="text-sm text-[var(--foreground-muted)] hover:text-accent transition-colors"
                     >
-                      {link.label}
+                      {t.footer[link.labelKey]}
                     </Link>
                   </li>
                 ))}
               </ul>
             </nav>
             <nav aria-label="Social links">
-              <h3 className="text-xs font-semibold uppercase tracking-wider text-[var(--foreground-muted)] mb-3">Connect</h3>
+              <h3 className="text-xs font-semibold uppercase tracking-wider text-[var(--foreground-muted)] mb-3">{t.footer.connect}</h3>
               <ul className="space-y-2">
-                {socialLinks.map((link) => (
-                  <li key={link.href}>
-                    <Link
-                      href={link.href}
-                      target={link.external ? '_blank' : undefined}
-                      rel={link.external ? 'noopener noreferrer' : undefined}
-                      className="text-sm text-[var(--foreground-muted)] hover:text-accent transition-colors"
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
+                <li>
+                  <Link href="mailto:remmanidev@gmail.com" className="text-sm text-[var(--foreground-muted)] hover:text-accent transition-colors">
+                    {t.footer.email}
+                  </Link>
+                </li>
+                <li>
+                  <Link href="https://www.linkedin.com/in/yassine-remmani/" target="_blank" rel="noopener noreferrer" className="text-sm text-[var(--foreground-muted)] hover:text-accent transition-colors">
+                    {t.footer.linkedin}
+                  </Link>
+                </li>
+                <li>
+                  <Link href="https://github.com/yassine-RM" target="_blank" rel="noopener noreferrer" className="text-sm text-[var(--foreground-muted)] hover:text-accent transition-colors">
+                    {t.footer.github}
+                  </Link>
+                </li>
               </ul>
             </nav>
           </div>

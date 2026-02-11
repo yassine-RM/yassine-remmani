@@ -2,29 +2,7 @@
 
 import { Section } from '@/components/layout/Section'
 import { motion } from 'framer-motion'
-
-/**
- * Microservices architecture section.
- * Highlights: Spring Boot backend services, event-driven (Kafka), multi-tenant APIs,
- * scalability, and production-readiness.
- */
-const pillars = [
-  {
-    title: 'Spring Boot Backend Services',
-    description: 'REST APIs, domain-driven design, clean architecture. Stateless services designed for horizontal scaling and container deployment.',
-    icon: 'server',
-  },
-  {
-    title: 'Event-Driven Systems (Kafka)',
-    description: 'Async processing, inter-service communication, eventual consistency. Built event pipelines for inventory sync, campaign attribution, and analytics.',
-    icon: 'bolt',
-  },
-  {
-    title: 'Multi-Tenant APIs',
-    description: 'Next.js frontend with Spring Boot backend. Tenant-scoped data isolation, shared infrastructure. Platforms serving 4,000+ dealer sites with tenant-specific configurations.',
-    icon: 'layer',
-  },
-]
+import { useTranslations } from '@/hooks/useTranslations'
 
 const iconPaths: Record<string, string> = {
   server:
@@ -36,6 +14,12 @@ const iconPaths: Record<string, string> = {
 }
 
 export function Microservices() {
+  const t = useTranslations()
+  const pillars = [
+    { title: t.microservices.pillar1Title, description: t.microservices.pillar1Desc, icon: 'server' as const },
+    { title: t.microservices.pillar2Title, description: t.microservices.pillar2Desc, icon: 'bolt' as const },
+    { title: t.microservices.pillar3Title, description: t.microservices.pillar3Desc, icon: 'layer' as const },
+  ]
   return (
     <Section id="microservices" className="scroll-mt-20">
       <div className="mb-12">
@@ -43,13 +27,13 @@ export function Microservices() {
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
           </svg>
-          Backend Architecture
+          {t.microservices.badge}
         </span>
         <h2 className="font-heading text-2xl md:text-3xl lg:text-4xl font-bold mb-4">
-          Microservices & <span className="text-accent">Production Systems</span>
+          {t.microservices.title} <span className="text-accent">{t.microservices.titleAccent}</span>
         </h2>
         <p className="text-[var(--foreground-muted)] max-w-2xl">
-          I build and maintain event-driven, multi-tenant backend systems at scale. Spring Boot, Kafka, PostgreSQL, Redis. Focus on scalability, resilience, and production-readiness.
+          {t.microservices.intro}
         </p>
       </div>
 
@@ -70,45 +54,43 @@ export function Microservices() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
               </svg>
             </div>
-            <span className="text-sm font-semibold text-center">API Gateway</span>
-            <span className="text-xs text-[var(--foreground-subtle)]">Routing · Auth</span>
+            <span className="text-sm font-semibold text-center">{t.microservices.apiGateway}</span>
+            <span className="text-xs text-[var(--foreground-subtle)]">{t.microservices.routingAuth}</span>
           </div>
-          {/* Services */}
           <div className="col-span-2 md:col-span-2 grid grid-cols-2 gap-3">
             <div className="p-4 rounded-xl bg-background border border-border text-center">
-              <span className="text-sm font-medium block">Inventory API</span>
-              <span className="text-xs text-[var(--foreground-subtle)]">Spring Boot</span>
+              <span className="text-sm font-medium block">{t.microservices.inventoryApi}</span>
+              <span className="text-xs text-[var(--foreground-subtle)]">{t.microservices.springBoot}</span>
             </div>
             <div className="p-4 rounded-xl bg-background border border-border text-center">
-              <span className="text-sm font-medium block">Digital ADS API</span>
-              <span className="text-xs text-[var(--foreground-subtle)]">Spring Boot</span>
+              <span className="text-sm font-medium block">{t.microservices.digitalAdsApi}</span>
+              <span className="text-xs text-[var(--foreground-subtle)]">{t.microservices.springBoot}</span>
             </div>
             <div className="p-4 rounded-xl bg-background border border-border text-center">
-              <span className="text-sm font-medium block">Dealer API</span>
-              <span className="text-xs text-[var(--foreground-subtle)]">Multi-tenant · Next.js + Spring</span>
+              <span className="text-sm font-medium block">{t.microservices.dealerApi}</span>
+              <span className="text-xs text-[var(--foreground-subtle)]">{t.microservices.dealerApiSub}</span>
             </div>
             <div className="p-4 rounded-xl bg-background border border-border text-center">
-              <span className="text-sm font-medium block">CRM API</span>
-              <span className="text-xs text-[var(--foreground-subtle)]">Spring Boot</span>
+              <span className="text-sm font-medium block">{t.microservices.crmApi}</span>
+              <span className="text-xs text-[var(--foreground-subtle)]">{t.microservices.springBoot}</span>
             </div>
             <div className="p-4 rounded-xl bg-background border border-border text-center">
-              <span className="text-sm font-medium block">Search API</span>
-              <span className="text-xs text-[var(--foreground-subtle)]">Typesense</span>
+              <span className="text-sm font-medium block">{t.microservices.searchApi}</span>
+              <span className="text-xs text-[var(--foreground-subtle)]">{t.microservices.typesense}</span>
             </div>
           </div>
-          {/* Kafka */}
           <div className="col-span-2 md:col-span-1 flex flex-col items-center justify-center p-4 rounded-xl bg-accent-muted/30 border border-border">
             <div className="w-10 h-10 rounded-lg bg-accent/20 flex items-center justify-center mb-2">
               <svg className="w-5 h-5 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
               </svg>
             </div>
-            <span className="text-sm font-semibold text-center">Kafka</span>
-            <span className="text-xs text-[var(--foreground-subtle)]">Events · Streams</span>
+            <span className="text-sm font-semibold text-center">{t.microservices.kafka}</span>
+            <span className="text-xs text-[var(--foreground-subtle)]">{t.microservices.eventsStreams}</span>
           </div>
         </div>
         <p className="text-xs text-[var(--foreground-subtle)] mt-6 text-center">
-          Event-driven microservices: Spring Boot services, Kafka for async workflows, PostgreSQL + Redis. Production-grade.
+          {t.microservices.diagramFooter}
         </p>
       </motion.div>
 
@@ -140,15 +122,15 @@ export function Microservices() {
       <div className="mt-12 flex flex-wrap gap-4 justify-center md:justify-start">
         <div className="px-4 py-2 rounded-xl bg-accent-muted/50 border border-border">
           <span className="text-sm font-semibold text-accent">4,000+</span>
-          <span className="text-sm text-[var(--foreground-muted)] ml-2">dealer sites</span>
+          <span className="text-sm text-[var(--foreground-muted)] ml-2">{t.microservices.metricDealerSites}</span>
         </div>
         <div className="px-4 py-2 rounded-xl bg-accent-muted/50 border border-border">
           <span className="text-sm font-semibold text-accent">Event-driven</span>
-          <span className="text-sm text-[var(--foreground-muted)] ml-2">Kafka pipelines</span>
+          <span className="text-sm text-[var(--foreground-muted)] ml-2">{t.microservices.metricKafka}</span>
         </div>
         <div className="px-4 py-2 rounded-xl bg-accent-muted/50 border border-border">
           <span className="text-sm font-semibold text-accent">Multi-tenant</span>
-          <span className="text-sm text-[var(--foreground-muted)] ml-2">Next.js + Spring</span>
+          <span className="text-sm text-[var(--foreground-muted)] ml-2">{t.microservices.metricMultiTenant}</span>
         </div>
       </div>
     </Section>

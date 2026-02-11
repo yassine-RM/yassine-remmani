@@ -1,11 +1,9 @@
 import type { Metadata } from 'next'
 import { Inter, Plus_Jakarta_Sans } from 'next/font/google'
 import './globals.css'
-import { Navbar } from '@/components/layout/Navbar'
-import { Footer } from '@/components/layout/Footer'
-import { ContactDock } from '@/components/ContactDock'
 import { ThemeProvider } from '@/components/ThemeProvider'
 import { GoogleAnalytics } from '@/components/GoogleAnalytics'
+import { SetLocaleLang } from '@/components/SetLocaleLang'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -81,6 +79,7 @@ export default function RootLayout({
       </head>
       <body className={`${inter.variable} ${jakarta.variable} font-sans`}>
         <GoogleAnalytics />
+        <SetLocaleLang />
         <ThemeProvider>
           <a
             href="#main"
@@ -88,10 +87,7 @@ export default function RootLayout({
           >
             Skip to content
           </a>
-          <Navbar />
-          <main id="main">{children}</main>
-          <Footer />
-          <ContactDock />
+          {children}
         </ThemeProvider>
       </body>
     </html>

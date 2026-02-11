@@ -1,9 +1,14 @@
 'use client'
 
 import { useState, useCallback } from 'react'
-import { RESUME_PDF_FILENAME } from '@/lib/cv-data'
+import { getCvData } from '@/lib/cv-data'
+import type { Locale } from '@/lib/i18n'
 
-export function ResumeDownload() {
+interface ResumeDownloadProps {
+  locale: Locale
+}
+
+export function ResumeDownload({ locale }: ResumeDownloadProps) {
   const [isPreparing, setIsPreparing] = useState(false)
 
   const handleDownload = useCallback(async () => {
@@ -18,11 +23,12 @@ export function ResumeDownload() {
         typeof window !== 'undefined'
           ? `${window.location.origin}/images/me.png`
           : undefined
-      const blob = await pdf(<CVDocument photoUrl={photoUrl} />).toBlob()
+      const blob = await pdf(<CVDocument locale={locale} photoUrl={photoUrl} />).toBlob()
+      const filename = getCvData(locale).filename
       const url = URL.createObjectURL(blob)
       const a = document.createElement('a')
       a.href = url
-      a.download = RESUME_PDF_FILENAME
+      a.download = filename
       a.setAttribute('aria-hidden', 'true')
       document.body.appendChild(a)
       a.click()
@@ -33,7 +39,7 @@ export function ResumeDownload() {
     } finally {
       setIsPreparing(false)
     }
-  }, [isPreparing])
+  }, [isPreparing, locale])
 
   return (
     <button

@@ -10,21 +10,28 @@ import { SeoJsonLd } from '@/components/seo/SeoJsonLd'
 import { personSchema, webSiteSchema, webPageSchema, softwareApplicationSchema } from '@/lib/seo-schema'
 import { canonicalUrl } from '@/lib/seo'
 
-export default function HomePage() {
+interface HomePageProps {
+  params: Promise<{ locale: string }>
+}
+
+export default async function HomePage({ params }: HomePageProps) {
+  const { locale } = await params
+  const homePath = `/${locale}`
+
   return (
     <>
-      <SeoJsonLd data={personSchema()} />
-      <SeoJsonLd data={webSiteSchema()} />
+      <SeoJsonLd data={personSchema({ pathname: homePath })} />
+      <SeoJsonLd data={webSiteSchema({ pathname: homePath })} />
       <SeoJsonLd data={webPageSchema({
         name: 'Yassine REMMANI — Backend Engineer | Spring Boot & Next.js',
         description: 'Backend Engineer. Scalable APIs, event-driven systems, multi-tenant platforms. Spring Boot, Next.js, PostgreSQL, Docker, Kafka, AWS.',
-        pathname: '/',
-        breadcrumbs: [{ name: 'Home', url: canonicalUrl('/') }],
+        pathname: homePath,
+        breadcrumbs: [{ name: 'Home', url: canonicalUrl(homePath) }],
       })} />
       <SeoJsonLd data={softwareApplicationSchema({
         name: 'TravelOS',
         description: 'Travel discovery & content platform. SEO-first architecture, high-performance REST APIs. Spring Boot, Next.js, PostgreSQL, Redis.',
-        url: canonicalUrl('/projects/travelos'),
+        url: canonicalUrl(`/${locale}/projects/travelos`),
         applicationCategory: 'TravelApplication',
       })} />
       <Hero />

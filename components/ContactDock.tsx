@@ -4,8 +4,13 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useLocale } from '@/components/LocaleProvider'
+import { localePath } from '@/lib/i18n'
+import { useTranslations } from '@/hooks/useTranslations'
 
 export function ContactDock() {
+  const locale = useLocale()
+  const t = useTranslations()
   const [isOpen, setIsOpen] = useState(false)
   const [copied, setCopied] = useState(false)
 
@@ -32,7 +37,7 @@ export function ContactDock() {
                 e.preventDefault()
                 copyEmail()
               }}
-              aria-label="Copy email"
+              aria-label={t.contactDock.copyEmail}
               className={cn(
                 'w-12 h-12 rounded-full border border-border bg-card flex items-center justify-center text-foreground hover:border-accent hover:text-accent transition-all shadow-lg',
                 copied && 'border-accent text-accent'
@@ -65,8 +70,8 @@ export function ContactDock() {
               </svg>
             </a>
             <Link
-              href="/contact"
-              aria-label="Contact"
+              href={localePath(locale, '/contact')}
+              aria-label={t.contactDock.contact}
               className="w-12 h-12 rounded-full border border-border bg-card flex items-center justify-center text-foreground hover:border-accent hover:text-accent transition-all shadow-lg"
             >
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -78,7 +83,7 @@ export function ContactDock() {
       </AnimatePresence>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        aria-label={isOpen ? 'Close contact menu' : 'Open contact menu'}
+        aria-label={isOpen ? t.contactDock.closeMenu : t.contactDock.openMenu}
         aria-expanded={isOpen}
         className={cn(
           'w-14 h-14 rounded-full bg-accent-gradient text-white flex items-center justify-center shadow-lg transition-all hover:opacity-90 hover:scale-105',

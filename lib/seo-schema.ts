@@ -1,13 +1,14 @@
 import { canonicalUrl } from './seo'
 
-export function personSchema() {
+export function personSchema(options?: { pathname?: string }) {
+  const pathname = options?.pathname ?? '/'
   return {
     '@context': 'https://schema.org',
     '@type': 'Person',
     name: 'Yassine REMMANI',
     jobTitle: 'Backend Engineer',
     description: 'Backend Engineer specializing in Spring Boot, Next.js, scalable APIs, event-driven systems, and multi-tenant platforms. Production-grade systems.',
-    url: canonicalUrl('/'),
+    url: canonicalUrl(pathname),
     sameAs: [
       'https://www.linkedin.com/in/yassine-remmani/',
       'https://github.com/yassine-RM',
@@ -38,12 +39,13 @@ export function personSchema() {
   }
 }
 
-export function webSiteSchema() {
+export function webSiteSchema(options?: { pathname?: string }) {
+  const pathname = options?.pathname ?? '/'
   return {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     name: 'Yassine REMMANI — Backend Engineer',
-    url: canonicalUrl('/'),
+    url: canonicalUrl(pathname),
     description: 'Backend Engineer. Scalable APIs, event-driven systems, multi-tenant platforms. Spring Boot, Next.js, PostgreSQL, Docker, Kafka, AWS.',
     publisher: {
       '@type': 'Person',
@@ -51,7 +53,7 @@ export function webSiteSchema() {
     },
     potentialAction: {
       '@type': 'SearchAction',
-      target: { '@type': 'EntryPoint', url: `${canonicalUrl('/')}/?s={search_term_string}` },
+      target: { '@type': 'EntryPoint', url: `${canonicalUrl(pathname)}/?s={search_term_string}` },
       'query-input': 'required name=search_term_string',
     },
   }
@@ -119,7 +121,11 @@ export function softwareApplicationSchema(options: {
 }
 
 /** ItemList schema for projects/case studies index page */
-export function projectsItemListSchema(projects: { slug: string; title: string; summary: string }[]) {
+export function projectsItemListSchema(
+  projects: { slug: string; title: string; summary: string }[],
+  pathPrefix = ''
+) {
+  const prefix = pathPrefix && !pathPrefix.endsWith('/') ? pathPrefix : pathPrefix
   return {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
@@ -131,7 +137,7 @@ export function projectsItemListSchema(projects: { slug: string; title: string; 
       position: i + 1,
       name: p.title,
       description: p.summary,
-      url: canonicalUrl(`/projects/${p.slug}`),
+      url: canonicalUrl(`${prefix}/projects/${p.slug}`),
     })),
   }
 }
