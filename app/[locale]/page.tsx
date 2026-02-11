@@ -1,9 +1,11 @@
 import { Hero } from '@/components/sections/Hero'
 import { About } from '@/components/sections/About'
+import { HowIBuild } from '@/components/sections/HowIBuild'
 import { Skills } from '@/components/sections/Skills'
 import { Microservices } from '@/components/sections/Microservices'
 import { Projects } from '@/components/sections/Projects'
 import { Experience } from '@/components/sections/Experience'
+import { AI } from '@/components/sections/AI'
 import { CTABanner } from '@/components/sections/CTABanner'
 import { Contact } from '@/components/sections/Contact'
 import { SeoJsonLd } from '@/components/seo/SeoJsonLd'
@@ -36,10 +38,12 @@ export default async function HomePage({ params }: HomePageProps) {
       })} />
       <Hero />
       <About />
+      <HowIBuild />
       <Skills />
       <Microservices />
       <Projects />
       <Experience />
+      <AI />
       <CTABanner />
       <Contact />
     </>
