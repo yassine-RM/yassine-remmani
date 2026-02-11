@@ -120,9 +120,6 @@ export default async function ExperiencePage({ params }: PageProps) {
             >
               <h3 className="font-heading font-semibold">{item.degree}</h3>
               <p className="text-[var(--foreground-muted)] text-sm mt-1">{item.institution}</p>
-              {item.focus && (
-                <p className="text-sm text-[var(--foreground-subtle)] mt-2">{item.focus}</p>
-              )}
             </div>
           ))}
         </div>

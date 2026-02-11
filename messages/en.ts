@@ -403,4 +403,13 @@ export const en = {
   },
 } as const
 
-export type Messages = typeof en
+/** Recursive type that allows any string in place of literal values — so fr satisfies Messages. */
+type DeepStringify<T> = T extends readonly (infer U)[]
+  ? U extends object
+    ? readonly DeepStringify<U>[]
+    : readonly string[]
+  : T extends object
+    ? { [K in keyof T]: DeepStringify<T[K]> }
+    : string
+
+export type Messages = DeepStringify<typeof en>
