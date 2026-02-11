@@ -90,7 +90,7 @@ export const en = {
     title: 'Ready to Build Something Great?',
     subtitle: "Open to senior full-stack roles (Spring Boot + Next.js) and teams building AI into products. Let's discuss how I can help your team ship.",
     downloadResume: 'Download 1-page Resume (PDF)',
-    bookCall: 'Book 15-min call',
+    bookCall: 'Reach out',
   },
   contactSection: {
     title: 'Get in touch',

@@ -91,7 +91,7 @@ export const fr: Messages = {
     title: 'Prêt à construire quelque chose de solide ?',
     subtitle: 'Ouvert aux postes senior full-stack (Spring Boot + Next.js) et aux équipes qui intègrent l’IA. Échangeons sur la façon dont je peux aider votre équipe à livrer.',
     downloadResume: 'Télécharger le CV 1 page (PDF)',
-    bookCall: 'Réserver un appel de 15 min',
+    bookCall: 'Me contacter',
   },
   contactSection: {
     title: 'Me contacter',
