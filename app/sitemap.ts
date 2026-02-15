@@ -1,5 +1,6 @@
 import { MetadataRoute } from 'next'
 import { projects } from '@/lib/constants'
+import { getAllPosts } from '@/lib/blog'
 import { locales } from '@/lib/i18n'
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -21,6 +22,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ]
 
   const routes: MetadataRoute.Sitemap = []
+  const posts = getAllPosts()
 
   for (const locale of locales) {
     const prefix = `/${locale}`
@@ -40,6 +42,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: project.slug === 'travelos' ? 0.9 : 0.8,
     }))
     routes.push(...projectRoutes)
+    const blogPostRoutes = posts.map((post) => ({
+      url: `${baseUrl}${prefix}/blog/${post.slug}`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly' as const,
+      priority: 0.8,
+    }))
+    routes.push(...blogPostRoutes)
   }
 
   return routes

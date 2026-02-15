@@ -8,6 +8,7 @@ export const en = {
     about: 'About',
     skills: 'Skills',
     projects: 'Projects',
+    blog: 'Blog',
     experience: 'Experience',
     resume: 'Resume',
     contact: 'Contact',
@@ -160,8 +161,17 @@ export const en = {
     h1: 'Articles &',
     h1Accent: 'Insights',
     subtitle: 'Thoughts on full-stack development, Spring Boot, Next.js, and software engineering.',
+    metaTitle: 'Blog — Articles & Insights',
+    metaDescription: 'Thoughts on full-stack development, Spring Boot, Next.js, and software engineering.',
     comingSoon: 'Coming Soon',
     comingSoonDesc: 'Blog posts will be added here. Check back soon for articles on full-stack development, Spring Boot, Next.js, and more.',
+  },
+  blogPosts: {
+    'building-production-ready-rag-systems-saas': {
+      title: 'Building Production-Ready RAG Systems for SaaS Applications (Spring Boot + Next.js)',
+      excerpt: 'Architecture-focused guide to Retrieval-Augmented Generation: orchestration with Spring Boot, vector stores, ingestion pipelines, and production concerns for multi-tenant SaaS.',
+      readingTime: '12 min read',
+    },
   },
   contactPage: {
     h1: 'Contact',

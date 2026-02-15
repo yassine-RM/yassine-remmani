@@ -170,3 +170,34 @@ export function caseStudySchema(options: {
     },
   }
 }
+
+/** BlogPosting schema for blog article pages */
+export function blogPostingSchema(options: {
+  headline: string
+  description: string
+  url: string
+  datePublished: string
+  dateModified?: string
+  keywords?: string[]
+}) {
+  const { headline, description, url, datePublished, dateModified, keywords } = options
+  const schema: Record<string, unknown> = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline,
+    description,
+    url,
+    datePublished,
+    author: {
+      '@type': 'Person',
+      name: 'Yassine REMMANI',
+    },
+    publisher: {
+      '@type': 'Person',
+      name: 'Yassine REMMANI',
+    },
+  }
+  if (dateModified) schema.dateModified = dateModified
+  if (keywords?.length) schema.keywords = keywords.join(', ')
+  return schema
+}

@@ -9,6 +9,7 @@ export const fr: Messages = {
     about: 'À propos',
     skills: 'Compétences',
     projects: 'Projets',
+    blog: 'Blog',
     experience: 'Expérience',
     resume: 'CV',
     contact: 'Contact',
@@ -161,8 +162,17 @@ export const fr: Messages = {
     h1: 'Articles &',
     h1Accent: 'Points de vue',
     subtitle: 'Réflexions sur le full-stack, Spring Boot, Next.js et l’ingénierie logicielle.',
+    metaTitle: 'Blog — Articles & points de vue',
+    metaDescription: 'Réflexions sur le full-stack, Spring Boot, Next.js et l’ingénierie logicielle.',
     comingSoon: 'Bientôt disponible',
     comingSoonDesc: 'Les articles seront ajoutés ici. Revenez bientôt pour du contenu sur le full-stack, Spring Boot, Next.js et plus.',
+  },
+  blogPosts: {
+    'building-production-ready-rag-systems-saas': {
+      title: 'Construire des systèmes RAG prêts pour la production (Spring Boot + Next.js)',
+      excerpt: 'Guide orienté architecture pour la génération augmentée par retrieval : orchestration avec Spring Boot, bases vectorielles, pipelines d’ingestion et enjeux production pour SaaS multi-tenant.',
+      readingTime: '12 min',
+    },
   },
   contactPage: {
     h1: 'Contact',

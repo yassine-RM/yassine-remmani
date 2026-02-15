@@ -11,8 +11,8 @@ import { useTranslations } from '@/hooks/useTranslations'
 import { cn } from '@/lib/utils'
 import { motion, AnimatePresence } from 'framer-motion'
 
-const navPaths = ['/', '/about', '/skills', '/projects', '/experience', '/resume', '/contact'] as const
-const navKeys = ['home', 'about', 'skills', 'projects', 'experience', 'resume', 'contact'] as const
+const navPaths = ['/', '/about', '/skills', '/projects', '/blog', '/experience', '/resume', '/contact'] as const
+const navKeys = ['home', 'about', 'skills', 'projects', 'blog', 'experience', 'resume', 'contact'] as const
 
 export function Navbar() {
   const pathname = usePathname()

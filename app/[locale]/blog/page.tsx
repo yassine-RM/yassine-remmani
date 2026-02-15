@@ -1,8 +1,10 @@
 import { Metadata } from 'next'
+import Link from 'next/link'
 import { buildMetadata, canonicalUrl } from '@/lib/seo'
 import { webPageSchema } from '@/lib/seo-schema'
 import { SeoJsonLd } from '@/components/seo/SeoJsonLd'
 import { getTranslations } from '@/lib/translations'
+import { getAllPosts } from '@/lib/blog'
 import type { Locale } from '@/lib/i18n'
 
 interface PageProps {
@@ -11,9 +13,10 @@ interface PageProps {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale } = await params
+  const t = getTranslations(locale as Locale)
   return buildMetadata({
-    title: 'Blog — Articles & Insights',
-    description: 'Thoughts on full-stack development, Spring Boot, Next.js, and software engineering.',
+    title: t.blogPage.metaTitle,
+    description: t.blogPage.metaDescription,
     pathname: `/${locale}/blog`,
   })
 }
@@ -23,6 +26,7 @@ export default async function BlogPage({ params }: PageProps) {
   const t = getTranslations(locale as Locale)
   const pathname = `/${locale}/blog`
   const homePath = `/${locale}`
+  const posts = getAllPosts()
 
   return (
     <>
@@ -58,15 +62,48 @@ export default async function BlogPage({ params }: PageProps) {
           </p>
         </div>
 
-        <div className="bg-[var(--bg-surface)] border border-[var(--border-color)] rounded-xl p-12 text-center shadow-card">
-          <svg className="w-12 h-12 text-[var(--text-secondary)] mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-          </svg>
-          <h2 className="font-heading text-xl font-bold mb-2">{t.blogPage.comingSoon}</h2>
-          <p className="text-[var(--text-secondary)]">
-            {t.blogPage.comingSoonDesc}
-          </p>
-        </div>
+        {posts.length > 0 ? (
+          <ul className="space-y-6" role="list">
+            {posts.map((post) => {
+              const tr = t.blogPosts[post.slug as keyof typeof t.blogPosts]
+              const title = (tr as { title?: string } | undefined)?.title ?? post.title
+              const excerpt = (tr as { excerpt?: string } | undefined)?.excerpt ?? post.excerpt
+              const readingTime = (tr as { readingTime?: string } | undefined)?.readingTime ?? post.readingTime
+              return (
+                <li key={post.slug}>
+                  <Link
+                    href={`/${locale}/blog/${post.slug}`}
+                    className="block bg-[var(--bg-surface)] border border-[var(--border-color)] rounded-xl p-6 shadow-card hover:border-accent/50 transition-colors focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-[var(--bg)]"
+                  >
+                    <h2 className="font-heading text-xl font-bold mb-2">{title}</h2>
+                    <p className="text-[var(--text-secondary)] text-sm mb-3 line-clamp-2">
+                      {excerpt}
+                    </p>
+                    <div className="flex items-center gap-3 text-xs text-[var(--foreground-muted)]">
+                      <time dateTime={post.date}>{post.date}</time>
+                      {readingTime && (
+                        <>
+                          <span aria-hidden>·</span>
+                          <span>{readingTime}</span>
+                        </>
+                      )}
+                    </div>
+                  </Link>
+                </li>
+              )
+            })}
+          </ul>
+        ) : (
+          <div className="bg-[var(--bg-surface)] border border-[var(--border-color)] rounded-xl p-12 text-center shadow-card">
+            <svg className="w-12 h-12 text-[var(--text-secondary)] mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+            </svg>
+            <h2 className="font-heading text-xl font-bold mb-2">{t.blogPage.comingSoon}</h2>
+            <p className="text-[var(--text-secondary)]">
+              {t.blogPage.comingSoonDesc}
+            </p>
+          </div>
+        )}
       </section>
     </>
   )
