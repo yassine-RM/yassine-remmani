@@ -1,43 +1,32 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
-const DEFAULT_LOCALE = 'en'
-
-function isValidLocale(segment: string): boolean {
-  return segment === 'en' || segment === 'fr'
-}
-
 export function middleware(request: NextRequest) {
-  try {
-    const { pathname } = request.nextUrl
+  const pathname = request.nextUrl.pathname || '/'
 
-    // Redirect root to default locale
-    if (pathname === '/' || pathname === '') {
-      const url = request.nextUrl.clone()
-      url.pathname = `/${DEFAULT_LOCALE}`
-      return NextResponse.redirect(url)
-    }
+  // Redirect root to default locale
+  if (pathname === '/') {
+    const redirectUrl = request.nextUrl.origin + '/en'
+    return NextResponse.redirect(redirectUrl)
+  }
 
-    // Allow static files and Next.js internals
-    if (
-      pathname.startsWith('/_next') ||
-      pathname.startsWith('/images') ||
-      pathname.includes('.')
-    ) {
-      return NextResponse.next()
-    }
-
-    const segment = pathname.slice(1).split('/')[0]
-    if (segment && !isValidLocale(segment)) {
-      const url = request.nextUrl.clone()
-      url.pathname = `/${DEFAULT_LOCALE}${pathname}`
-      return NextResponse.redirect(url)
-    }
-
-    return NextResponse.next()
-  } catch {
+  // Skip middleware for static assets and Next internals
+  if (
+    pathname.startsWith('/_next') ||
+    pathname.startsWith('/images') ||
+    pathname.includes('.')
+  ) {
     return NextResponse.next()
   }
+
+  // First path segment (e.g. "en" from "/en/blog")
+  const first = pathname.slice(1).split('/')[0]
+  if (first && first !== 'en' && first !== 'fr') {
+    const redirectUrl = request.nextUrl.origin + '/en' + pathname
+    return NextResponse.redirect(redirectUrl)
+  }
+
+  return NextResponse.next()
 }
 
 export const config = {
