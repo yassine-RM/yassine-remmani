@@ -6,7 +6,8 @@ import { buildMetadata, canonicalUrl } from '@/lib/seo'
 import { SeoJsonLd } from '@/components/seo/SeoJsonLd'
 import { webPageSchema, blogPostingSchema } from '@/lib/seo-schema'
 import { getTranslations } from '@/lib/translations'
-import { getAllPosts, getPostBySlug, getPostRawContent, stripFrontmatter } from '@/lib/blog'
+import Image from 'next/image'
+import { getAllPosts, getPostBySlug, getPostRawContent, stripFrontmatter, blogCoverImageSrc } from '@/lib/blog'
 import type { Locale } from '@/lib/i18n'
 
 interface PageProps {
@@ -123,6 +124,19 @@ export default async function BlogPostPage({ params }: PageProps) {
             {t.blogPage.badge}
           </Link>
         </nav>
+
+        {meta.coverImage && (
+          <div className="relative w-full aspect-[2/1] max-h-[360px] rounded-xl overflow-hidden border border-[var(--border-color)] mb-10">
+            <Image
+              src={blogCoverImageSrc(meta.coverImage)}
+              alt=""
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, 672px"
+              priority
+            />
+          </div>
+        )}
 
         <header className="mb-12">
           <h1 className="font-heading text-3xl md:text-4xl font-bold mb-4">

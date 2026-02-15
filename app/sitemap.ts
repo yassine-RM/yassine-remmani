@@ -1,7 +1,9 @@
-import { MetadataRoute } from 'next'
+import type { MetadataRoute } from 'next'
 import { projects } from '@/lib/constants'
 import { getAllPosts } from '@/lib/blog'
 import { locales } from '@/lib/i18n'
+
+export const dynamic = 'force-static'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://remmanidev.com'

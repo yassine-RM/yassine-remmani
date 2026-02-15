@@ -4,7 +4,8 @@ import { buildMetadata, canonicalUrl } from '@/lib/seo'
 import { webPageSchema } from '@/lib/seo-schema'
 import { SeoJsonLd } from '@/components/seo/SeoJsonLd'
 import { getTranslations } from '@/lib/translations'
-import { getAllPosts } from '@/lib/blog'
+import Image from 'next/image'
+import { getAllPosts, blogCoverImageSrc } from '@/lib/blog'
 import type { Locale } from '@/lib/i18n'
 
 interface PageProps {
@@ -63,31 +64,58 @@ export default async function BlogPage({ params }: PageProps) {
         </div>
 
         {posts.length > 0 ? (
-          <ul className="space-y-6" role="list">
+          <ul className="space-y-4" role="list">
             {posts.map((post) => {
               const tr = t.blogPosts[post.slug as keyof typeof t.blogPosts]
               const title = (tr as { title?: string } | undefined)?.title ?? post.title
               const excerpt = (tr as { excerpt?: string } | undefined)?.excerpt ?? post.excerpt
               const readingTime = (tr as { readingTime?: string } | undefined)?.readingTime ?? post.readingTime
+              const coverSrc = post.coverImage ? blogCoverImageSrc(post.coverImage) : null
               return (
                 <li key={post.slug}>
                   <Link
                     href={`/${locale}/blog/${post.slug}`}
-                    className="block bg-[var(--bg-surface)] border border-[var(--border-color)] rounded-xl p-6 shadow-card hover:border-accent/50 transition-colors focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-[var(--bg)]"
+                    className="group flex flex-col sm:flex-row gap-0 bg-[var(--bg-surface)] border border-[var(--border-color)] rounded-xl overflow-hidden shadow-sm hover:shadow-md hover:border-[var(--border-color)] transition-all duration-200 ease-out focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-[var(--bg)]"
                   >
-                    <h2 className="font-heading text-xl font-bold mb-2">{title}</h2>
-                    <p className="text-[var(--text-secondary)] text-sm mb-3 line-clamp-2">
-                      {excerpt}
-                    </p>
-                    <div className="flex items-center gap-3 text-xs text-[var(--foreground-muted)]">
-                      <time dateTime={post.date}>{post.date}</time>
-                      {readingTime && (
-                        <>
-                          <span aria-hidden>·</span>
-                          <span>{readingTime}</span>
-                        </>
-                      )}
+                    {coverSrc ? (
+                      <div className="relative w-full sm:w-40 sm:min-w-[10rem] h-32 sm:h-full sm:min-h-0 bg-[var(--bg)] flex-shrink-0 self-stretch">
+                        <Image
+                          src={coverSrc}
+                          alt=""
+                          fill
+                          className="object-cover transition-transform duration-200 ease-out group-hover:scale-[1.02]"
+                          sizes="(max-width: 640px) 100vw, 160px"
+                        />
+                      </div>
+                    ) : (
+                      <div className="w-full sm:w-40 sm:min-w-[10rem] h-32 sm:h-full sm:min-h-0 bg-[var(--bg)] flex-shrink-0 self-stretch flex items-center justify-center">
+                        <svg className="w-10 h-10 text-[var(--foreground-muted)]/40" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+                        </svg>
+                      </div>
+                    )}
+                    <div className="flex flex-1 flex-col justify-center p-4 pt-0 sm:pt-5 sm:p-5 min-w-0">
+                      <h2 className="font-heading text-lg font-semibold text-[var(--foreground)] mb-1.5 line-clamp-2 group-hover:text-accent transition-colors">
+                        {title}
+                      </h2>
+                      <p className="text-sm text-[var(--text-secondary)] line-clamp-2 mb-3">
+                        {excerpt}
+                      </p>
+                      <div className="flex items-center gap-2.5 text-xs text-[var(--foreground-muted)]">
+                        <time dateTime={post.date}>{post.date}</time>
+                        {readingTime && (
+                          <>
+                            <span className="text-[var(--border-color)]" aria-hidden>·</span>
+                            <span>{readingTime}</span>
+                          </>
+                        )}
+                      </div>
                     </div>
+                    <span className="hidden sm:flex self-center pr-4 text-[var(--foreground-muted)]" aria-hidden>
+                      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </span>
                   </Link>
                 </li>
               )

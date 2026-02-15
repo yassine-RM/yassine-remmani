@@ -1,18 +1,28 @@
 'use client'
 
 import React from 'react'
+import Image from 'next/image'
+
+/** Base path for relative image src. Images in public/images/blogs/ use this. */
+const DEFAULT_IMAGE_BASE = '/images/blogs'
 
 /**
  * Minimal markdown renderer for blog posts. Supports:
- * ## / ### headings, **bold**, `code`, ```fenced code```, tables, paragraphs.
- * No extra dependencies.
+ * ## / ### headings, **bold**, `code`, ```fenced code```, tables, images, paragraphs.
+ * Images: use ![](url) or ![](filename.png); relative paths are resolved under imageBasePath (default /blog).
  */
-export function SimpleMarkdown({ content }: { content: string }) {
+export function SimpleMarkdown({
+  content,
+  imageBasePath = DEFAULT_IMAGE_BASE,
+}: {
+  content: string
+  imageBasePath?: string
+}) {
   const blocks = splitBlocks(content)
   return (
     <div className="space-y-4">
       {blocks.map((block, i) => (
-        <React.Fragment key={i}>{renderBlock(block)}</React.Fragment>
+        <React.Fragment key={i}>{renderBlock(block, imageBasePath)}</React.Fragment>
       ))}
     </div>
   )
@@ -79,12 +89,48 @@ function flushParagraph(blocks: string[], current: string[]) {
   }
 }
 
-function renderBlock(block: string): React.ReactNode {
+function resolveImageSrc(src: string, imageBasePath: string): string {
+  const s = src.trim()
+  if (!s) return s
+  if (s.startsWith('/') || s.startsWith('http://') || s.startsWith('https://')) return s
+  const base = imageBasePath.endsWith('/') ? imageBasePath : `${imageBasePath}/`
+  const path = `${base}${s}`
+  try {
+    return path.split('/').map((seg) => encodeURIComponent(seg)).join('/')
+  } catch {
+    return path
+  }
+}
+
+function renderBlock(block: string, imageBasePath: string): React.ReactNode {
   const trimmed = block.trim()
   if (!trimmed) return null
 
   if (trimmed === '---') {
     return <hr className="border-[var(--border-color)] my-6" />
+  }
+  const imgMatch = trimmed.match(/^!\[([^\]]*)\]\(([^)]+)\)$/)
+  if (imgMatch) {
+    const [, alt, src] = imgMatch
+    const resolvedSrc = resolveImageSrc(src, imageBasePath)
+    return (
+      <figure className="my-6">
+        <div className="relative w-full aspect-video max-h-[480px] rounded-lg border border-[var(--border-color)] overflow-hidden bg-[var(--bg-surface)]">
+          <Image
+            src={resolvedSrc}
+            alt={alt ?? ''}
+            fill
+            className="object-contain"
+            sizes="(max-width: 768px) 100vw, 672px"
+          />
+        </div>
+        {alt ? (
+          <figcaption className="mt-2 text-sm text-[var(--foreground-muted)] text-center">
+            {alt}
+          </figcaption>
+        ) : null}
+      </figure>
+    )
   }
   if (trimmed.startsWith('### ')) {
     return (

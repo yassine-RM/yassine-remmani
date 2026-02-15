@@ -8,6 +8,8 @@ export interface BlogPostMeta {
   date: string
   readingTime?: string
   keywords?: string[]
+  /** Cover image filename under /images/blogs (e.g. "Build production-ready RAG systems.webp") */
+  coverImage?: string
 }
 
 const postsCatalog: BlogPostMeta[] = [
@@ -19,6 +21,7 @@ const postsCatalog: BlogPostMeta[] = [
     date: '2025-02-15',
     readingTime: '12 min read',
     keywords: ['RAG', 'Spring Boot', 'Next.js', 'vector database', 'LLM', 'embeddings', 'SaaS'],
+    coverImage: 'Build production-ready RAG systems.webp',
   },
 ]
 
@@ -57,4 +60,9 @@ export function getPostRawContent(slug: string, locale?: string): string | null 
 export function stripFrontmatter(raw: string): string {
   const match = raw.match(/^---\r?\n[\s\S]*?\r?\n---\r?\n([\s\S]*)$/)
   return match ? match[1].trim() : raw
+}
+
+/** Full URL path for a blog cover image (public/images/blogs). */
+export function blogCoverImageSrc(filename: string): string {
+  return `/images/blogs/${encodeURIComponent(filename)}`
 }
