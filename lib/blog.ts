@@ -33,6 +33,16 @@ const postsCatalog: BlogPostMeta[] = [
     keywords: ['AI', 'travel SaaS', 'RAG', 'Spring Boot', 'Next.js', 'embeddings', 'itinerary', 'LLM', 'vector database'],
     coverImage: 'Designing an AI-Powered Travel SaaS- From Data Ingestion to Intelligent Itineraries.png',
   },
+  {
+    slug: 'ai-tools-developer-productivity',
+    title: 'AI Tools That Help Developers Build Faster and Smarter',
+    excerpt:
+      'A practical, architecture-level guide to using AI tools across coding, testing, documentation, and DevOps to accelerate full-stack SaaS delivery without sacrificing quality.',
+    date: '2026-02-20',
+    readingTime: '11 min read',
+    keywords: ['AI developer tools', 'developer productivity', 'Spring Boot', 'Next.js', 'RAG', 'SaaS engineering', 'DevOps automation'],
+    coverImage: 'AI Tools That Help Developers Build Faster and Smarter.webp',
+  },
 ]
 
 const contentDir = path.join(process.cwd(), 'content', 'blog')

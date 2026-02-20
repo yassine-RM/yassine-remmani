@@ -178,6 +178,11 @@ export const fr: Messages = {
       excerpt: "Architecture d'une plateforme de voyage intelligente : backend Spring Boot, frontend Next.js, RAG pour des recommandations contextuelles, et considérations production pour un SaaS multi-tenant.",
       readingTime: '14 min',
     },
+    'ai-tools-developer-productivity': {
+      title: "Des outils IA pour aider les developpeurs a construire plus vite et plus intelligemment",
+      excerpt: "Un guide pratique et oriente architecture sur l'usage des outils IA en developpement, tests, documentation et DevOps pour accelerer la livraison SaaS full-stack sans compromettre la qualite.",
+      readingTime: '11 min',
+    },
   },
   contactPage: {
     h1: 'Contact',

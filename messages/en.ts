@@ -177,6 +177,11 @@ export const en = {
       excerpt: 'Architecture-focused walkthrough of building an intelligent travel platform: Spring Boot backend, Next.js frontend, RAG for context-aware recommendations, and production considerations for multi-tenant SaaS.',
       readingTime: '14 min read',
     },
+    'ai-tools-developer-productivity': {
+      title: 'AI Tools That Help Developers Build Faster and Smarter',
+      excerpt: 'A practical, architecture-level guide to using AI tools across coding, testing, documentation, and DevOps to accelerate full-stack SaaS delivery without sacrificing quality.',
+      readingTime: '11 min read',
+    },
   },
   contactPage: {
     h1: 'Contact',
