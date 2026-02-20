@@ -1,0 +1,174 @@
+---
+title: "Concevoir une plateforme SaaS de voyage basée sur l'IA : de l'ingestion des données aux itinéraires intelligents"
+excerpt: "Architecture d'une plateforme de voyage intelligente : backend Spring Boot, frontend Next.js, RAG pour des recommandations contextuelles, et considérations production pour un SaaS multi-tenant."
+date: "2025-02-20"
+keywords: ["IA", "SaaS voyage", "RAG", "Spring Boot", "Next.js", "embeddings", "itinéraire", "LLM", "base vectorielle"]
+---
+
+## 1. Introduction
+
+La planification des voyages aujourd'hui est en décalage avec les attentes. Les voyageurs enchaînent les onglets : comparateurs de vols, sites d'hôtels, articles de blog éparpillés et calendriers d'événements. L'information est statique, fragmentée et rarement alignée avec le budget, la durée ou les préférences. Un article de 2019 peut recommander un restaurant qui a depuis fermé ; une API hôtel renvoie des disponibilités mais pas les conseils locaux qui font la qualité d'un séjour. L'écart entre ce dont les utilisateurs ont besoin—des itinéraires personnalisés, à jour et actionnables—et ce que proposent les plateformes statiques ouvre la voie aux systèmes intelligents.
+
+**Pourquoi l'IA change l'expérience.** Les interfaces de recherche et de filtres classiques ne savent pas raisonner sur des contraintes (par ex. « 3 jours à Marrakech avec 500 $ au total ») ni fusionner plusieurs sources en un plan cohérent. Les grands modèles de langage, lorsqu'ils sont ancrés dans des données réelles via la RAG (Retrieval-Augmented Generation), peuvent synthétiser transports, hébergements, événements et savoir local en un seul itinéraire en langage naturel. Le résultat n'est pas une liste de liens mais un plan adapté au budget, à la durée et aux préférences—et qui reste à jour car alimenté par des API en temps réel et une base de connaissances maintenue.
+
+Cet article décrit l'architecture d'un tel système : ingestion des données, intégration RAG, personnalisation et enjeux de production, avec un scénario concret pour illustrer le flux.
+
+---
+
+## 2. Vue d'ensemble de l'architecture
+
+Une plateforme de voyage IA prête pour la production couvre en général cinq couches : frontend, orchestration backend, couche IA (LLM + RAG), base vectorielle et pipelines de données. Le backend est le point unique de contrôle pour l'auth, le contexte tenant et tous les appels aux services externes.
+
+### Architecture haut niveau
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│  Next.js (Frontend)                                                          │
+│  – UI itinéraire, recherche, filtres, réponses en stream                     │
+└───────────────────────────────────────┬─────────────────────────────────────┘
+                                        │ HTTPS
+                                        ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│  Spring Boot (Backend)                                                       │
+│  – Auth, rate limiting, contexte tenant                                      │
+│  – Orchestre : embedding → recherche vectorielle → construction prompt → LLM│
+└───┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────────┘
+    │             │             │             │             │
+    ▼             ▼             ▼             ▼             ▼
+┌────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌─────────────────────┐
+│Transport│  │  Hôtels  │  │ Événements│  │ Embedding│  │ Base vectorielle    │
+│  APIs  │  │   APIs   │  │   APIs   │  │  + LLM   │  │ (Qdrant/Pinecone/   │
+│        │  │          │  │          │  │ (OpenAI/ │  │  pgvector)           │
+└────────┘  └──────────┘  └──────────┘  │ Bedrock) │  └─────────────────────┘
+                                        └──────────┘
+    ▲             ▲             ▲
+    │             │             │
+┌─────────────────────────────────────────────────────────────────────────────┐
+│  Ingestion des données (batch / cron)                                        │
+│  – Normaliser les API, scraper du contenu structuré, chunker, embed, upsert  │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+- **Frontend (Next.js) :** Affiche la recherche, les filtres et le flux de l'itinéraire. Garde la logique métier et les secrets côté serveur ; appelle l'API Spring Boot pour toutes les opérations IA et données.
+- **Backend (Spring Boot) :** Valide l'utilisateur, résout le tenant, appelle le service d'embedding pour la requête, exécute la recherche vectorielle, construit le prompt avec le contexte récupéré, appelle le LLM et renvoie ou stream la réponse. Peut aussi agréger ou proxifier les API externes.
+- **Couche IA :** Modèle d'embedding (ex. `text-embedding-3-small`) pour les vecteurs requête et documents ; LLM (OpenAI ou open-source via Bedrock/Groq) pour la génération. Les deux sont invoqués uniquement depuis le backend.
+- **Base vectorielle :** Stocke les embeddings des chunks et métadonnées (ville, type, plage de dates, tenant_id). Utilisée pour la recherche par similarité au moment de la requête ; mise à jour par les jobs d'ingestion.
+- **Ingestion des données :** Pipelines dédiés (cron ou event-driven) qui récupèrent les API transport, hôtels et événements ; normalisent vers un schéma commun ; enrichissent éventuellement avec du contenu scrapé ou interne ; chunkent, embeddent et upsertent dans la base vectorielle.
+
+---
+
+## 3. Sources de données
+
+La qualité des recommandations dépend de la qualité et de la couverture des données ingérées. Une configuration typique combine des API temps réel et une base de connaissances curée.
+
+| Type de source | Exemples | Rôle |
+|----------------|----------|------|
+| **API transport** | Vols, trains, location de voiture | Disponibilité, prix, durée. Ingestion périodique ou à la demande ; champs clés (trajet, prix, date) peuvent être chunkés et stockés pour la RAG. |
+| **API hôtels** | Booking.com, Amadeus, sur mesure | Établissements, disponibilités, tarifs. Normaliser vers un schéma commun ; stocker par ville/région avec métadonnées pour le filtrage. |
+| **API événements** | Ticketmaster, agrégateurs locaux | Concerts, festivals, expositions. Chunker par événement et date ; filtrer par ville et plage de dates à la requête. |
+| **Contenu structuré scrapé** | Blogs et guides curés (en respectant les ToS) | Conseils, horaires, recommandations saisonnières. Chunker par section ou entité ; embedder et stocker avec `source`, `ville`, `type`. |
+| **Base de connaissances interne** | Docs produit, contenu partenaires | Politiques, offres partenaires, guides destination. Contrôle total sur le schéma et la fraîcheur ; idéal pour un contexte à forte valeur. |
+
+L'ingestion doit normaliser toutes les sources vers un schéma commun (ex. ville, pays, type, plage de dates, fourchette de prix, tenant_id) pour que la récupération puisse appliquer des filtres cohérents. Stratégie de chunking : frontières sémantiques (un chunk par lieu, événement ou section de guide) plutôt que fenêtres de tokens fixes lorsque le contenu est structuré.
+
+---
+
+## 4. Intégration RAG
+
+**Pourquoi la RAG est nécessaire.** Les LLM ne connaissent pas votre inventaire, vos tarifs ni les événements de la semaine dernière. Sans retrieval, le modèle inventerait des hôtels, des trajets et des horaires. La RAG ancre la génération dans vos données réelles : on récupère les chunks les plus pertinents (issus des API et de la base de connaissances) et on les injecte dans le prompt pour que le modèle raisonne sur des options réelles.
+
+**Fonctionnement des embeddings.** Un modèle d'embedding associe un texte à un vecteur de taille fixe. Des contenus similaires (ex. « hôtel pas cher près de la Jemaa el-Fna ») sont proches en espace vectoriel. Au moment de la requête, on embedde la demande utilisateur, on exécute une recherche de similarité (ex. cosinus) dans la base vectorielle et on récupère les top-k chunks. Ces chunks constituent le contexte passé au LLM.
+
+**Flux de retrieval.** (1) La requête utilisateur (ex. « 3 jours à Marrakech, budget 500 $ ») est envoyée au backend. (2) Le backend enrichit éventuellement la requête avec des filtres (ville=Marrakech, type=hotel,activity,transport). (3) La requête est embeddée ; la recherche vectorielle renvoie les top-k chunks (et optionnellement une recherche hybride par mots-clés). (4) Les chunks sont rerankés, dédupliqués et tronqués pour tenir dans la fenêtre de contexte. (5) Le prompt est assemblé : instructions système + chunks récupérés + requête utilisateur. (6) Le LLM génère l'itinéraire ; la réponse est streamée ou renvoyée au frontend.
+
+**Injection de contexte.** Structurer le prompt clairement : rôle système (ex. « Tu es un assistant itinéraire. Utilise uniquement le contexte fourni. »), puis une section « Contexte » avec les chunks récupérés (et des labels de source), puis le message utilisateur. Cela limite les hallucinations et permet à l'UI d'afficher des citations.
+
+---
+
+## 5. Couche de personnalisation
+
+La personnalisation améliore la pertinence sans modifier le flux RAG principal. Elle se traduit par des filtres et du contexte supplémentaire, pas par un modèle dédié.
+
+- **Préférences utilisateur :** Stockées par utilisateur (régimes alimentaires, mobilité, activités préférées). Passées en texte court ou en filtres métadonnées (ex. `preference: vegetarian`) dans la requête ou ajoutées au message utilisateur pour que retrieval et génération en tiennent compte.
+- **Optimisation du budget :** Parser le budget depuis la requête ou un champ dédié. Filtrer ou ranker les chunks par prix ; inclure « Budget total : 500 $ » dans le prompt pour que le LLM répartisse entre hébergement, transport et activités.
+- **Logique de durée du séjour :** La durée (ex. 3 jours) sert à filtrer les événements et à instruire le LLM (ex. « Propose un plan jour par jour sur 3 jours »). Pas besoin d'un « modèle durée » séparé—des instructions claires et un retrieval conscient des dates suffisent.
+- **Génération dynamique d'itinéraire :** La sortie du LLM est l'itinéraire (markdown ou JSON structuré). Le frontend peut l'afficher en cartes, timeline ou export ; un post-traitement optionnel peut attacher des liens vers les API de réservation.
+
+---
+
+## 6. Considérations production
+
+- **Architecture multi-tenant :** Toutes les données sont scopées par `tenant_id`. Les namespaces ou filtres métadonnées de la base vectorielle doivent appliquer l'isolation tenant sur chaque recherche et chaque chemin d'ingestion. Ne jamais renvoyer les données d'un autre tenant.
+- **Optimisation des coûts (appels LLM) :** Limiter la taille du contexte et le nombre de chunks ; utiliser un modèle plus petit ou moins coûteux quand la qualité le permet ; mettre en cache les réponses pour des prompts identiques ou quasi identiques (ex. même requête + même ensemble de chunks). Invalider le cache lors des mises à jour de corpus ou de configuration.
+- **Stratégies de cache :** Cacher les embeddings de requêtes pour des requêtes répétées ou similaires ; cacher les réponses LLM cléées par (query_hash, top_chunk_ids). TTL et invalidation à chaque refresh des données.
+- **Sécurité et rate limiting :** Valider et assainir l'entrée utilisateur ; ne pas faire confiance aveuglément au contenu récupéré (injection, PII). Limiter le débit par utilisateur et par tenant pour éviter les abus et maîtriser les coûts. Garder les clés API et les appels LLM uniquement côté serveur.
+- **Jobs cron en arrière-plan :** Exécuter l'ingestion selon un planning (ex. nocturne pour le contenu statique, horaire pour les événements et disponibilités). Versionner ou timestamper les chunks pour que la récupération puisse privilégier des données plus fraîches quand pertinent.
+
+---
+
+## 7. Scénario concret
+
+**Requête :** « 3 jours à Marrakech avec un budget de 500 $. »
+
+1. **Backend** reçoit la requête ; extrait l'intention (ville=Marrakech, durée=3 jours, budget=500 $).
+2. **Retrieval :** La requête est embeddée ; la recherche vectorielle s'exécute avec les filtres `ville=Marrakech`, `type in [hotel, activity, transport, tip]`. Les chunks retournés peuvent inclure : riads budget, conseils Jemaa el-Fna, options excursion désert, transport depuis l'aéroport.
+3. **Augmentation :** Les chunks sont formatés en bloc « Contexte » avec labels de source. Budget et durée sont indiqués explicitement dans le message système ou utilisateur.
+4. **Génération :** Le LLM produit un itinéraire jour par jour : Jour 1 (arrivée, médina, dîner), Jour 2 (souks, jardin, soirée), Jour 3 (désert ou musée au choix, départ). Chaque ligne peut s'appuyer sur un chunk récupéré (ex. un riad ou une activité précise).
+5. **Réponse :** Streamée vers le client Next.js ; l'UI affiche les sections et des liens « Réserver » optionnels vers les API partenaires.
+
+Le système a combiné API et base de connaissances en un plan cohérent sans inventer d'établissements ni de prix, car chaque suggestion s'appuie sur le contexte récupéré.
+
+---
+
+## 8. Conclusion
+
+L'avenir des plateformes de voyage est intelligent, pas statique. Les utilisateurs attendront des systèmes qui comprennent les contraintes, fusionnent plusieurs sources et produisent des itinéraires actionnables en langage naturel. La RAG est le pont : elle garde le LLM ancré dans vos données tout en conservant la flexibilité de l'interaction en langage naturel. Une séparation claire—Next.js pour l'UX, Spring Boot pour l'orchestration et la sécurité, base vectorielle pour le retrieval, pipelines en arrière-plan pour l'ingestion—donne une base prête pour la production. Concevoir d'emblée pour le multi-tenant et les coûts ; traiter la qualité du retrieval (chunking, métadonnées, ranking) comme le levier principal de précision. Ma vision des produits pilotés par l'IA est exactement celle-ci : une intelligence métier qui reste factuelle, à jour et sous votre contrôle.
+
+---
+
+## Annexe : Exemple de service Spring Boot
+
+L'orchestration avec Spring Boot implique en général un client d'embedding, un client de base vectorielle et un client LLM. Ci-dessous un exemple minimal d'un service qui embedde la requête utilisateur, effectue une recherche vectorielle (placeholder), et construit le prompt pour le LLM. En production, on ajouterait des retries, timeouts, résolution du tenant et du rate limiting.
+
+```java
+@Service
+public class ItineraryService {
+
+    private final EmbeddingService embeddingService;
+    private final VectorStoreClient vectorStore;
+    private final LlmClient llmClient;
+
+    public ItineraryService(EmbeddingService embeddingService,
+                            VectorStoreClient vectorStore,
+                            LlmClient llmClient) {
+        this.embeddingService = embeddingService;
+        this.vectorStore = vectorStore;
+        this.llmClient = llmClient;
+    }
+
+    public String generateItinerary(String userQuery, String tenantId, ItineraryConstraints constraints) {
+        float[] queryEmbedding = embeddingService.embed(userQuery);
+
+        List<RetrievedChunk> chunks = vectorStore.similaritySearch(
+            queryEmbedding,
+            10,
+            Map.of("tenant_id", tenantId, "city", constraints.getCity())
+        );
+
+        String contextBlock = chunks.stream()
+            .map(c -> "[%s] %s".formatted(c.getSource(), c.getText()))
+            .collect(Collectors.joining("\n\n"));
+
+        String systemPrompt = """
+            You are an itinerary assistant. Use only the provided context to suggest \
+            places, hotels, and activities. Respect the user's budget and duration. \
+            Output a clear day-by-day plan.
+            """;
+
+        String userMessage = "Context:\n" + contextBlock + "\n\nUser request: " + userQuery;
+        return llmClient.complete(systemPrompt, userMessage);
+    }
+}
+```
+
+`VectorStoreClient` encapsulerait la connexion à Qdrant, Pinecone ou pgvector ; `LlmClient` appellerait OpenAI ou Bedrock. Garder cette logique dans le backend assure un seul point pour l'auth, le scopage tenant et le contrôle des coûts.

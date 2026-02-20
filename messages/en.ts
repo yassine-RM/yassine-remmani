@@ -172,6 +172,11 @@ export const en = {
       excerpt: 'Architecture-focused guide to Retrieval-Augmented Generation: orchestration with Spring Boot, vector stores, ingestion pipelines, and production concerns for multi-tenant SaaS.',
       readingTime: '12 min read',
     },
+    'ai-travel-saas-architecture': {
+      title: 'Designing an AI-Powered Travel SaaS: From Data Ingestion to Intelligent Itineraries',
+      excerpt: 'Architecture-focused walkthrough of building an intelligent travel platform: Spring Boot backend, Next.js frontend, RAG for context-aware recommendations, and production considerations for multi-tenant SaaS.',
+      readingTime: '14 min read',
+    },
   },
   contactPage: {
     h1: 'Contact',

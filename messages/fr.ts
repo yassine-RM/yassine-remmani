@@ -173,6 +173,11 @@ export const fr: Messages = {
       excerpt: 'Guide orienté architecture pour la génération augmentée par retrieval : orchestration avec Spring Boot, bases vectorielles, pipelines d’ingestion et enjeux production pour SaaS multi-tenant.',
       readingTime: '12 min',
     },
+    'ai-travel-saas-architecture': {
+      title: "Concevoir une plateforme SaaS de voyage basée sur l'IA : de l'ingestion des données aux itinéraires intelligents",
+      excerpt: "Architecture d'une plateforme de voyage intelligente : backend Spring Boot, frontend Next.js, RAG pour des recommandations contextuelles, et considérations production pour un SaaS multi-tenant.",
+      readingTime: '14 min',
+    },
   },
   contactPage: {
     h1: 'Contact',

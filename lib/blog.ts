@@ -23,6 +23,16 @@ const postsCatalog: BlogPostMeta[] = [
     keywords: ['RAG', 'Spring Boot', 'Next.js', 'vector database', 'LLM', 'embeddings', 'SaaS'],
     coverImage: 'Build production-ready RAG systems.webp',
   },
+  {
+    slug: 'ai-travel-saas-architecture',
+    title: 'Designing an AI-Powered Travel SaaS: From Data Ingestion to Intelligent Itineraries',
+    excerpt:
+      'Architecture-focused walkthrough of building an intelligent travel platform: Spring Boot backend, Next.js frontend, RAG for context-aware recommendations, and production considerations for multi-tenant SaaS.',
+    date: '2025-02-20',
+    readingTime: '14 min read',
+    keywords: ['AI', 'travel SaaS', 'RAG', 'Spring Boot', 'Next.js', 'embeddings', 'itinerary', 'LLM', 'vector database'],
+    coverImage: 'Designing an AI-Powered Travel SaaS- From Data Ingestion to Intelligent Itineraries.png',
+  },
 ]
 
 const contentDir = path.join(process.cwd(), 'content', 'blog')
