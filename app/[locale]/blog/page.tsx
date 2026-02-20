@@ -4,7 +4,6 @@ import { buildMetadata, canonicalUrl } from '@/lib/seo'
 import { webPageSchema } from '@/lib/seo-schema'
 import { SeoJsonLd } from '@/components/seo/SeoJsonLd'
 import { getTranslations } from '@/lib/translations'
-import Image from 'next/image'
 import { getAllPosts, blogCoverImageSrc } from '@/lib/blog'
 import type { Locale } from '@/lib/i18n'
 
@@ -78,17 +77,17 @@ export default async function BlogPage({ params }: PageProps) {
                     className="group flex flex-col sm:flex-row gap-0 bg-[var(--bg-surface)] border border-[var(--border-color)] rounded-xl overflow-hidden shadow-sm hover:shadow-md hover:border-[var(--border-color)] transition-all duration-200 ease-out focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-[var(--bg)]"
                   >
                     {coverSrc ? (
-                      <div className="relative w-full sm:w-40 sm:min-w-[10rem] h-32 sm:h-full sm:min-h-0 bg-[var(--bg)] flex-shrink-0 self-stretch">
-                        <Image
+                      <div className="relative w-full sm:w-44 sm:min-w-[11rem] h-36 sm:min-h-[140px] sm:h-full bg-[var(--bg)] flex-shrink-0 self-stretch overflow-hidden">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
                           src={coverSrc}
                           alt=""
-                          fill
-                          className="object-cover transition-transform duration-200 ease-out group-hover:scale-[1.02]"
-                          sizes="(max-width: 640px) 100vw, 160px"
+                          className="absolute inset-0 w-full h-full object-cover transition-transform duration-200 ease-out group-hover:scale-[1.02]"
+                          loading="lazy"
                         />
                       </div>
                     ) : (
-                      <div className="w-full sm:w-40 sm:min-w-[10rem] h-32 sm:h-full sm:min-h-0 bg-[var(--bg)] flex-shrink-0 self-stretch flex items-center justify-center">
+                      <div className="w-full sm:w-44 sm:min-w-[11rem] h-36 sm:min-h-[140px] sm:h-full bg-[var(--bg)] flex-shrink-0 self-stretch flex items-center justify-center">
                         <svg className="w-10 h-10 text-[var(--foreground-muted)]/40" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
                         </svg>
