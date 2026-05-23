@@ -195,7 +195,7 @@ export const en = {
   resumePage: {
     badge: 'Resume',
     h1: 'Yassine Remmani — Senior Full-Stack Developer',
-    intro: 'Senior Full-Stack Developer with 6+ years of experience building and maintaining production-grade web platforms. Strong backend focus with Java, Spring Boot, REST APIs, PostgreSQL, Docker, CI/CD, and secure authentication systems. Experienced in React/Next.js interfaces, scalable architecture, performance optimization, and reliable production delivery.',
+    intro: 'Senior Full-Stack Developer with 6+ years building production web platforms. Backend-focused: Java, Spring Boot, REST APIs, PostgreSQL, Docker, CI/CD. Comfortable with React/Next.js and reliable production delivery.',
     location: 'Casablanca, Morocco · Open to remote & relocation',
     downloadCv: 'Download CV',
     downloadCvAria: 'Download CV as PDF',
@@ -379,7 +379,7 @@ export const en = {
       github: 'github.com/yassine-RM',
       portfolio: 'remmanidev.com',
     },
-    summary: 'Senior Full-Stack Engineer specializing in Spring Boot and Next.js, with 6+ years building production-grade web platforms. I deliver scalable APIs, event-driven systems, and AI-ready integrations (AWS Bedrock, LLM APIs) that match high-impact job offers. Experienced in multi-tenant systems, secure auth (OAuth2/JWT, Keycloak), and cloud deployment (AWS, Docker). Focus on system design, performance, and shipping software that scales.',
+    summary: 'Senior Full-Stack Developer with 6+ years building production web platforms. Backend-focused: Spring Boot, REST APIs, PostgreSQL, Kafka, Docker, secure auth (OAuth2/JWT, Keycloak). Comfortable with React/Next.js, multi-tenant systems, and cloud deployment on AWS.',
     skillLabels: { skills: 'Skills', backend: 'Backend', frontend: 'Frontend', databases: 'Databases', security: 'Security', cloudDevops: 'Cloud & DevOps', architecture: 'Architecture', ai: 'AI & Integration', languages: 'Languages', hobbies: 'Hobbies' },
     sectionLabels: { summary: 'Summary', experience: 'Experience', projects: 'Projects', education: 'Education' },
     skills: {

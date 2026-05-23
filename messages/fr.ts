@@ -196,7 +196,7 @@ export const fr: Messages = {
   resumePage: {
     badge: 'CV',
     h1: 'Yassine Remmani — Développeur Full Stack Senior',
-    intro: 'Développeur Full Stack avec plus de 6 ans d’expérience dans la conception, le développement et la maintenance d’applications web en production. Profil orienté backend avec Java, Spring Boot, REST APIs, PostgreSQL, Docker, CI/CD et systèmes d’authentification sécurisés. Expérimenté en React/Next.js, architecture scalable, optimisation des performances et livraison fiable en production.',
+    intro: 'Développeur Full Stack senior avec 6+ ans sur des plateformes web en production. Profil orienté backend : Java, Spring Boot, REST APIs, PostgreSQL, Docker, CI/CD. À l’aise sur React/Next.js et la livraison fiable en production.',
     location: 'Casablanca, Maroc · Ouvert au remote et à la mobilité',
     downloadCv: 'Télécharger le CV',
     downloadCvAria: 'Télécharger le CV au format PDF',
@@ -380,7 +380,7 @@ export const fr: Messages = {
       github: 'github.com/yassine-RM',
       portfolio: 'remmanidev.com',
     },
-    summary: 'Ingénieur Full-Stack senior spécialisé Spring Boot et Next.js, avec plus de 6 ans sur des plateformes web en production. Je livre des APIs scalables, des systèmes event-driven et des intégrations prêtes pour l’IA (AWS Bedrock, APIs LLM) qui correspondent aux offres à fort impact. Expérience en systèmes multi-tenant, auth sécurisée (OAuth2/JWT, Keycloak) et déploiement cloud (AWS, Docker). Focus sur la conception système, les performances et le livrable qui scale.',
+    summary: 'Développeur Full Stack senior avec 6+ ans sur des plateformes web en production. Profil orienté backend : Spring Boot, REST APIs, PostgreSQL, Kafka, Docker, auth sécurisée (OAuth2/JWT, Keycloak). À l’aise sur React/Next.js, systèmes multi-tenant et déploiement cloud sur AWS.',
     skillLabels: { skills: 'Compétences', backend: 'Backend', frontend: 'Frontend', databases: 'Bases de données', security: 'Sécurité', cloudDevops: 'Cloud & DevOps', architecture: 'Architecture', ai: 'IA & Intégration', languages: 'Langues', hobbies: 'Centres d’intérêt' },
     sectionLabels: { summary: 'Profil', experience: 'Expérience', projects: 'Projets', education: 'Formation' },
     skills: {
