@@ -233,9 +233,11 @@ export const en = {
     },
     projects: {
       title: 'Selected projects',
+      featuredLabel: 'Featured',
       techLabel: 'Tech',
       impactLabel: 'Impact',
       projectImpacts: [
+        'Daily publishing automation per dealer rules; reduces manual posting work while improving inventory visibility.',
         'High-volume ad processing; integrated with Inventory & CRM. Built for scalability and business KPIs.',
         'Tenant-scoped data isolation, instant search, and read-heavy API optimization.',
         '4,000+ dealer sites, event-driven workflows, zero-downtime CI/CD.',
@@ -401,6 +403,7 @@ export const en = {
           'Built secure and robust systems including authentication, authorization, and role-based access control (JWT, OAuth2, Keycloak).',
           'Developed RESTful APIs and integrated them seamlessly with responsive and SEO-optimized frontend interfaces.',
           'Implemented multi-tenant architectures and modular systems designed to scale with business growth.',
+          'Contributed to an event-driven Facebook Marketplace publishing automation system, using Kafka and Spring Boot to process inventory updates and apply dealer-specific posting rules.',
           'Containerized applications using Docker and Docker Compose, ensuring consistent environments across development and production.',
           'Deployed and maintained applications on AWS (EC2, S3, RDS), with cloud-ready configurations and monitoring.',
           'Collaborated with cross-functional teams (product, design, engineering) to translate requirements into high-quality features.',
@@ -409,6 +412,7 @@ export const en = {
       },
     ],
     projects: [
+      { name: 'Facebook Marketplace Auto-Publishing System — Auto Dealers Digital', stack: 'Spring Boot · Kafka · PostgreSQL · Docker · Event-driven architecture', description: 'Built an automated vehicle publishing workflow for dealers, driven by inventory updates and dealer-specific posting settings. The system processes vehicle events asynchronously with Kafka and applies business rules such as daily posting limits, helping dealers increase marketplace visibility while reducing manual work.' },
       { name: 'Ad360 — Advertising management platform for car dealers', stack: 'Spring Boot · PostgreSQL · Redis · Kafka', description: 'Spring Boot backend for ad campaigns: high-volume processing, budgets, targeting, lead tracking. Integration with Inventory/CRM. Focus on scalability and business KPIs.' },
       { name: 'Multi-tenant classified ads platform (dealers)', stack: 'Spring Boot · PostgreSQL · Redis · Typesense', description: 'Multi-tenant system with tenant-id scoping. Intelligent real-time search and autocomplete via Typesense. Spring Boot REST APIs, PostgreSQL, Redis; emphasis on read-heavy optimization.' },
       { name: 'Central automotive platform (Inventory, CRM, Websites)', stack: 'Spring Boot · Kafka · PostgreSQL · Docker', description: 'Centralized Spring Boot APIs; Kafka event-driven workflows for data consistency and async processing. Inventory, CRM, and dealer websites at scale.' },

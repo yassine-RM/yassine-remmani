@@ -234,9 +234,11 @@ export const fr: Messages = {
     },
     projects: {
       title: 'Projets sélectionnés',
+      featuredLabel: 'À la une',
       techLabel: 'Tech',
       impactLabel: 'Impact',
       projectImpacts: [
+        'Automatisation de la publication quotidienne selon les règles de chaque dealer ; réduit le travail manuel et améliore la visibilité de l’inventaire.',
         'Traitement publicitaire à fort volume ; intégré avec Inventaire et CRM. Conçu pour la scalabilité et les KPIs métier.',
         'Isolation des données par tenant, recherche instantanée et APIs optimisées pour les charges en lecture.',
         '4 000+ sites concessionnaires, flux event-driven, déploiements CI/CD sans interruption.',
@@ -402,6 +404,7 @@ export const fr: Messages = {
           'Mise en place de systèmes sécurisés : authentification, autorisation et contrôle d’accès par rôles (JWT, OAuth2, Keycloak).',
           'Développement d’APIs RESTful et intégration avec des interfaces frontend réactives et optimisées SEO.',
           'Implémentation d’architectures multi-tenant et systèmes modulaires conçus pour accompagner la croissance.',
+          'Contribution à un système événementiel d’automatisation de publication vers Facebook Marketplace, utilisant Kafka et Spring Boot pour traiter les mises à jour d’inventaire et appliquer les règles de publication propres à chaque dealer.',
           'Containerisation des applications avec Docker et Docker Compose pour des environnements cohérents en dev et en production.',
           'Déploiement et maintenance sur AWS (EC2, S3, RDS), avec configurations cloud et monitoring.',
           'Collaboration avec les équipes produit, design et engineering pour transformer les besoins en fonctionnalités de qualité.',
@@ -410,6 +413,7 @@ export const fr: Messages = {
       },
     ],
     projects: [
+      { name: 'Système d’auto-publication Facebook Marketplace — Auto Dealers Digital', stack: 'Spring Boot · Kafka · PostgreSQL · Docker · Architecture événementielle', description: 'Conception d’un workflow automatisé de publication de véhicules pour les concessionnaires, basé sur les mises à jour d’inventaire et les paramètres propres à chaque dealer. Le système traite les événements de véhicules de manière asynchrone avec Kafka et applique des règles métier comme les limites de publication quotidiennes, afin d’augmenter la visibilité des annonces tout en réduisant les actions manuelles.' },
       { name: 'Ad360 — Plateforme de gestion publicitaire pour concessionnaires auto', stack: 'Spring Boot · PostgreSQL · Redis · Kafka', description: 'Backend Spring Boot pour campagnes pub : traitement à fort volume, budgets, ciblage, suivi leads. Intégration Inventaire/CRM. Focus scalabilité et KPIs métier.' },
       { name: 'Plateforme petites annonces multi-tenant (concessionnaires)', stack: 'Spring Boot · PostgreSQL · Redis · Typesense', description: 'Système multi-tenant avec isolation par tenant-id. Recherche temps réel et autocomplétion via Typesense. APIs REST Spring Boot, PostgreSQL, Redis ; optimisation des charges en lecture.' },
       { name: 'Plateforme automobile centralisée (Inventaire, CRM, Sites web)', stack: 'Spring Boot · Kafka · PostgreSQL · Docker', description: 'APIs Spring Boot centralisées ; flux event-driven Kafka pour cohérence des données et traitement asynchrone. Inventaire, CRM et sites concessionnaires à l’échelle.' },

@@ -233,30 +233,43 @@ export default async function ResumePage({ params }: PageProps) {
           <h2 id="projects-title" className="font-heading text-xl md:text-2xl font-semibold mb-6">
             {r.projects.title}
           </h2>
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-            {cv.projects.map((project, idx) => (
-              <article
-                key={project.name}
-                className="flex flex-col rounded-xl border border-border bg-card p-5 hover:border-border-hover transition-colors"
-              >
-                <h3 className="font-heading text-base font-semibold mb-2 leading-snug">
-                  {project.name}
-                </h3>
-                <p className="text-sm text-[var(--foreground-muted)] leading-relaxed mb-4 grow">
-                  {project.description}
-                </p>
-                <div className="space-y-2.5 text-xs">
-                  <div>
-                    <p className="font-semibold text-foreground mb-1">{r.projects.techLabel}</p>
-                    <p className="text-[var(--foreground-muted)]">{project.stack}</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {cv.projects.map((project, idx) => {
+              const isFeatured = idx === 0
+              return (
+                <article
+                  key={project.name}
+                  className={`flex flex-col rounded-xl border bg-card p-5 transition-colors ${
+                    isFeatured
+                      ? 'border-accent hover:border-accent-hover'
+                      : 'border-border hover:border-border-hover'
+                  }`}
+                >
+                  {isFeatured && (
+                    <span className="inline-flex items-center self-start gap-1.5 px-2 py-0.5 rounded-full bg-[var(--accent-muted)] text-accent text-[10px] font-semibold uppercase tracking-wider mb-3">
+                      <span aria-hidden className="w-1.5 h-1.5 rounded-full bg-accent" />
+                      {r.projects.featuredLabel}
+                    </span>
+                  )}
+                  <h3 className="font-heading text-base font-semibold mb-2 leading-snug">
+                    {project.name}
+                  </h3>
+                  <p className="text-sm text-[var(--foreground-muted)] leading-relaxed mb-4 grow">
+                    {project.description}
+                  </p>
+                  <div className="space-y-2.5 text-xs">
+                    <div>
+                      <p className="font-semibold text-foreground mb-1">{r.projects.techLabel}</p>
+                      <p className="text-[var(--foreground-muted)]">{project.stack}</p>
+                    </div>
+                    <div>
+                      <p className="font-semibold text-foreground mb-1">{r.projects.impactLabel}</p>
+                      <p className="text-[var(--foreground-muted)]">{r.projects.projectImpacts[idx]}</p>
+                    </div>
                   </div>
-                  <div>
-                    <p className="font-semibold text-foreground mb-1">{r.projects.impactLabel}</p>
-                    <p className="text-[var(--foreground-muted)]">{r.projects.projectImpacts[idx]}</p>
-                  </div>
-                </div>
-              </article>
-            ))}
+                </article>
+              )
+            })}
           </div>
         </section>
 
