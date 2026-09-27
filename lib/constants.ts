@@ -17,9 +17,37 @@ export interface Project {
   category: 'backend' | 'frontend' | 'fullstack' | 'devops'
   github?: string
   demo?: string
+  /** Real screenshots, in display order. Captions live in messages (caseStudy.screenshots). */
+  screenshots?: { src: string; width: number; height: number }[]
+  /** Slugs of blog posts that discuss this project's architecture. */
+  relatedPosts?: string[]
 }
 
 export const projects: Project[] = [
+  {
+    slug: 'salonsync',
+    title: 'SalonSync',
+    summary: 'SaaS platform for barbershops and salons: online booking, live queue and walk-ins, clients, team, takings and an AI booking assistant. Laravel API and Next.js frontend.',
+    description: 'Multi-tenant SaaS that runs the day of a barbershop or salon, from the first booking to the takings at close.',
+    role: 'Creator & Full-Stack Engineer',
+    problem: 'Barbershops and salons manage bookings, walk-ins, queues and clients by hand or across disconnected tools.',
+    solution: 'One multi-tenant platform for bookings, the live queue, clients, team schedules, services, takings and staff notifications, with an AI assistant on each shop\'s booking page.',
+    architecture: 'Laravel REST API (PHP) with Sanctum auth and a global-scope tenancy model; Next.js App Router frontend in TypeScript; PostgreSQL; queue worker, scheduler and Reverb websockets; Docker Compose.',
+    coverImage: '/images/projects/salonsync/salonsync-home.webp',
+    logo: '/images/tech/react.svg',
+    tags: ['Laravel', 'PHP', 'Next.js', 'TypeScript', 'PostgreSQL', 'Docker', 'OpenAI'],
+    metric: {
+      icon: 'rocket',
+      value: 'Live SaaS',
+    },
+    category: 'fullstack',
+    github: undefined,
+    demo: 'https://salonsync.ma',
+    screenshots: [
+      { src: '/images/projects/salonsync/salonsync-booking.webp', width: 1440, height: 900 },
+      { src: '/images/projects/salonsync/salonsync-queue.webp', width: 1440, height: 900 },
+    ],
+  },
   {
     slug: 'travelos',
     title: 'TravelOS',
@@ -39,6 +67,7 @@ export const projects: Project[] = [
     category: 'fullstack',
     github: undefined,
     demo: undefined,
+    relatedPosts: ['ai-travel-saas-architecture', 'building-production-ready-rag-systems-saas'],
   },
   {
     slug: 'automotive-digital-platform',

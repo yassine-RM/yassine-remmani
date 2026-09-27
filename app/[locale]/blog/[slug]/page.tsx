@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { SimpleMarkdown } from '@/components/blog/SimpleMarkdown'
 import { buildMetadata, canonicalUrl } from '@/lib/seo'
 import { SeoJsonLd } from '@/components/seo/SeoJsonLd'
+import { projects } from '@/lib/constants'
 import { graph, webPageNodes, blogPostingNode } from '@/lib/seo-schema'
 import { getTranslations } from '@/lib/translations'
 import Image from 'next/image'
@@ -74,6 +75,19 @@ export default async function BlogPostPage({ params }: PageProps) {
 
   const markdownBody = stripFrontmatter(raw)
   const coverSrc = meta.coverImage ? blogCoverImageSrc(meta.coverImage) : undefined
+
+  const relatedProjects = (meta.relatedProjects ?? []).flatMap((projectSlug) => {
+    const project = projects.find((p) => p.slug === projectSlug)
+    if (!project) return []
+    const tp = t.data.projects.find((p) => p.slug === projectSlug)
+    return [{ slug: projectSlug, title: tp?.title ?? project.title, summary: tp?.summary ?? project.summary }]
+  })
+  const otherPosts = getAllPosts()
+    .filter((p) => p.slug !== slug)
+    .map((p) => {
+      const tp = t.blogPosts[p.slug as keyof typeof t.blogPosts] as { title?: string } | undefined
+      return { slug: p.slug, title: tp?.title ?? p.title }
+    })
 
   const breadcrumbs = [
     { name: t.nav.home, url: canonicalUrl(homePath) },
@@ -146,6 +160,13 @@ export default async function BlogPostPage({ params }: PageProps) {
           </h1>
           <p className="text-[var(--text-secondary)] mb-2">{excerpt}</p>
           <div className="flex flex-wrap items-center gap-3 text-sm text-[var(--foreground-muted)]">
+            <span>
+              {t.blogPage.writtenBy}{' '}
+              <Link href={localePath(locale as Locale, '/about')} rel="author" className="text-foreground hover:text-accent transition-colors">
+                Yassine Remmani
+              </Link>
+            </span>
+            <span aria-hidden>·</span>
             <time dateTime={meta.date}>{meta.date}</time>
             {readingTime && (
               <>
@@ -160,7 +181,39 @@ export default async function BlogPostPage({ params }: PageProps) {
           <SimpleMarkdown content={markdownBody} />
         </div>
 
-        <aside aria-label={t.blogPage.aboutAuthor} className="mt-16 pt-8 border-t border-border">
+        {relatedProjects.length > 0 && (
+          <section aria-labelledby="related-projects" className="mt-16 pt-8 border-t border-border">
+            <h2 id="related-projects" className="font-heading text-lg font-semibold mb-4">{t.blogPage.relatedProjects}</h2>
+            <ul className="grid sm:grid-cols-2 gap-4">
+              {relatedProjects.map((p) => (
+                <li key={p.slug}>
+                  <Link
+                    href={localePath(locale as Locale, `/projects/${p.slug}`)}
+                    className="block h-full rounded-xl border border-border bg-card p-5 hover:border-border-hover transition-colors"
+                  >
+                    <span className="font-heading font-semibold text-foreground">{p.title}</span>
+                    <span className="block text-sm text-[var(--foreground-muted)] mt-1.5 line-clamp-3">{p.summary}</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+
+        {otherPosts.length > 0 && (
+          <nav aria-labelledby="related-articles" className="mt-12">
+            <h2 id="related-articles" className="font-heading text-lg font-semibold mb-3">{t.blogPage.relatedArticles}</h2>
+            <ul className="space-y-2">
+              {otherPosts.map((p) => (
+                <li key={p.slug}>
+                  <Link href={localePath(locale as Locale, `/blog/${p.slug}`)} className="text-sm text-accent hover:underline">{p.title}</Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        )}
+
+        <aside aria-label={t.blogPage.aboutAuthor} className="mt-12 pt-8 border-t border-border">
           <p className="text-sm text-[var(--foreground-muted)]">
             {t.blogPage.writtenBy}{' '}
             <Link href={localePath(locale as Locale, '/about')} rel="author" className="font-semibold text-foreground hover:text-accent transition-colors">

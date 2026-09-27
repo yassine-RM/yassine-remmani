@@ -11,6 +11,8 @@ export interface BlogPostMeta {
   keywords?: string[]
   /** Cover image filename under /images/blogs (e.g. "Build production-ready RAG systems.webp") */
   coverImage?: string
+  /** Project slugs whose architecture this post discusses. Leave empty rather than force a link. */
+  relatedProjects?: string[]
 }
 
 const postsCatalog: BlogPostMeta[] = [
@@ -23,6 +25,7 @@ const postsCatalog: BlogPostMeta[] = [
     readingTime: '12 min read',
     keywords: ['RAG', 'Spring Boot', 'Next.js', 'vector database', 'LLM', 'embeddings', 'SaaS'],
     coverImage: 'Build production-ready RAG systems.webp',
+    relatedProjects: ['travelos', 'salonsync'],
   },
   {
     slug: 'ai-travel-saas-architecture',
@@ -33,6 +36,7 @@ const postsCatalog: BlogPostMeta[] = [
     readingTime: '14 min read',
     keywords: ['AI', 'travel SaaS', 'RAG', 'Spring Boot', 'Next.js', 'embeddings', 'itinerary', 'LLM', 'vector database'],
     coverImage: 'Designing an AI-Powered Travel SaaS- From Data Ingestion to Intelligent Itineraries.png',
+    relatedProjects: ['travelos'],
   },
   {
     slug: 'ai-tools-developer-productivity',
@@ -48,8 +52,9 @@ const postsCatalog: BlogPostMeta[] = [
 
 const contentDir = path.join(process.cwd(), 'content', 'blog')
 
+/** Newest first. */
 export function getAllPosts(): BlogPostMeta[] {
-  return postsCatalog
+  return [...postsCatalog].sort((a, b) => b.date.localeCompare(a.date))
 }
 
 export function getPostBySlug(slug: string): BlogPostMeta | undefined {

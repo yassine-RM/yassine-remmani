@@ -330,7 +330,8 @@ export function CVDocument({ locale, photoUrl }: CVDocumentProps) {
 
             <View style={styles.section}>
               <Text style={styles.sectionTitle}>{cv.sectionLabels.projects}</Text>
-              {cv.projects.map((proj, i) => (
+              {/* The PDF is a one-page resume: the last project mostly restates the experience section. */}
+              {cv.projects.slice(0, 4).map((proj, i) => (
                 <View key={i} style={styles.experienceBlock}>
                   <Text style={styles.projectName}>{proj.name}</Text>
                   <Text style={styles.projectStack}>{proj.stack}</Text>

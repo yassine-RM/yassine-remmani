@@ -20,8 +20,8 @@ export function graph(...nodes: Node[]) {
 }
 
 const personDescription: Record<Locale, string> = {
-  en: 'Yassine Remmani is a Senior Full-Stack Developer and software engineer based in Casablanca, Morocco, with 6+ years of experience building production web platforms with Java, Spring Boot, React, Next.js, PostgreSQL, Kafka, Docker and AWS.',
-  fr: 'Yassine Remmani est développeur full-stack senior et ingénieur logiciel basé à Casablanca, au Maroc, avec plus de 6 ans d’expérience dans la conception de plateformes web en production avec Java, Spring Boot, React, Next.js, PostgreSQL, Kafka, Docker et AWS.',
+  en: 'Yassine Remmani is a Senior Full-Stack Developer and software engineer based in Casablanca, Morocco, with 6+ years of experience building production web platforms with Java, Spring Boot, PHP, Laravel, React, Next.js, PostgreSQL, Kafka, Docker and AWS.',
+  fr: 'Yassine Remmani est développeur full-stack senior et ingénieur logiciel basé à Casablanca, au Maroc, avec plus de 6 ans d’expérience dans la conception de plateformes web en production avec Java, Spring Boot, PHP, Laravel, React, Next.js, PostgreSQL, Kafka, Docker et AWS.',
 }
 
 export function personNode(locale: Locale): Node {
@@ -67,6 +67,8 @@ export function personNode(locale: Locale): Node {
       'Backend Development',
       'Java',
       'Spring Boot',
+      'PHP',
+      'Laravel',
       'REST APIs',
       'Apache Kafka',
       'Event-driven architecture',
@@ -171,6 +173,21 @@ export function projectsItemListNode(
   }
 }
 
+/**
+ * A product the person built, described as a CreativeWork rather than a
+ * SoftwareApplication: the portfolio page is a case study, not a store listing.
+ */
+export function productWorkNode(options: { slug: string; name: string; description: string; url: string }): Node {
+  return {
+    '@type': 'CreativeWork',
+    '@id': `${siteUrl}/#project-${options.slug}`,
+    name: options.name,
+    description: options.description,
+    url: options.url,
+    creator: personRef,
+  }
+}
+
 export function caseStudyNode(options: {
   name: string
   description: string
@@ -178,8 +195,10 @@ export function caseStudyNode(options: {
   image: string
   keywords: string[]
   locale: Locale
+  /** @id of the work the case study is about (see productWorkNode). */
+  aboutId?: string
 }): Node {
-  const { name, description, url, image, keywords, locale } = options
+  const { name, description, url, image, keywords, locale, aboutId } = options
   return {
     '@type': 'TechArticle',
     '@id': `${url}#article`,
@@ -192,6 +211,7 @@ export function caseStudyNode(options: {
     inLanguage: locale,
     author: personRef,
     publisher: personRef,
+    ...(aboutId ? { about: { '@id': aboutId } } : {}),
   }
 }
 
@@ -217,7 +237,7 @@ export function blogPostingNode(options: {
     datePublished,
     dateModified: dateModified ?? datePublished,
     inLanguage: locale,
-    author: { '@id': PERSON_ID, '@type': 'Person', name: personName, url: `${siteUrl}/` },
+    author: { '@id': PERSON_ID, '@type': 'Person', name: personName, jobTitle: personJobTitle, url: `${siteUrl}/` },
     publisher: personRef,
     isPartOf: websiteRef,
     ...(image ? { image: absoluteUrl(image) } : {}),

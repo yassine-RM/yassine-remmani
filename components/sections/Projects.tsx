@@ -31,7 +31,7 @@ export function Projects() {
         </h2>
         <p className="text-[var(--foreground-muted)] max-w-2xl">
           {t.projectsSection.introBeforeLink}
-          <Link href={localePath(locale, '/projects/travelos')} className="text-accent hover:underline">{t.projectsSection.introLinkText}</Link>
+          <Link href={localePath(locale, '/projects/salonsync')} className="text-accent hover:underline">{t.projectsSection.introLinkText}</Link>
           {t.projectsSection.introAfterLink}
         </p>
       </motion.div>
