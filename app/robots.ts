@@ -1,4 +1,5 @@
 import type { MetadataRoute } from 'next'
+import { siteUrl } from '@/lib/seo'
 
 export const dynamic = 'force-static'
 
@@ -7,9 +8,11 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: '*',
       allow: '/',
-      disallow: ['/api/', '/_next/'],
+      // Only API routes are private. /_next/ must stay crawlable: Google needs
+      // the CSS and JS bundles to render pages.
+      disallow: ['/api/'],
     },
-    sitemap: 'https://remmanidev.com/sitemap.xml',
+    sitemap: `${siteUrl}/sitemap.xml`,
+    host: siteUrl,
   }
 }
-

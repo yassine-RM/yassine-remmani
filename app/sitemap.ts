@@ -1,57 +1,62 @@
 import type { MetadataRoute } from 'next'
 import { projects } from '@/lib/constants'
-import { getAllPosts } from '@/lib/blog'
-import { locales } from '@/lib/i18n'
+import { getAllPosts, getPostLocales } from '@/lib/blog'
+import { locales, type Locale } from '@/lib/i18n'
+import { canonicalUrl, languageAlternates } from '@/lib/seo'
 
 export const dynamic = 'force-static'
 
+type Entry = MetadataRoute.Sitemap[number]
+
+const staticPaths: { path: string; priority: number; changeFrequency: Entry['changeFrequency'] }[] = [
+  { path: '', priority: 1.0, changeFrequency: 'monthly' },
+  { path: '/about', priority: 0.9, changeFrequency: 'monthly' },
+  { path: '/resume', priority: 0.9, changeFrequency: 'monthly' },
+  { path: '/experience', priority: 0.8, changeFrequency: 'monthly' },
+  { path: '/projects', priority: 0.8, changeFrequency: 'monthly' },
+  { path: '/skills', priority: 0.7, changeFrequency: 'monthly' },
+  { path: '/blog', priority: 0.7, changeFrequency: 'weekly' },
+  { path: '/contact', priority: 0.6, changeFrequency: 'yearly' },
+  { path: '/spring-boot-architecture', priority: 0.6, changeFrequency: 'yearly' },
+  { path: '/nextjs-for-scalable-products', priority: 0.6, changeFrequency: 'yearly' },
+  { path: '/event-driven-systems-kafka', priority: 0.6, changeFrequency: 'yearly' },
+]
+
+/** One entry per canonical, indexable URL, each with its hreflang alternates. */
+function localized(
+  path: string,
+  options: Omit<Entry, 'url' | 'alternates'>,
+  available: readonly Locale[] = locales
+): Entry[] {
+  return available.map((locale) => ({
+    url: canonicalUrl(`/${locale}${path}`),
+    ...options,
+    alternates: { languages: languageAlternates(path, available) },
+  }))
+}
+
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://remmanidev.com'
-  const currentDate = new Date().toISOString()
-
-  const staticPaths = [
-    '',
-    '/about',
-    '/projects',
-    '/resume',
-    '/blog',
-    '/skills',
-    '/experience',
-    '/contact',
-    '/spring-boot-architecture',
-    '/nextjs-for-scalable-products',
-    '/event-driven-systems-kafka',
-  ]
-
-  const routes: MetadataRoute.Sitemap = []
   const posts = getAllPosts()
+  const latestPost = posts.map((p) => p.date).sort().at(-1)
 
-  for (const locale of locales) {
-    const prefix = `/${locale}`
-    for (const path of staticPaths) {
-      const url = path ? `${baseUrl}${prefix}${path}` : `${baseUrl}${prefix}`
-      routes.push({
-        url,
-        lastModified: currentDate,
-        changeFrequency: path === '' ? 'weekly' : path === '/blog' ? 'weekly' : 'monthly',
-        priority: path === '' ? 1.0 : path === '/about' || path === '/projects' ? 0.9 : path === '/blog' ? 0.8 : 0.8,
+  return [
+    ...staticPaths.flatMap(({ path, priority, changeFrequency }) =>
+      localized(path, {
+        priority,
+        changeFrequency,
+        ...(path === '/blog' && latestPost ? { lastModified: latestPost } : {}),
       })
-    }
-    const projectRoutes = projects.map((project) => ({
-      url: `${baseUrl}${prefix}/projects/${project.slug}`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly' as const,
-      priority: project.slug === 'travelos' ? 0.9 : 0.8,
-    }))
-    routes.push(...projectRoutes)
-    const blogPostRoutes = posts.map((post) => ({
-      url: `${baseUrl}${prefix}/blog/${post.slug}`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly' as const,
-      priority: 0.8,
-    }))
-    routes.push(...blogPostRoutes)
-  }
-
-  return routes
+    ),
+    ...projects.flatMap((project) =>
+      localized(`/projects/${project.slug}`, { priority: 0.7, changeFrequency: 'yearly' })
+    ),
+    // Untranslated posts only list their original-language URL.
+    ...posts.flatMap((post) =>
+      localized(
+        `/blog/${post.slug}`,
+        { priority: 0.7, changeFrequency: 'yearly', lastModified: post.date },
+        getPostLocales(post.slug)
+      )
+    ),
+  ]
 }

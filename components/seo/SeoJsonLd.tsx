@@ -1,9 +1,9 @@
-export function SeoJsonLd({ data }: { data: Record<string, any> }) {
+export function SeoJsonLd({ data }: { data: Record<string, unknown> }) {
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+      // Escape "<" so content can never close the script tag early.
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(data).replace(/</g, '\\u003c') }}
     />
   )
 }
-

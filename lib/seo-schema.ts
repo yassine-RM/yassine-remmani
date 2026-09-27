@@ -1,203 +1,226 @@
-import { canonicalUrl } from './seo'
+import { absoluteUrl, canonicalUrl, personJobTitle, personName, siteName, siteUrl, socialProfiles } from './seo'
+import type { Locale } from './i18n'
 
-export function personSchema(options?: { pathname?: string }) {
-  const pathname = options?.pathname ?? '/'
+/**
+ * Schema.org JSON-LD builders. Every node links to one Person and one WebSite
+ * entity through stable @id values, so search engines can connect all pages
+ * of remmani.dev to the same person.
+ */
+export const PERSON_ID = `${siteUrl}/#person`
+export const WEBSITE_ID = `${siteUrl}/#website`
+
+type Node = Record<string, unknown>
+type Breadcrumb = { name: string; url: string }
+
+const personRef = { '@id': PERSON_ID }
+const websiteRef = { '@id': WEBSITE_ID }
+
+export function graph(...nodes: Node[]) {
+  return { '@context': 'https://schema.org', '@graph': nodes }
+}
+
+const personDescription: Record<Locale, string> = {
+  en: 'Yassine Remmani is a Senior Full-Stack Developer and software engineer based in Casablanca, Morocco, with 6+ years of experience building production web platforms with Java, Spring Boot, React, Next.js, PostgreSQL, Kafka, Docker and AWS.',
+  fr: 'Yassine Remmani est développeur full-stack senior et ingénieur logiciel basé à Casablanca, au Maroc, avec plus de 6 ans d’expérience dans la conception de plateformes web en production avec Java, Spring Boot, React, Next.js, PostgreSQL, Kafka, Docker et AWS.',
+}
+
+export function personNode(locale: Locale): Node {
   return {
-    '@context': 'https://schema.org',
     '@type': 'Person',
-    name: 'Yassine REMMANI',
-    jobTitle: 'Full-Stack Engineer',
-    description: 'Full-Stack Engineer specializing in Spring Boot and Next.js, with AI integration (LLM APIs, AWS Bedrock). Scalable APIs, event-driven systems, multi-tenant platforms. Production-grade systems that match high-impact job offers.',
-    url: canonicalUrl(pathname),
-    sameAs: [
-      'https://www.linkedin.com/in/yassine-remmani/',
-      'https://github.com/yassine-RM',
-    ],
-    email: 'remmanidev@gmail.com',
+    '@id': PERSON_ID,
+    name: personName,
+    alternateName: 'Yassine REMMANI',
+    givenName: 'Yassine',
+    familyName: 'Remmani',
+    jobTitle: personJobTitle,
+    description: personDescription[locale],
+    url: `${siteUrl}/`,
+    mainEntityOfPage: canonicalUrl(`/${locale}`),
+    image: {
+      '@type': 'ImageObject',
+      '@id': `${siteUrl}/#person-image`,
+      url: absoluteUrl('/images/me.png'),
+      width: 556,
+      height: 449,
+      caption: personName,
+    },
+    email: 'mailto:remmanidev@gmail.com',
     address: {
       '@type': 'PostalAddress',
       addressLocality: 'Casablanca',
-      addressCountry: 'Morocco',
+      addressCountry: 'MA',
     },
-    knowsAbout: [
-      'Spring Boot',
-      'Java',
-      'Microservices',
-      'Kafka',
-      'PostgreSQL',
-      'Redis',
-      'Keycloak',
-      'REST APIs',
-      'Event-driven architecture',
-      'Multi-tenant systems',
-      'Next.js',
-      'AI integration',
-      'OpenAI',
-      'RAG',
-      'Docker',
-      'CI/CD',
-    ],
-    image: `${canonicalUrl('')}/images/me.png`,
+    sameAs: [socialProfiles.linkedin, socialProfiles.github],
     worksFor: {
       '@type': 'Organization',
       name: 'Auto Dealers Digital',
     },
+    alumniOf: [
+      { '@type': 'CollegeOrUniversity', name: 'Ibn Tofail University' },
+      { '@type': 'CollegeOrUniversity', name: 'EST Safi' },
+      { '@type': 'CollegeOrUniversity', name: 'EST Meknes' },
+    ],
+    knowsLanguage: ['ar', 'fr', 'en'],
+    knowsAbout: [
+      'Software Engineering',
+      'Full-Stack Development',
+      'Backend Development',
+      'Java',
+      'Spring Boot',
+      'REST APIs',
+      'Apache Kafka',
+      'Event-driven architecture',
+      'Microservices',
+      'Multi-tenant SaaS',
+      'PostgreSQL',
+      'MySQL',
+      'Redis',
+      'React',
+      'Next.js',
+      'TypeScript',
+      'Docker',
+      'Amazon Web Services',
+      'CI/CD',
+      'Keycloak',
+      'OAuth2',
+      'AI integration',
+      'Retrieval-Augmented Generation',
+      'AWS Bedrock',
+    ],
   }
 }
 
-export function webSiteSchema(options?: { pathname?: string }) {
-  const pathname = options?.pathname ?? '/'
+export function websiteNode(): Node {
   return {
-    '@context': 'https://schema.org',
     '@type': 'WebSite',
-    name: 'Yassine REMMANI — Full-Stack Engineer (Spring Boot & Next.js)',
-    url: canonicalUrl(pathname),
-    description: 'Full-Stack Engineer. Spring Boot, Next.js, AI integration. Scalable APIs, event-driven systems, multi-tenant platforms. PostgreSQL, Docker, Kafka, AWS.',
-    publisher: {
-      '@type': 'Person',
-      name: 'Yassine REMMANI',
-    },
-    potentialAction: {
-      '@type': 'SearchAction',
-      target: { '@type': 'EntryPoint', url: `${canonicalUrl(pathname)}/?s={search_term_string}` },
-      'query-input': 'required name=search_term_string',
-    },
+    '@id': WEBSITE_ID,
+    url: `${siteUrl}/`,
+    name: siteName,
+    alternateName: ['remmani.dev', 'Yassine Remmani — Software Engineer'],
+    inLanguage: ['en', 'fr'],
+    author: personRef,
+    publisher: personRef,
+    about: personRef,
   }
 }
 
-export function webPageSchema(options: {
+export function breadcrumbNode(pageUrl: string, breadcrumbs: Breadcrumb[]): Node {
+  return {
+    '@type': 'BreadcrumbList',
+    '@id': `${pageUrl}#breadcrumb`,
+    itemListElement: breadcrumbs.map((b, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: b.name,
+      item: b.url,
+    })),
+  }
+}
+
+/** WebPage node (+ BreadcrumbList when breadcrumbs are given). */
+export function webPageNodes(options: {
+  type?: 'WebPage' | 'ProfilePage' | 'AboutPage' | 'CollectionPage' | 'ContactPage'
   name: string
   description: string
   pathname: string
-  breadcrumbs?: { name: string; url: string }[]
-}) {
-  const { name, description, pathname, breadcrumbs } = options
-  const url = canonicalUrl(pathname)
-
-  const schema: Record<string, unknown> = {
-    '@context': 'https://schema.org',
-    '@type': 'WebPage',
-    name,
-    description,
-    url,
-    primaryImageOfPage: `${canonicalUrl('')}/images/me.png`,
-    author: {
-      '@type': 'Person',
-      name: 'Yassine REMMANI',
-    },
-  }
-
-  if (breadcrumbs?.length) {
-    schema.breadcrumb = {
-      '@type': 'BreadcrumbList',
-      itemListElement: breadcrumbs.map((b, i) => ({
-        '@type': 'ListItem',
-        position: i + 1,
-        name: b.name,
-        item: b.url,
-      })),
-    }
-  }
-
-  return schema
-}
-
-export function softwareApplicationSchema(options: {
-  name: string
-  description: string
-  url: string
+  locale: Locale
+  breadcrumbs?: Breadcrumb[]
   image?: string
-  applicationCategory?: string
-}) {
-  const { name, description, url, image, applicationCategory = 'WebApplication' } = options
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'SoftwareApplication',
+}): Node[] {
+  const { type = 'WebPage', name, description, pathname, locale, breadcrumbs, image } = options
+  const url = canonicalUrl(pathname)
+  const isProfile = type === 'ProfilePage' || type === 'AboutPage'
+
+  const page: Node = {
+    '@type': type,
+    '@id': `${url}#webpage`,
+    url,
     name,
     description,
-    url,
-    applicationCategory,
-    operatingSystem: 'Web',
-    image: image || `${canonicalUrl('')}/images/projects/travelos.png`,
-    author: {
-      '@type': 'Person',
-      name: 'Yassine REMMANI',
-    },
+    inLanguage: locale,
+    isPartOf: websiteRef,
+    about: personRef,
+    author: personRef,
+    primaryImageOfPage: image ? absoluteUrl(image) : { '@id': `${siteUrl}/#person-image` },
+    ...(isProfile ? { mainEntity: personRef } : {}),
   }
+
+  if (!breadcrumbs?.length) return [page]
+  page.breadcrumb = { '@id': `${url}#breadcrumb` }
+  return [page, breadcrumbNode(url, breadcrumbs)]
 }
 
-/** ItemList schema for projects/case studies index page */
-export function projectsItemListSchema(
-  projects: { slug: string; title: string; summary: string }[],
-  pathPrefix = ''
-) {
-  const prefix = pathPrefix && !pathPrefix.endsWith('/') ? pathPrefix : pathPrefix
+/** ItemList schema for the projects/case studies index page */
+export function projectsItemListNode(
+  projects: readonly { slug: string; title: string }[],
+  locale: Locale,
+  listName: string
+): Node {
+  const listUrl = canonicalUrl(`/${locale}/projects`)
   return {
-    '@context': 'https://schema.org',
     '@type': 'ItemList',
-    name: 'Projects & Case Studies',
-    description: 'Production-grade platforms: TravelOS, Automotive Digital Platform, Multi-Tenant Classified Ads.',
+    '@id': `${listUrl}#projects`,
+    name: listName,
     numberOfItems: projects.length,
     itemListElement: projects.map((p, i) => ({
       '@type': 'ListItem',
       position: i + 1,
       name: p.title,
-      description: p.summary,
-      url: canonicalUrl(`${prefix}/projects/${p.slug}`),
+      url: canonicalUrl(`/${locale}/projects/${p.slug}`),
     })),
   }
 }
 
-export function caseStudySchema(options: {
+export function caseStudyNode(options: {
   name: string
   description: string
   url: string
   image: string
   keywords: string[]
-}) {
-  const { name, description, url, image, keywords } = options
+  locale: Locale
+}): Node {
+  const { name, description, url, image, keywords, locale } = options
   return {
-    '@context': 'https://schema.org',
     '@type': 'TechArticle',
+    '@id': `${url}#article`,
     headline: name,
     description,
     url,
-    image: image.startsWith('http') ? image : `${canonicalUrl('')}${image}`,
+    mainEntityOfPage: { '@id': `${url}#webpage` },
+    image: absoluteUrl(image),
     keywords: keywords.join(', '),
-    author: {
-      '@type': 'Person',
-      name: 'Yassine REMMANI',
-    },
+    inLanguage: locale,
+    author: personRef,
+    publisher: personRef,
   }
 }
 
 /** BlogPosting schema for blog article pages */
-export function blogPostingSchema(options: {
+export function blogPostingNode(options: {
   headline: string
   description: string
   url: string
   datePublished: string
   dateModified?: string
   keywords?: string[]
-}) {
-  const { headline, description, url, datePublished, dateModified, keywords } = options
-  const schema: Record<string, unknown> = {
-    '@context': 'https://schema.org',
+  image?: string
+  locale: Locale
+}): Node {
+  const { headline, description, url, datePublished, dateModified, keywords, image, locale } = options
+  return {
     '@type': 'BlogPosting',
+    '@id': `${url}#article`,
     headline,
     description,
     url,
+    mainEntityOfPage: { '@id': `${url}#webpage` },
     datePublished,
-    author: {
-      '@type': 'Person',
-      name: 'Yassine REMMANI',
-    },
-    publisher: {
-      '@type': 'Person',
-      name: 'Yassine REMMANI',
-    },
+    dateModified: dateModified ?? datePublished,
+    inLanguage: locale,
+    author: { '@id': PERSON_ID, '@type': 'Person', name: personName, url: `${siteUrl}/` },
+    publisher: personRef,
+    isPartOf: websiteRef,
+    ...(image ? { image: absoluteUrl(image) } : {}),
+    ...(keywords?.length ? { keywords: keywords.join(', ') } : {}),
   }
-  if (dateModified) schema.dateModified = dateModified
-  if (keywords?.length) schema.keywords = keywords.join(', ')
-  return schema
 }

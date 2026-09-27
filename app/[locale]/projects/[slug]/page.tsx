@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation'
 import { buildMetadata, canonicalUrl } from '@/lib/seo'
 import { projects } from '@/lib/constants'
 import { SeoJsonLd } from '@/components/seo/SeoJsonLd'
-import { softwareApplicationSchema, caseStudySchema, webPageSchema } from '@/lib/seo-schema'
+import { graph, webPageNodes, caseStudyNode } from '@/lib/seo-schema'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
@@ -36,11 +36,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const summary = translated?.summary ?? project.summary
 
   return buildMetadata({
-    title: `${title} — ${t.projectsSection.caseStudy}`,
+    title: `${title} — ${t.seo.caseStudySuffix}`,
     description: summary,
     pathname: `/${locale}/projects/${slug}`,
+    locale: locale as Locale,
     image: project.coverImage,
-    type: 'article',
+    imageAlt: replaceParams(t.caseStudy.coverAlt, { title }),
   })
 }
 
@@ -63,48 +64,34 @@ export default async function CaseStudyPage({ params }: PageProps) {
 
   const pathname = `/${locale}/projects/${slug}`
   const projectUrl = canonicalUrl(pathname)
-  const projectImage = `${canonicalUrl('')}${project.coverImage}`
   const homePath = `/${locale}`
   const projectsPath = `/${locale}/projects`
 
   return (
     <>
-      <SeoJsonLd data={webPageSchema({
-        name: `${title} — Case Study`,
-        description: summary,
-        pathname,
-        breadcrumbs: [
-          { name: t.nav.home, url: canonicalUrl(homePath) },
-          { name: t.nav.projects, url: canonicalUrl(projectsPath) },
-          { name: title, url: projectUrl },
-        ],
-      })} />
-      <SeoJsonLd data={caseStudySchema({
-        name: title,
-        description: summary,
-        url: projectUrl,
-        image: projectImage,
-        keywords: project.tags,
-      })} />
-      {slug === 'travelos' && (
-        <SeoJsonLd data={softwareApplicationSchema({
-          name: 'TravelOS',
-          description: translated?.description ?? project.description,
-          url: projectUrl,
-          image: projectImage,
-          applicationCategory: 'TravelApplication',
-        })} />
-      )}
       <SeoJsonLd
-        data={{
-          '@context': 'https://schema.org',
-          '@type': 'BreadcrumbList',
-          itemListElement: [
-            { '@type': 'ListItem', position: 1, name: t.nav.home, item: canonicalUrl(homePath) },
-            { '@type': 'ListItem', position: 2, name: t.nav.projects, item: canonicalUrl(projectsPath) },
-            { '@type': 'ListItem', position: 3, name: title, item: projectUrl },
-          ],
-        }}
+        data={graph(
+          ...webPageNodes({
+            name: `${title} — ${t.seo.caseStudySuffix}`,
+            description: summary,
+            pathname,
+            locale: locale as Locale,
+            image: project.coverImage,
+            breadcrumbs: [
+              { name: t.nav.home, url: canonicalUrl(homePath) },
+              { name: t.nav.projects, url: canonicalUrl(projectsPath) },
+              { name: title, url: projectUrl },
+            ],
+          }),
+          caseStudyNode({
+            name: title,
+            description: translated?.description ?? project.description,
+            url: projectUrl,
+            image: project.coverImage,
+            keywords: project.tags,
+            locale: locale as Locale,
+          })
+        )}
       />
       <article className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 max-w-3xl">
         <Link
@@ -210,6 +197,15 @@ export default async function CaseStudyPage({ params }: PageProps) {
               <Link href={localePath(locale as Locale, '/event-driven-systems-kafka')} className="text-sm text-accent hover:underline">{t.footer.eventDrivenKafka}</Link>
             </div>
           </div>
+          <nav aria-label={t.caseStudy.moreAbout}>
+            <p className="text-sm font-medium text-[var(--foreground-muted)] mb-2">{t.caseStudy.moreAbout}</p>
+            <div className="flex flex-wrap gap-x-4 gap-y-2">
+              <Link href={projectsPath} className="text-sm text-accent hover:underline">{t.caseStudy.allProjects}</Link>
+              <Link href={localePath(locale as Locale, '/about')} className="text-sm text-accent hover:underline">{t.caseStudy.aboutLink}</Link>
+              <Link href={localePath(locale as Locale, '/experience')} className="text-sm text-accent hover:underline">{t.caseStudy.experienceLink}</Link>
+              <Link href={localePath(locale as Locale, '/resume')} className="text-sm text-accent hover:underline">{t.caseStudy.resumeLink}</Link>
+            </div>
+          </nav>
           <Button asChild>
             <Link href={localePath(locale as Locale, '/contact')}>{t.caseStudy.getInTouch}</Link>
           </Button>

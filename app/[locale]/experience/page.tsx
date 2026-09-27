@@ -1,6 +1,8 @@
 import { Metadata } from 'next'
+import Link from 'next/link'
+import { localePath } from '@/lib/i18n'
 import { buildMetadata, canonicalUrl } from '@/lib/seo'
-import { webPageSchema } from '@/lib/seo-schema'
+import { graph, webPageNodes } from '@/lib/seo-schema'
 import { SeoJsonLd } from '@/components/seo/SeoJsonLd'
 import { getTranslations } from '@/lib/translations'
 import type { Locale } from '@/lib/i18n'
@@ -11,10 +13,12 @@ interface PageProps {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale } = await params
+  const t = getTranslations(locale as Locale)
   return buildMetadata({
-    title: 'Experience & Education — Full-Stack Engineer',
-    description: 'Full-Stack Engineer. 6+ years building high-traffic REST APIs, event-driven Kafka systems, AI integration, multi-tenant platforms. Spring Boot, Next.js, PostgreSQL, Docker.',
+    title: t.seo.experience.title,
+    description: t.seo.experience.description,
     pathname: `/${locale}/experience`,
+    locale: locale as Locale,
   })
 }
 
@@ -28,24 +32,24 @@ export default async function ExperiencePage({ params }: PageProps) {
 
   return (
     <>
-      <SeoJsonLd data={webPageSchema({
-        name: 'Experience & Education — Yassine REMMANI',
-        description: 'Senior Full-Stack Developer. 6+ years building high-traffic APIs, event-driven systems, multi-tenant platforms. Master\'s in Computer Science & AI.',
-        pathname,
-        breadcrumbs: [{ name: t.nav.home, url: canonicalUrl(homePath) }, { name: t.nav.experience, url: canonicalUrl(pathname) }],
-      })} />
       <SeoJsonLd
-        data={{
-          '@context': 'https://schema.org',
-          '@type': 'BreadcrumbList',
-          itemListElement: [
-            { '@type': 'ListItem', position: 1, name: t.nav.home, item: canonicalUrl(homePath) },
-            { '@type': 'ListItem', position: 2, name: t.nav.experience, item: canonicalUrl(pathname) },
-          ],
-        }}
+        data={graph(
+          ...webPageNodes({
+            type: 'WebPage',
+            name: t.seo.experience.title,
+            description: t.seo.experience.description,
+            pathname,
+            locale: locale as Locale,
+            breadcrumbs: [
+              { name: t.nav.home, url: canonicalUrl(homePath) },
+              { name: t.nav.experience, url: canonicalUrl(pathname) },
+            ],
+          })
+        )}
       />
       <section className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 max-w-3xl">
-        <h1 className="font-heading text-3xl md:text-4xl font-bold mb-12">{t.experiencePage.h1}</h1>
+        <h1 className="font-heading text-3xl md:text-4xl font-bold mb-4">{t.experiencePage.h1}</h1>
+        <p className="text-[var(--foreground-muted)] leading-relaxed mb-12">{t.experiencePage.intro}</p>
         <div className="relative">
           <div className="absolute left-0 top-0 bottom-0 w-px bg-border" aria-hidden />
           <ul className="space-y-12">
@@ -123,6 +127,15 @@ export default async function ExperiencePage({ params }: PageProps) {
             </div>
           ))}
         </div>
+
+        <nav aria-label={t.experiencePage.related} className="mt-12 pt-8 border-t border-border">
+          <p className="text-sm font-medium text-[var(--foreground-muted)] mb-2">{t.experiencePage.related}</p>
+          <div className="flex flex-wrap gap-x-4 gap-y-2">
+            <Link href={localePath(locale as Locale, '/projects')} className="text-sm text-accent hover:underline">{t.aboutPage.projectsLink}</Link>
+            <Link href={localePath(locale as Locale, '/resume')} className="text-sm text-accent hover:underline">{t.aboutPage.resumeLink}</Link>
+            <Link href={localePath(locale as Locale, '/about')} className="text-sm text-accent hover:underline">{t.nav.about}</Link>
+          </div>
+        </nav>
       </section>
     </>
   )

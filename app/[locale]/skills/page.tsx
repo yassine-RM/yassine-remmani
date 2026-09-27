@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
 import { buildMetadata, canonicalUrl } from '@/lib/seo'
-import { webPageSchema } from '@/lib/seo-schema'
+import { graph, webPageNodes } from '@/lib/seo-schema'
 import { SeoJsonLd } from '@/components/seo/SeoJsonLd'
 import { getTranslations } from '@/lib/translations'
 import type { Locale } from '@/lib/i18n'
@@ -11,10 +11,12 @@ interface PageProps {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale } = await params
+  const t = getTranslations(locale as Locale)
   return buildMetadata({
-    title: 'Skills',
-    description: 'Backend: Spring Boot, Java, PostgreSQL. Frontend: Next.js, React, TypeScript. AI: AWS Bedrock, LLM APIs. DevOps: Docker, CI/CD. Architecture: Clean Architecture, DDD, REST.',
+    title: t.seo.skills.title,
+    description: t.seo.skills.description,
     pathname: `/${locale}/skills`,
+    locale: locale as Locale,
   })
 }
 
@@ -28,21 +30,20 @@ export default async function SkillsPage({ params }: PageProps) {
 
   return (
     <>
-      <SeoJsonLd data={webPageSchema({
-        name: 'Skills — Yassine REMMANI',
-        description: 'Backend: Spring Boot, Java, PostgreSQL. Frontend: Next.js, React, TypeScript. AI: AWS Bedrock, LLM APIs. DevOps: Docker, CI/CD. Architecture: Clean Architecture, DDD, REST.',
-        pathname,
-        breadcrumbs: [{ name: t.nav.home, url: canonicalUrl(homePath) }, { name: t.nav.skills, url: canonicalUrl(pathname) }],
-      })} />
       <SeoJsonLd
-        data={{
-          '@context': 'https://schema.org',
-          '@type': 'BreadcrumbList',
-          itemListElement: [
-            { '@type': 'ListItem', position: 1, name: t.nav.home, item: canonicalUrl(homePath) },
-            { '@type': 'ListItem', position: 2, name: t.nav.skills, item: canonicalUrl(pathname) },
-          ],
-        }}
+        data={graph(
+          ...webPageNodes({
+            type: 'WebPage',
+            name: t.seo.skills.title,
+            description: t.seo.skills.description,
+            pathname,
+            locale: locale as Locale,
+            breadcrumbs: [
+              { name: t.nav.home, url: canonicalUrl(homePath) },
+              { name: t.nav.skills, url: canonicalUrl(pathname) },
+            ],
+          })
+        )}
       />
       <section className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
         <h1 className="font-heading text-3xl md:text-4xl font-bold mb-12">{t.skillsPage.h1}</h1>

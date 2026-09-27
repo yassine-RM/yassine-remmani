@@ -2,7 +2,7 @@ import { Metadata } from 'next'
 import Link from 'next/link'
 import { buildMetadata, canonicalUrl } from '@/lib/seo'
 import { SeoJsonLd } from '@/components/seo/SeoJsonLd'
-import { webPageSchema } from '@/lib/seo-schema'
+import { graph, webPageNodes } from '@/lib/seo-schema'
 import { Button } from '@/components/ui/button'
 import { localePath } from '@/lib/i18n'
 import { getTranslations } from '@/lib/translations'
@@ -17,17 +17,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const t = getTranslations(locale as Locale)
   const pathname = `/${locale}/event-driven-systems-kafka`
   return buildMetadata({
-    title: t.kafkaPage.h1,
+    title: `${t.kafkaPage.breadcrumbTitle} — Yassine Remmani`,
     description: t.kafkaPage.subtitle,
     pathname,
-    keywords: [
-      'Kafka event-driven',
-      'Backend Engineer',
-      'Scalable API Developer',
-      'event-driven architecture',
-      'data consistency',
-      'async workflows',
-    ],
+    locale: locale as Locale,
   })
 }
 
@@ -44,23 +37,16 @@ export default async function EventDrivenSystemsKafkaPage({ params }: PageProps)
 
   return (
     <>
-      <SeoJsonLd data={webPageSchema({
-        name: t.kafkaPage.h1,
-        description: t.kafkaPage.subtitle,
-        pathname,
-        breadcrumbs,
-      })} />
       <SeoJsonLd
-        data={{
-          '@context': 'https://schema.org',
-          '@type': 'BreadcrumbList',
-          itemListElement: breadcrumbs.map((b, i) => ({
-            '@type': 'ListItem',
-            position: i + 1,
-            name: b.name,
-            item: b.url,
-          })),
-        }}
+        data={graph(
+          ...webPageNodes({
+            name: t.kafkaPage.h1,
+            description: t.kafkaPage.subtitle,
+            pathname,
+            locale: locale as Locale,
+            breadcrumbs,
+          })
+        )}
       />
       <article className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 max-w-3xl">
         <nav className="mb-8" aria-label="Breadcrumb">

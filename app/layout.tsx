@@ -1,95 +1,47 @@
-import type { Metadata } from 'next'
-import { Inter, Plus_Jakarta_Sans } from 'next/font/google'
+import type { Metadata, Viewport } from 'next'
 import './globals.css'
-import { ThemeProvider } from '@/components/ThemeProvider'
-import { GoogleAnalytics } from '@/components/GoogleAnalytics'
-import { SetLocaleLang } from '@/components/SetLocaleLang'
-
-const inter = Inter({
-  subsets: ['latin'],
-  variable: '--font-inter',
-  display: 'swap',
-})
-
-const jakarta = Plus_Jakarta_Sans({
-  subsets: ['latin'],
-  variable: '--font-jakarta',
-  display: 'swap',
-})
+import { siteUrl, personName } from '@/lib/seo'
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://remmanidev.com'),
-  icons: {
-    icon: '/images/favicon.png',
-  },
+  metadataBase: new URL(siteUrl),
+  applicationName: personName,
   title: {
-    default: 'Yassine REMMANI — Full-Stack Engineer | Spring Boot, Next.js & AI',
-    template: '%s | Yassine REMMANI',
+    default: 'Yassine Remmani — Senior Full-Stack Developer & Software Engineer',
+    template: '%s | Yassine Remmani',
   },
-  description: 'Full-Stack Engineer (6+ years). Spring Boot, Next.js, AI integration. PostgreSQL, Docker, Kafka. Scalable APIs, event-driven systems, multi-tenant platforms. AWS, Microservices.',
-  keywords: ['Full-Stack Engineer', 'Spring Boot Developer', 'Next.js Developer', 'Spring Boot', 'Next.js', 'AI integration', 'LLM APIs', 'PostgreSQL', 'Docker', 'Kafka', 'AWS', 'Microservices', 'Event-driven systems', 'Multi-tenant'],
-  authors: [{ name: 'Yassine REMMANI' }],
-  creator: 'Yassine REMMANI',
-  openGraph: {
-    type: 'website',
-    locale: 'en_US',
-    url: 'https://remmanidev.com',
-    siteName: 'Yassine REMMANI — Full-Stack Engineer (Spring Boot & Next.js)',
-    title: 'Yassine REMMANI — Full-Stack Engineer | Spring Boot, Next.js & AI',
-    description: 'Full-Stack Engineer. Spring Boot, Next.js, AI integration. Scalable APIs, event-driven systems, multi-tenant platforms. 6+ years. PostgreSQL, Docker, Kafka, AWS.',
-    images: [
-      {
-        url: '/images/me.png',
-        width: 1200,
-        height: 630,
-        alt: 'Yassine REMMANI — Senior Full-Stack Developer',
-      },
-    ],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Yassine REMMANI — Full-Stack Engineer | Spring Boot, Next.js & AI',
-    description: 'Full-Stack Engineer. Spring Boot, Next.js, AI integration. Scalable APIs, event-driven systems, multi-tenant platforms. PostgreSQL, Docker, Kafka.',
-    images: ['/images/me.png'],
-    creator: '@remmanidev',
-  },
+  description:
+    'Yassine Remmani is a Senior Full-Stack Developer and software engineer in Casablanca, Morocco, building production platforms with Java, Spring Boot, React, Next.js, PostgreSQL, Docker and AWS.',
+  authors: [{ name: personName, url: siteUrl }],
+  creator: personName,
+  publisher: personName,
+  formatDetection: { telephone: false, email: false, address: false },
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+      'max-video-preview': -1,
+    },
   },
   verification: {
     google: 'huMfn-2MxJNotrPDZZIA5--90VUJGb3s8hEcdBs1ZP0',
   },
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
-  return (
-    <html lang="en" suppressHydrationWarning data-theme="dark">
-      <head>
-        {/* Critical: runs synchronously before paint to prevent theme flash (FOUC). Reads localStorage → system pref. */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `(function(){try{var s=localStorage.getItem('theme');var d=window.matchMedia('(prefers-color-scheme: dark)').matches;var t=s==='light'||s==='dark'?s:(d?'dark':'light');document.documentElement.setAttribute('data-theme',t)}catch(e){document.documentElement.setAttribute('data-theme','dark')}})();`,
-          }}
-        />
-      </head>
-      <body className={`${inter.variable} ${jakarta.variable} font-sans`}>
-        <GoogleAnalytics />
-        <SetLocaleLang />
-        <ThemeProvider>
-          <a
-            href="#main"
-            className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:bg-accent focus:text-white focus:px-4 focus:py-2 focus:rounded-lg focus:font-medium"
-          >
-            Skip to content
-          </a>
-          {children}
-        </ThemeProvider>
-      </body>
-    </html>
-  )
+export const viewport: Viewport = {
+  themeColor: [
+    { media: '(prefers-color-scheme: dark)', color: '#0a0a0a' },
+    { media: '(prefers-color-scheme: light)', color: '#fafafa' },
+  ],
+}
+
+/**
+ * The <html> element is rendered by app/[locale]/layout.tsx so that each
+ * language is server-rendered with the correct lang attribute.
+ */
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return children
 }

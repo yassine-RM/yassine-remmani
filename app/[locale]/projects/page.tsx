@@ -2,7 +2,7 @@ import { Metadata } from 'next'
 import { buildMetadata, canonicalUrl } from '@/lib/seo'
 import { projects } from '@/lib/constants'
 import { SeoJsonLd } from '@/components/seo/SeoJsonLd'
-import { webPageSchema, projectsItemListSchema } from '@/lib/seo-schema'
+import { graph, webPageNodes, projectsItemListNode } from '@/lib/seo-schema'
 import { ProjectCard } from '@/components/cards/ProjectCard'
 import { getTranslations } from '@/lib/translations'
 import type { Locale } from '@/lib/i18n'
@@ -13,10 +13,12 @@ interface PageProps {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale } = await params
+  const t = getTranslations(locale as Locale)
   return buildMetadata({
-    title: 'Projects',
-    description: 'Production-grade platforms: TravelOS (travel discovery), Automotive Digital Platform, Multi-Tenant Classified Ads. Spring Boot, Next.js, PostgreSQL, Docker.',
+    title: t.seo.projects.title,
+    description: t.seo.projects.description,
     pathname: `/${locale}/projects`,
+    locale: locale as Locale,
   })
 }
 
@@ -28,22 +30,21 @@ export default async function ProjectsPage({ params }: PageProps) {
 
   return (
     <>
-      <SeoJsonLd data={webPageSchema({
-        name: 'Projects — Yassine REMMANI',
-        description: t.projectsPage.intro,
-        pathname,
-        breadcrumbs: [{ name: t.nav.home, url: canonicalUrl(homePath) }, { name: t.nav.projects, url: canonicalUrl(pathname) }],
-      })} />
-      <SeoJsonLd data={projectsItemListSchema(projects, `/${locale}`)} />
       <SeoJsonLd
-        data={{
-          '@context': 'https://schema.org',
-          '@type': 'BreadcrumbList',
-          itemListElement: [
-            { '@type': 'ListItem', position: 1, name: t.nav.home, item: canonicalUrl(homePath) },
-            { '@type': 'ListItem', position: 2, name: t.nav.projects, item: canonicalUrl(pathname) },
-          ],
-        }}
+        data={graph(
+          ...webPageNodes({
+            type: 'CollectionPage',
+            name: t.seo.projects.title,
+            description: t.seo.projects.description,
+            pathname,
+            locale: locale as Locale,
+            breadcrumbs: [
+              { name: t.nav.home, url: canonicalUrl(homePath) },
+              { name: t.nav.projects, url: canonicalUrl(pathname) },
+            ],
+          }),
+          projectsItemListNode(t.data.projects, locale as Locale, t.projectsPage.h1)
+        )}
       />
       <section className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
         <h1 className="font-heading text-3xl md:text-4xl font-bold mb-4">{t.projectsPage.h1}</h1>

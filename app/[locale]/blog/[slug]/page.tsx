@@ -4,11 +4,11 @@ import Link from 'next/link'
 import { SimpleMarkdown } from '@/components/blog/SimpleMarkdown'
 import { buildMetadata, canonicalUrl } from '@/lib/seo'
 import { SeoJsonLd } from '@/components/seo/SeoJsonLd'
-import { webPageSchema, blogPostingSchema } from '@/lib/seo-schema'
+import { graph, webPageNodes, blogPostingNode } from '@/lib/seo-schema'
 import { getTranslations } from '@/lib/translations'
 import Image from 'next/image'
-import { getAllPosts, getPostBySlug, getPostRawContent, stripFrontmatter, blogCoverImageSrc } from '@/lib/blog'
-import type { Locale } from '@/lib/i18n'
+import { getAllPosts, getPostBySlug, getPostLocales, getPostRawContent, stripFrontmatter, blogCoverImageSrc } from '@/lib/blog'
+import { localePath, type Locale } from '@/lib/i18n'
 
 interface PageProps {
   params: Promise<{ locale: string; slug: string }>
@@ -33,13 +33,21 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const description = tr?.excerpt ?? meta.excerpt
 
   const pathname = `/${locale}/blog/${slug}`
+  const available = getPostLocales(slug)
+  // A locale that only falls back to the English body is a duplicate: canonicalize to the original.
+  const isFallback = !available.includes(locale as Locale)
   return buildMetadata({
-    title,
+    title: `${title} | Yassine Remmani`,
     description,
     pathname,
+    locale: locale as Locale,
     type: 'article',
     publishedTime: meta.date,
     keywords: meta.keywords,
+    image: meta.coverImage ? blogCoverImageSrc(meta.coverImage) : undefined,
+    imageAlt: title,
+    availableLocales: available,
+    canonicalPathname: isFallback ? `/${available[0]}/blog/${slug}` : undefined,
   })
 }
 
@@ -58,11 +66,14 @@ export default async function BlogPostPage({ params }: PageProps) {
   const excerpt = tr?.excerpt ?? meta.excerpt
   const readingTime = tr?.readingTime ?? meta.readingTime
 
-  const pathname = `/${locale}/blog/${slug}`
+  const available = getPostLocales(slug)
+  // Structured data follows the canonical URL (the original language for untranslated posts).
+  const pathname = available.includes(locale as Locale) ? `/${locale}/blog/${slug}` : `/${available[0]}/blog/${slug}`
   const blogPath = `/${locale}/blog`
   const homePath = `/${locale}`
 
   const markdownBody = stripFrontmatter(raw)
+  const coverSrc = meta.coverImage ? blogCoverImageSrc(meta.coverImage) : undefined
 
   const breadcrumbs = [
     { name: t.nav.home, url: canonicalUrl(homePath) },
@@ -73,34 +84,25 @@ export default async function BlogPostPage({ params }: PageProps) {
   return (
     <>
       <SeoJsonLd
-        data={webPageSchema({
-          name: title,
-          description: excerpt,
-          pathname,
-          breadcrumbs,
-        })}
-      />
-      <SeoJsonLd
-        data={blogPostingSchema({
-          headline: title,
-          description: excerpt,
-          url: canonicalUrl(pathname),
-          datePublished: meta.date,
-          dateModified: meta.date,
-          keywords: meta.keywords,
-        })}
-      />
-      <SeoJsonLd
-        data={{
-          '@context': 'https://schema.org',
-          '@type': 'BreadcrumbList',
-          itemListElement: breadcrumbs.map((b, i) => ({
-            '@type': 'ListItem',
-            position: i + 1,
-            name: b.name,
-            item: b.url,
-          })),
-        }}
+        data={graph(
+          ...webPageNodes({
+            name: title,
+            description: excerpt,
+            pathname,
+            locale: locale as Locale,
+            image: coverSrc,
+            breadcrumbs,
+          }),
+          blogPostingNode({
+            headline: title,
+            description: excerpt,
+            url: canonicalUrl(pathname),
+            datePublished: meta.date,
+            keywords: meta.keywords,
+            image: coverSrc,
+            locale: locale as Locale,
+          })
+        )}
       />
       <article className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 max-w-3xl">
         <nav className="mb-8" aria-label="Breadcrumb">
@@ -129,7 +131,7 @@ export default async function BlogPostPage({ params }: PageProps) {
           <div className="relative w-full aspect-[2/1] max-h-[360px] rounded-xl overflow-hidden border border-[var(--border-color)] mb-10">
             <Image
               src={blogCoverImageSrc(meta.coverImage)}
-              alt=""
+              alt={title}
               fill
               className="object-cover"
               sizes="(max-width: 768px) 100vw, 672px"
@@ -157,6 +159,21 @@ export default async function BlogPostPage({ params }: PageProps) {
         <div className="prose prose-invert prose-slate max-w-none prose-headings:font-heading prose-a:text-accent prose-a:no-underline hover:prose-a:underline prose-pre:bg-[var(--bg-surface)] prose-pre:border prose-pre:border-[var(--border-color)]">
           <SimpleMarkdown content={markdownBody} />
         </div>
+
+        <aside aria-label={t.blogPage.aboutAuthor} className="mt-16 pt-8 border-t border-border">
+          <p className="text-sm text-[var(--foreground-muted)]">
+            {t.blogPage.writtenBy}{' '}
+            <Link href={localePath(locale as Locale, '/about')} rel="author" className="font-semibold text-foreground hover:text-accent transition-colors">
+              Yassine Remmani
+            </Link>
+          </p>
+          <p className="text-sm text-[var(--foreground-muted)] mt-1 leading-relaxed">{t.blogPage.authorBio}</p>
+          <div className="flex flex-wrap gap-x-4 gap-y-2 mt-3">
+            <Link href={localePath(locale as Locale, '/projects')} className="text-sm text-accent hover:underline">{t.aboutPage.projectsLink}</Link>
+            <Link href={localePath(locale as Locale, '/resume')} className="text-sm text-accent hover:underline">{t.aboutPage.resumeLink}</Link>
+            <Link href={localePath(locale as Locale, '/blog')} className="text-sm text-accent hover:underline">{t.aboutPage.blogLink}</Link>
+          </div>
+        </aside>
       </article>
     </>
   )

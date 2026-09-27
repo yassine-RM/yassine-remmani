@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
 import { buildMetadata, canonicalUrl } from '@/lib/seo'
-import { webPageSchema } from '@/lib/seo-schema'
+import { graph, webPageNodes } from '@/lib/seo-schema'
 import { SeoJsonLd } from '@/components/seo/SeoJsonLd'
 import { ResumeDownload } from '@/components/ResumeDownload'
 import { getTranslations } from '@/lib/translations'
@@ -13,15 +13,12 @@ interface PageProps {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale } = await params
-  const isFr = locale === 'fr'
+  const t = getTranslations(locale as Locale)
   return buildMetadata({
-    title: isFr
-      ? 'CV — Yassine Remmani | Développeur Full Stack Senior'
-      : 'Resume — Yassine Remmani | Senior Full-Stack Developer',
-    description: isFr
-      ? 'CV de Yassine Remmani, Développeur Full Stack Senior basé à Casablanca, spécialisé en Java, Spring Boot, React, Next.js, Docker, CI/CD, PostgreSQL et plateformes web scalables.'
-      : 'Resume of Yassine Remmani, Senior Full-Stack Developer based in Casablanca, specializing in Java, Spring Boot, React, Next.js, Docker, CI/CD, PostgreSQL, and scalable web platforms.',
+    title: t.seo.resume.title,
+    description: t.seo.resume.description,
     pathname: `/${locale}/resume`,
+    locale: locale as Locale,
   })
 }
 
@@ -63,27 +60,20 @@ export default async function ResumePage({ params }: PageProps) {
   return (
     <>
       <SeoJsonLd
-        data={webPageSchema({
-          name: r.h1,
-          description: r.intro,
-          pathname,
-          breadcrumbs: [
-            { name: t.nav.home, url: canonicalUrl(homePath) },
-            { name: t.nav.resume, url: canonicalUrl(pathname) },
-          ],
-        })}
+        data={graph(
+          ...webPageNodes({
+            type: 'WebPage',
+            name: t.seo.resume.title,
+            description: t.seo.resume.description,
+            pathname,
+            locale: locale as Locale,
+            breadcrumbs: [
+              { name: t.nav.home, url: canonicalUrl(homePath) },
+              { name: t.nav.resume, url: canonicalUrl(pathname) },
+            ],
+          })
+        )}
       />
-      <SeoJsonLd
-        data={{
-          '@context': 'https://schema.org',
-          '@type': 'BreadcrumbList',
-          itemListElement: [
-            { '@type': 'ListItem', position: 1, name: t.nav.home, item: canonicalUrl(homePath) },
-            { '@type': 'ListItem', position: 2, name: t.nav.resume, item: canonicalUrl(pathname) },
-          ],
-        }}
-      />
-
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl">
         {/* Hero */}
         <section className="pt-12 md:pt-16 pb-10 md:pb-14">

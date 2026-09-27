@@ -5,6 +5,15 @@ import { useLocale } from '@/components/LocaleProvider'
 import { localePath } from '@/lib/i18n'
 import { useTranslations } from '@/hooks/useTranslations'
 import { replaceParams } from '@/lib/translations'
+import { socialProfiles } from '@/lib/seo'
+
+const explorePaths = [
+  { path: '/about', labelKey: 'about' as const },
+  { path: '/experience', labelKey: 'experience' as const },
+  { path: '/projects', labelKey: 'projects' as const },
+  { path: '/resume', labelKey: 'resume' as const },
+  { path: '/blog', labelKey: 'blog' as const },
+]
 
 const architecturePaths = [
   { path: '/spring-boot-architecture', labelKey: 'springBoot' as const },
@@ -30,6 +39,21 @@ export function Footer() {
             </p>
           </div>
           <div className="flex flex-col sm:flex-row gap-8">
+            <nav aria-label={t.footer.explore}>
+              <h3 className="text-xs font-semibold uppercase tracking-wider text-[var(--foreground-muted)] mb-3">{t.footer.explore}</h3>
+              <ul className="space-y-2">
+                {explorePaths.map((link) => (
+                  <li key={link.path}>
+                    <Link
+                      href={localePath(locale, link.path)}
+                      className="text-sm text-[var(--foreground-muted)] hover:text-accent transition-colors"
+                    >
+                      {t.nav[link.labelKey]}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
             <nav aria-label="Architecture & technical content">
               <h3 className="text-xs font-semibold uppercase tracking-wider text-[var(--foreground-muted)] mb-3">{t.footer.architecture}</h3>
               <ul className="space-y-2">
@@ -54,12 +78,12 @@ export function Footer() {
                   </Link>
                 </li>
                 <li>
-                  <Link href="https://www.linkedin.com/in/yassine-remmani/" target="_blank" rel="noopener noreferrer" className="text-sm text-[var(--foreground-muted)] hover:text-accent transition-colors">
+                  <Link href={socialProfiles.linkedin} target="_blank" rel="me noopener noreferrer" className="text-sm text-[var(--foreground-muted)] hover:text-accent transition-colors">
                     {t.footer.linkedin}
                   </Link>
                 </li>
                 <li>
-                  <Link href="https://github.com/yassine-RM" target="_blank" rel="noopener noreferrer" className="text-sm text-[var(--foreground-muted)] hover:text-accent transition-colors">
+                  <Link href={socialProfiles.github} target="_blank" rel="me noopener noreferrer" className="text-sm text-[var(--foreground-muted)] hover:text-accent transition-colors">
                     {t.footer.github}
                   </Link>
                 </li>

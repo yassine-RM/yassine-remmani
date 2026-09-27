@@ -29,7 +29,7 @@ export const projects: Project[] = [
     problem: 'Need for a fast, discoverable travel content platform with strong SEO and backend control.',
     solution: 'Spring Boot backend for content and APIs; PostgreSQL with migrations; Redis for response time. Next.js App Router for SSR and SEO. Keycloak-ready auth. Docker and CI/CD.',
     architecture: 'Backend: Spring Boot, layered design, JWT/OAuth2-ready, Keycloak-compatible. PostgreSQL with Flyway. Docker for parity. Frontend: Next.js server components, Redis-backed performance. CI/CD and observability.',
-    coverImage: '/images/projects/travelos.png',
+    coverImage: '/images/projects/travelos.webp',
     logo: '/images/tech/springboot.svg',
     tags: ['Spring Boot', 'PostgreSQL', 'Redis', 'Next.js', 'Docker'],
     metric: {

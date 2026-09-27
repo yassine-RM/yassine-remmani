@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
 import { buildMetadata, canonicalUrl } from '@/lib/seo'
-import { webPageSchema } from '@/lib/seo-schema'
+import { graph, webPageNodes } from '@/lib/seo-schema'
 import { SeoJsonLd } from '@/components/seo/SeoJsonLd'
 import { getTranslations } from '@/lib/translations'
 import { getAllPosts, blogCoverImageSrc } from '@/lib/blog'
@@ -18,6 +18,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     title: t.blogPage.metaTitle,
     description: t.blogPage.metaDescription,
     pathname: `/${locale}/blog`,
+    locale: locale as Locale,
   })
 }
 
@@ -30,21 +31,20 @@ export default async function BlogPage({ params }: PageProps) {
 
   return (
     <>
-      <SeoJsonLd data={webPageSchema({
-        name: 'Blog — Articles & Insights',
-        description: t.blogPage.subtitle,
-        pathname,
-        breadcrumbs: [{ name: t.nav.home, url: canonicalUrl(homePath) }, { name: t.blogPage.badge, url: canonicalUrl(pathname) }],
-      })} />
       <SeoJsonLd
-        data={{
-          '@context': 'https://schema.org',
-          '@type': 'BreadcrumbList',
-          itemListElement: [
-            { '@type': 'ListItem', position: 1, name: t.nav.home, item: canonicalUrl(homePath) },
-            { '@type': 'ListItem', position: 2, name: t.blogPage.badge, item: canonicalUrl(pathname) },
-          ],
-        }}
+        data={graph(
+          ...webPageNodes({
+            type: 'CollectionPage',
+            name: t.blogPage.metaTitle,
+            description: t.blogPage.metaDescription,
+            pathname,
+            locale: locale as Locale,
+            breadcrumbs: [
+              { name: t.nav.home, url: canonicalUrl(homePath) },
+              { name: t.blogPage.badge, url: canonicalUrl(pathname) },
+            ],
+          })
+        )}
       />
       <section className="container mx-auto px-4 md:px-8 py-16 md:py-24 max-w-4xl">
         <div className="mb-12 text-center">

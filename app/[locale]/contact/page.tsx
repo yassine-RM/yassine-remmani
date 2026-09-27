@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
 import { buildMetadata, canonicalUrl } from '@/lib/seo'
-import { webPageSchema } from '@/lib/seo-schema'
+import { graph, webPageNodes } from '@/lib/seo-schema'
 import { SeoJsonLd } from '@/components/seo/SeoJsonLd'
 import { getTranslations } from '@/lib/translations'
 import type { Locale } from '@/lib/i18n'
@@ -11,10 +11,12 @@ interface PageProps {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale } = await params
+  const t = getTranslations(locale as Locale)
   return buildMetadata({
-    title: 'Contact',
-    description: 'Open to senior full-stack, backend, or platform engineering roles. Email, LinkedIn, GitHub.',
+    title: t.seo.contact.title,
+    description: t.seo.contact.description,
     pathname: `/${locale}/contact`,
+    locale: locale as Locale,
   })
 }
 
@@ -26,21 +28,20 @@ export default async function ContactPage({ params }: PageProps) {
 
   return (
     <>
-      <SeoJsonLd data={webPageSchema({
-        name: 'Contact — Yassine REMMANI',
-        description: t.contactPage.intro,
-        pathname,
-        breadcrumbs: [{ name: t.nav.home, url: canonicalUrl(homePath) }, { name: t.nav.contact, url: canonicalUrl(pathname) }],
-      })} />
       <SeoJsonLd
-        data={{
-          '@context': 'https://schema.org',
-          '@type': 'BreadcrumbList',
-          itemListElement: [
-            { '@type': 'ListItem', position: 1, name: t.nav.home, item: canonicalUrl(homePath) },
-            { '@type': 'ListItem', position: 2, name: t.nav.contact, item: canonicalUrl(pathname) },
-          ],
-        }}
+        data={graph(
+          ...webPageNodes({
+            type: 'ContactPage',
+            name: t.seo.contact.title,
+            description: t.seo.contact.description,
+            pathname,
+            locale: locale as Locale,
+            breadcrumbs: [
+              { name: t.nav.home, url: canonicalUrl(homePath) },
+              { name: t.nav.contact, url: canonicalUrl(pathname) },
+            ],
+          })
+        )}
       />
       <section className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 max-w-2xl">
         <h1 className="font-heading text-3xl md:text-4xl font-bold mb-4">{t.contactPage.h1}</h1>

@@ -13,9 +13,40 @@ export const en = {
     resume: 'Resume',
     contact: 'Contact',
   },
+  seo: {
+    home: {
+      title: 'Yassine Remmani — Senior Full-Stack Developer & Software Engineer',
+      description: 'Yassine Remmani is a Senior Full-Stack Developer and software engineer in Casablanca, Morocco, building production platforms with Java, Spring Boot, Next.js, PostgreSQL and AWS.',
+    },
+    about: {
+      title: 'About Yassine Remmani — Senior Full-Stack Developer',
+      description: 'About Yassine Remmani: software engineer in Casablanca, Morocco with 6+ years building Spring Boot APIs, Next.js frontends, Kafka pipelines and AI integrations for multi-tenant platforms.',
+    },
+    experience: {
+      title: 'Yassine Remmani — Software Engineering Experience & Education',
+      description: 'Professional experience of Yassine Remmani, Senior Full-Stack Developer at Auto Dealers Digital since 2019: Spring Boot APIs, Kafka event pipelines, Next.js tools, PostgreSQL and Docker.',
+    },
+    projects: {
+      title: 'Yassine Remmani — Software Engineering Projects & Case Studies',
+      description: 'Case studies by Yassine Remmani: TravelOS, an automotive platform powering 4,000+ dealer sites, and a multi-tenant classified ads backend built with Spring Boot, Next.js and PostgreSQL.',
+    },
+    resume: {
+      title: 'Yassine Remmani — Senior Full-Stack Developer Resume',
+      description: 'Resume of Yassine Remmani, Senior Full-Stack Developer based in Casablanca, specializing in Java, Spring Boot, React, Next.js, Docker, CI/CD, PostgreSQL, and scalable web platforms.',
+    },
+    skills: {
+      title: 'Yassine Remmani — Technical Skills: Java, Spring Boot, Next.js & AI',
+      description: 'Technical skills of Yassine Remmani: Java, Spring Boot, Kafka and REST APIs on the backend; React, Next.js and TypeScript on the frontend; PostgreSQL, Redis, Docker, AWS and AI integration.',
+    },
+    contact: {
+      title: 'Contact Yassine Remmani — Senior Full-Stack Developer',
+      description: 'Get in touch with Yassine Remmani, Senior Full-Stack Developer in Casablanca, Morocco. Open to senior full-stack, backend and platform engineering roles. Email, LinkedIn, GitHub.',
+    },
+    caseStudySuffix: 'Case Study by Yassine Remmani',
+  },
   hero: {
-    badge: 'Spring Boot & Next.js Specialist',
-    tagline: 'I build full-stack platforms that land big jobs: resilient Spring Boot backends, modern Next.js frontends, and AI-ready integrations. PostgreSQL, Docker, Kafka—production-grade systems that scale.',
+    badge: 'Senior Full-Stack Developer & Software Engineer',
+    tagline: 'Software engineer based in Casablanca, Morocco, with 6+ years building production web platforms: Java and Spring Boot backends, React and Next.js frontends, PostgreSQL, Kafka, Docker and AWS, plus AI integrations where they add real value.',
     proofPoints: [
       { value: '4,000+', label: 'dealer sites' },
       { value: 'Spring Boot + Next.js', label: 'full-stack at scale' },
@@ -27,10 +58,10 @@ export const en = {
   },
   aboutSection: {
     title: 'About',
-    p1: "I'm a senior full-stack engineer specializing in Spring Boot and Next.js, with 6+ years building production systems. I focus on stack that lands big jobs: resilient backends, modern frontends, and AI-ready integrations.",
+    p1: "I'm Yassine Remmani, a senior full-stack developer specializing in Java, Spring Boot and Next.js, with 6+ years building production systems: resilient backends, modern frontends, and AI-ready integrations.",
     p2: 'I build scalable APIs, event-driven workflows, and multi-tenant platforms. Real systems—inventory sync, campaign attribution, real-time search—that run at scale. I integrate AI (e.g. AWS Bedrock, LLM APIs) where it adds value.',
     p3: 'Clean architecture, DDD, proper auth (JWT, OAuth2, Keycloak). Docker, CI/CD, PostgreSQL optimization. Open to senior full-stack (Spring Boot + Next.js) and roles that combine backend, frontend, and AI integration.',
-    readMore: 'Read more',
+    readMore: 'More about me',
   },
   skillsSection: {
     title: 'Skills',
@@ -122,7 +153,8 @@ export const en = {
   },
   footer: {
     copyright: '© {year} Yassine REMMANI · Casablanca, Morocco · Open to relocation',
-    tagline: 'Full-Stack Engineer. Spring Boot, Next.js, AI integration. PostgreSQL, Docker, Kafka. Scalable APIs, event-driven systems, multi-tenant platforms.',
+    tagline: 'Senior Full-Stack Developer & Software Engineer. Java, Spring Boot, Next.js, PostgreSQL, Kafka, Docker, AWS and AI integration.',
+    explore: 'Explore',
     architecture: 'Architecture',
     connect: 'Connect',
     springBoot: 'Spring Boot',
@@ -139,9 +171,10 @@ export const en = {
     copyEmail: 'Copy email',
   },
   aboutPage: {
-    h1: 'About Yassine REMMANI — Full-Stack Engineer (Spring Boot & Next.js)',
-    h2: 'Spring Boot & Next.js Specialist · 6+ Years',
-    p1: 'I build production systems that match high-impact job offers: Spring Boot backends, Next.js frontends, and AI-ready integrations. I care about system design, performance, and maintainability.',
+    h1: 'About Yassine Remmani',
+    h2: 'Senior Full-Stack Developer & Software Engineer · 6+ Years',
+    imageAlt: 'Portrait of Yassine Remmani',
+    p1: "I'm a software engineer based in Casablanca, Morocco. I build production systems end to end: Spring Boot backends, Next.js frontends, and AI-ready integrations. I care about system design, performance, and maintainability.",
     p2: 'Real systems: inventory sync, campaign attribution, dealer sites, real-time search. Clean architecture, DDD, proper auth (JWT, OAuth2, Keycloak). Docker, CI/CD, PostgreSQL optimization. I integrate AI (e.g. AWS Bedrock, LLM APIs) where it delivers value. Shipping code that scales.',
     p3: 'Open to senior full-stack roles (Spring Boot + Next.js) and teams building AI into products. Passion for building platforms, not just features.',
     whatIDeliver: 'What I deliver',
@@ -155,14 +188,26 @@ export const en = {
     springBootLink: 'Spring Boot architecture',
     nextjsLink: 'Next.js for scalable products',
     kafkaLink: 'Event-driven Kafka',
+    experienceTitle: 'Professional experience',
+    experienceP: 'Since December 2019 I have worked at Auto Dealers Digital as a Senior Full-Stack Developer, building the platform behind 4,000+ automotive dealer websites: high-traffic REST APIs, Kafka event pipelines, campaign management, and Next.js back-office tools.',
+    experienceLink: 'See my full experience',
+    educationTitle: 'Education',
+    profilesTitle: 'Find me online',
+    exploreTitle: 'Explore my work',
+    projectsLink: 'Software engineering projects',
+    resumeLink: 'Resume',
+    blogLink: 'Technical articles',
   },
   blogPage: {
     badge: 'Blog',
     h1: 'Articles &',
     h1Accent: 'Insights',
     subtitle: 'Thoughts on full-stack development, Spring Boot, Next.js, and software engineering.',
-    metaTitle: 'Blog — Articles & Insights',
-    metaDescription: 'Thoughts on full-stack development, Spring Boot, Next.js, and software engineering.',
+    metaTitle: 'Blog — Yassine Remmani | Spring Boot, Next.js & AI Engineering',
+    metaDescription: 'Technical articles by Yassine Remmani on full-stack architecture, Spring Boot, Next.js, RAG systems and AI tooling for SaaS engineering.',
+    writtenBy: 'Written by',
+    authorBio: 'Senior Full-Stack Developer and software engineer based in Casablanca, Morocco. I write about the architecture I use in production.',
+    aboutAuthor: 'About the author',
     comingSoon: 'Coming Soon',
     comingSoonDesc: 'Blog posts will be added here. Check back soon for articles on full-stack development, Spring Boot, Next.js, and more.',
   },
@@ -281,14 +326,16 @@ export const en = {
     },
   },
   skillsPage: {
-    h1: 'Skills',
+    h1: 'Technical Skills',
   },
   experiencePage: {
-    h1: 'Experience',
+    h1: 'Software Engineering Experience',
+    intro: "The professional background of Yassine Remmani, Senior Full-Stack Developer: production work on Spring Boot APIs, Kafka event pipelines and Next.js tools, plus a Master's degree in Computer Science & AI.",
     educationTitle: 'Education',
+    related: 'Related',
   },
   projectsPage: {
-    h1: 'Projects',
+    h1: 'Software Engineering Projects',
     intro: 'Scalable, production-grade platforms. Travel discovery, automotive tech, multi-tenant systems. Spring Boot, Next.js, PostgreSQL, Redis, AI-ready architectures.',
   },
   caseStudy: {
@@ -298,6 +345,11 @@ export const en = {
     coverAlt: '{title} — Case study cover',
     getInTouch: 'Get in touch',
     relatedArchitecture: 'Related architecture',
+    moreAbout: 'More from Yassine Remmani',
+    aboutLink: 'About me',
+    experienceLink: 'Experience',
+    resumeLink: 'Resume',
+    allProjects: 'All projects',
     problem: 'Problem',
     solution: 'Solution',
     architectureSection: 'Architecture',
@@ -377,7 +429,7 @@ export const en = {
       phone: '+212 6 20 96 36 60',
       linkedin: 'linkedin.com/in/yassine-remmani',
       github: 'github.com/yassine-RM',
-      portfolio: 'remmanidev.com',
+      portfolio: 'remmani.dev',
     },
     summary: 'Senior Full-Stack Developer with 6+ years building production web platforms. Backend-focused: Spring Boot, REST APIs, PostgreSQL, Kafka, Docker, secure auth (OAuth2/JWT, Keycloak). Comfortable with React/Next.js, multi-tenant systems, and cloud deployment on AWS.',
     skillLabels: { skills: 'Skills', backend: 'Backend', frontend: 'Frontend', databases: 'Databases', security: 'Security', cloudDevops: 'Cloud & DevOps', architecture: 'Architecture', ai: 'AI & Integration', languages: 'Languages', hobbies: 'Hobbies' },
@@ -427,7 +479,7 @@ export const en = {
   data: {
     experience: [
       {
-        role: 'Senior Backend Engineer',
+        role: 'Senior Full-Stack Developer',
         company: 'Auto Dealers Digital',
         context: 'Automotive digital platform (inventory, CRM, dealer websites, digital ads)',
         period: 'Dec 2019 → Present',

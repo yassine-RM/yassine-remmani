@@ -29,11 +29,11 @@ export function Navbar() {
           <Link
             href={localePath(locale, '/')}
             className="flex items-center"
-            aria-label="Home"
+            aria-label={locale === 'fr' ? 'Yassine Remmani — Accueil' : 'Yassine Remmani — Home'}
           >
             <Image
               src="/images/my-logo.png"
-              alt="Logo"
+              alt="Yassine Remmani logo"
               width={40}
               height={40}
               className="h-8 w-auto"

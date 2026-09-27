@@ -1,5 +1,6 @@
-import { readFileSync } from 'fs'
+import { existsSync, readFileSync } from 'fs'
 import path from 'path'
+import type { Locale } from './i18n'
 
 export interface BlogPostMeta {
   slug: string
@@ -74,6 +75,19 @@ export function getPostRawContent(slug: string, locale?: string): string | null 
   } catch {
     return null
   }
+}
+
+/**
+ * Locales with a genuinely written version of the post. The un-suffixed
+ * {slug}.mdx file is the English original; a locale that only falls back to it
+ * is a duplicate and should canonicalize to the English URL.
+ */
+export function getPostLocales(slug: string): Locale[] {
+  const has = (file: string) => existsSync(path.join(contentDir, file))
+  const result: Locale[] = []
+  if (has(`${slug}.en.mdx`) || has(`${slug}.mdx`)) result.push('en')
+  if (has(`${slug}.fr.mdx`)) result.push('fr')
+  return result
 }
 
 /** Strips YAML frontmatter (--- ... ---) and returns the markdown body. */
