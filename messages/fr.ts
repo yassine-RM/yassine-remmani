@@ -444,6 +444,26 @@ export const fr: Messages = {
     breadcrumbTitle: 'Architecture Spring Boot',
     h1: 'Architecture Spring Boot : conception d’APIs et scalabilité',
     subtitle: 'Patterns de production pour APIs REST, sécurité, systèmes event-driven et optimisation base de données. Fruit de plus de 6 ans d’ingénierie backend.',
+    definition: 'L’architecture Spring Boot, c’est la façon dont un service Java est découpé — contrôleur, service, repository — et les décisions autour de ces couches : versionnement de l’API, authentification des requêtes, accès à la base, communication avec les autres services. Le pattern compte davantage que la version du framework.',
+    faqTitle: 'Questions fréquentes sur l’architecture Spring Boot',
+    faq: [
+      {
+        question: 'Que sépare réellement une architecture Spring Boot en couches ?',
+        answer: 'Le contrôleur gère le HTTP : lecture, validation, codes de statut. Le service porte les règles métier et possède la frontière transactionnelle. Le repository ne parle qu’à la base. La logique métier reste testable sans serveur web, et un changement de forme de l’API n’atteint jamais la base.',
+      },
+      {
+        question: 'Comment gérer le multi-tenant dans une API Spring Boot ?',
+        answer: 'L’identité du tenant vient du token, jamais d’un paramètre que le client pourrait modifier. Keycloak émet des JWT porteurs du tenant, et chaque requête est filtrée sur ce tenant avant d’atteindre PostgreSQL. Le schéma isole les tenants : un filtre oublié échoue bruyamment au lieu de laisser fuir les lignes d’un autre client.',
+      },
+      {
+        question: 'Quand le cache Redis vaut-il la peine sur une API REST ?',
+        answer: 'Quand la même lecture est servie bien plus souvent que la donnée ne change, et que la recalculer coûte cher. On met en cache le résultat, pas la requête. Le vrai coût est l’invalidation : tout ce qui est mis en cache doit avoir une règle claire de péremption, sinon la donnée périmée survit au bug qui l’a produite.',
+      },
+      {
+        question: 'Comment éviter les doublons venant des intégrations partenaires ?',
+        answer: 'Une ingestion idempotente. Chaque enregistrement porte un identifiant externe stable et l’endpoint fait un upsert dessus plutôt qu’un insert. Un partenaire qui rejoue un lot en échec obtient alors le même résultat qu’au premier passage — ce qui compte, car les reprises sont la norme et non l’exception.',
+      },
+    ],
     restTitle: 'Conception d’APIs REST',
     restP1: 'Architecture en couches : Controller → Service → Repository. APIs versionnées, pagination, filtres, documentation OpenAPI. Ingestion idempotente pour les intégrations partenaires.',
     restP2: 'Endpoints à fort trafic : formats de réponse cohérents, sémantique HTTP, rate limiting. Cache Redis pour les charges en lecture.',
@@ -466,6 +486,26 @@ export const fr: Messages = {
     breadcrumbTitle: 'Next.js pour des produits scalables',
     h1: 'Next.js pour des produits scalables : SSR, SEO & App Router',
     subtitle: 'Patterns de production pour des UIs SEO-first, server components et performances. Au service de plateformes comme TravelOS.',
+    definition: 'Next.js est un framework React qui rend côté serveur par défaut, ce qui le rend adapté aux pages destinées à être indexées. L’App Router organise l’application en layouts imbriqués et en server components, et n’envoie du JavaScript au navigateur que pour les parties réellement interactives.',
+    faqTitle: 'Questions fréquentes sur le développement avec Next.js',
+    faq: [
+      {
+        question: 'Quand rendre une page côté serveur plutôt que côté client ?',
+        answer: 'Côté serveur pour tout ce qui doit être indexé ou partagé : pages d’accueil, articles, fiches destination ou produit. Côté client pour ce que seul un utilisateur connecté manipule : tableaux de bord, formulaires, filtres. Un robot obligé d’exécuter du JavaScript pour trouver le contenu renoncera parfois.',
+      },
+      {
+        question: 'Quelle différence entre génération statique et ISR ?',
+        answer: 'La génération statique construit la page une fois au déploiement et sert le même HTML à tout le monde. L’ISR sert ce HTML en cache mais le reconstruit en arrière-plan après un intervalle défini : un contenu qui change quelques fois par jour reste à jour sans redéployer.',
+      },
+      {
+        question: 'Les server components rendent-ils vraiment un site plus rapide ?',
+        answer: 'Ils réduisent le JavaScript téléchargé et exécuté par le navigateur, ce qui améliore généralement le LCP sur les pages riches en contenu. Ils ne sont pas automatiquement plus rapides : un server component qui fait une requête lente bloque toujours la réponse. Le gain est dans le bundle, pas dans la requête.',
+      },
+      {
+        question: 'Comment éviter le contenu dupliqué sur un site Next.js multilingue ?',
+        answer: 'Une canonical auto-référente sur chaque page, et des alternates hreflang nommant chaque langue plus x-default. On génère les deux depuis un même helper pour que l’en-tête et le sitemap ne puissent pas diverger, et on ne déclare une alternance que pour une langue qui existe vraiment.',
+      },
+    ],
     ssrTitle: 'SSR vs CSR',
     ssrP1: 'Rendu côté serveur pour les pages critiques SEO : landing, destinations, articles. Rendu côté client pour les tableaux de bord et formulaires. Approche hybride pour UX et crawlabilité.',
     ssrP2: 'Contenu dynamique avec génération statique quand possible. ISR pour un contenu mis à jour périodiquement.',
@@ -487,6 +527,26 @@ export const fr: Messages = {
     breadcrumbTitle: 'Systèmes event-driven avec Kafka',
     h1: 'Systèmes event-driven avec Kafka : cohérence des données et flux asynchrones',
     subtitle: 'Patterns de production pour l’architecture event-driven. Cas d’usage Kafka, cohérence des données et communication inter-services scalable. Appliqué à des plateformes automobiles à l’échelle.',
+    definition: 'L’architecture event-driven est un modèle où les services communiquent en publiant et en consommant des événements plutôt qu’en s’appelant directement. Apache Kafka est le journal durable et ordonné qui transporte ces événements, ce qui permet à chaque service de monter en charge, de tomber et d’être déployé indépendamment des autres.',
+    faqTitle: 'Questions fréquentes sur les systèmes event-driven',
+    faq: [
+      {
+        question: 'Quand utiliser Kafka plutôt qu’un appel REST ?',
+        answer: 'Quand plusieurs services s’intéressent au même changement, quand le producteur ne doit pas attendre le consommateur, ou quand l’événement devra être rejoué plus tard. Un appel REST direct reste plus simple et préférable lorsqu’un seul service attend une réponse immédiate.',
+      },
+      {
+        question: 'Comment garder les données cohérentes entre services event-driven ?',
+        answer: 'Des consommateurs idempotents, pour qu’une reprise n’applique jamais deux fois le même changement. La sémantique exactly-once là où un doublon coûterait cher. Le pattern saga pour les transactions réparties. L’event sourcing conserve la piste d’audit, et un schema registry empêche producteurs et consommateurs de diverger.',
+      },
+      {
+        question: 'Que se passe-t-il quand un consommateur échoue à traiter un message ?',
+        answer: 'Il réessaie, et un message qui échoue systématiquement part dans une dead letter queue au lieu de bloquer la partition derrière lui. Un message empoisonné devient ainsi quelque chose qu’on peut inspecter et rejouer, plutôt qu’un pipeline à l’arrêt que personne ne remarque avant que les données ne soient périmées.',
+      },
+      {
+        question: 'Kafka remplace-t-il une base de données ?',
+        answer: 'Non. Kafka est un journal durable de ce qui s’est passé, pas un magasin qu’on interroge par clé. Chaque service garde sa propre base et se synchronise via le journal. L’event sourcing permet de reconstruire l’état, mais les lectures passent toujours par une projection.',
+      },
+    ],
     useCasesTitle: 'Cas d’usage Kafka',
     useCasesP1: 'Synchronisation stock entre systèmes partenaires. Events campagnes pour suivi budget et attribution leads. Déclencheurs workflows CRM. Pipelines d’audit et d’analytics.',
     useCasesP2: 'Messagerie haut débit et tolérante aux pannes. Services découplés qui scalent indépendamment.',

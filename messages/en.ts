@@ -443,6 +443,26 @@ export const en = {
     breadcrumbTitle: 'Spring Boot Architecture',
     h1: 'Spring Boot Architecture: Real-World API Design & Scalability',
     subtitle: 'Production patterns for REST APIs, security, event-driven systems, and database optimization. Built from 6+ years of backend engineering.',
+    definition: 'Spring Boot architecture is how a Java service is divided — controller, service, repository — and the decisions around those layers: how the API is versioned, how requests are authenticated, how the database is reached, and how the service talks to others. The pattern matters more than the framework version.',
+    faqTitle: 'Common questions about Spring Boot architecture',
+    faq: [
+      {
+        question: 'What does a layered Spring Boot architecture actually separate?',
+        answer: 'The controller handles HTTP: parsing, validation, status codes. The service holds business rules and owns the transaction boundary. The repository talks to the database and nothing else. Business logic stays testable without a web server, and a change to the API shape never reaches the database.',
+      },
+      {
+        question: 'How do you handle multi-tenancy in a Spring Boot API?',
+        answer: 'Tenant identity comes from the token, never from a request parameter a client could change. Keycloak issues tenant-aware JWTs and every query is scoped by that tenant before it reaches PostgreSQL. Schema design isolates tenants, so a forgotten filter fails loudly rather than leaking another customer\'s rows.',
+      },
+      {
+        question: 'When is Redis caching worth adding to a REST API?',
+        answer: 'When the same read is served far more often than the underlying data changes, and recomputing it is expensive. Cache the result, not the request. The real cost is invalidation: anything cached needs a clear rule for when it becomes wrong, or stale data outlives the bug that caused it.',
+      },
+      {
+        question: 'How do you stop partner integrations creating duplicates?',
+        answer: 'Idempotent ingestion. Each incoming record carries a stable external identifier and the endpoint upserts on it rather than inserting. A partner retrying a failed batch then produces the same result as the first attempt, which matters because retries are normal rather than exceptional.',
+      },
+    ],
     restTitle: 'REST API Design',
     restP1: 'Clean architecture with layered design: Controller → Service → Repository. Versioned APIs, pagination, filtering, and OpenAPI documentation. Idempotent ingestion for partner integrations.',
     restP2: 'High-traffic endpoints demand consistent response shapes, proper HTTP semantics, and rate limiting. Redis-backed caching for read-heavy workloads.',
@@ -465,6 +485,26 @@ export const en = {
     breadcrumbTitle: 'Next.js for Scalable Products',
     h1: 'Next.js for Scalable Products: SSR, SEO & App Router',
     subtitle: 'Production patterns for SEO-first UIs, server components, and performance. Built for platforms like TravelOS.',
+    definition: 'Next.js is a React framework that renders on the server by default, which is what makes it suitable for pages that need to be indexed. The App Router organises an application as nested layouts and server components, sending JavaScript to the browser only for the parts that are genuinely interactive.',
+    faqTitle: 'Common questions about building with Next.js',
+    faq: [
+      {
+        question: 'When should a page be server-rendered rather than client-rendered?',
+        answer: 'Server-render anything that must be indexed or shared: landing pages, articles, destination and product pages. Client-render what only a signed-in user touches — dashboards, forms, filters. A crawler that has to execute JavaScript to find your content will sometimes decide not to.',
+      },
+      {
+        question: 'What is the difference between static generation and ISR?',
+        answer: 'Static generation builds a page once at deploy time and serves identical HTML to everyone. Incremental Static Regeneration serves that cached HTML but rebuilds it in the background after a set interval, so content changing a few times a day stays fresh without a deploy.',
+      },
+      {
+        question: 'Do server components make a site faster?',
+        answer: 'They cut the JavaScript the browser downloads and runs, which usually improves largest contentful paint on content-heavy pages. They are not automatically faster: a server component making a slow database call still blocks the response. The gain is in the bundle, not the query.',
+      },
+      {
+        question: 'How do you avoid duplicate content on a multilingual Next.js site?',
+        answer: 'A self-referencing canonical on every page, plus hreflang alternates naming each language and x-default. Generate both from one helper so the page head and the sitemap cannot disagree, and only declare an alternate for a language that genuinely exists.',
+      },
+    ],
     ssrTitle: 'SSR vs CSR',
     ssrP1: 'Server-Side Rendering for SEO-critical pages: landing, destinations, articles. Client-Side Rendering for interactive dashboards and forms. Hybrid approach for optimal UX and crawlability.',
     ssrP2: 'Dynamic content with static generation where possible. Incremental Static Regeneration (ISR) for content that updates periodically.',
@@ -486,6 +526,26 @@ export const en = {
     breadcrumbTitle: 'Event-Driven Systems with Kafka',
     h1: 'Event-Driven Systems with Kafka: Data Consistency & Async Workflows',
     subtitle: 'Production patterns for event-driven architecture. Kafka use cases, data consistency, and scalable inter-service communication. Applied in automotive platforms at scale.',
+    definition: 'Event-driven architecture is a design in which services communicate by publishing and consuming events rather than calling each other directly. Apache Kafka is the durable, ordered log that carries those events, which lets each service scale, fail and deploy independently of the rest.',
+    faqTitle: 'Common questions about event-driven systems',
+    faq: [
+      {
+        question: 'When should you use Kafka instead of a REST call?',
+        answer: 'Use Kafka when more than one service cares about the same change, when the producer must not wait for the consumer, or when the event needs replaying later. A direct REST call is simpler and better when exactly one service needs an immediate answer.',
+      },
+      {
+        question: 'How do you keep data consistent across event-driven services?',
+        answer: 'Idempotent consumers, so a retry cannot apply the same change twice. Exactly-once semantics where a duplicate would be costly. The saga pattern for transactions spanning services. Event sourcing keeps the audit trail, and a schema registry stops producers and consumers drifting apart.',
+      },
+      {
+        question: 'What happens when a consumer fails to process a message?',
+        answer: 'It retries, and a message that keeps failing moves to a dead letter queue rather than blocking the partition behind it. That turns a poison message into something a person can inspect and replay, instead of a stalled pipeline nobody notices until the data is stale.',
+      },
+      {
+        question: 'Does Kafka replace a database?',
+        answer: 'No. Kafka is a durable log of what happened, not a store you query by key. Services keep their own databases and use the log to stay in sync. Event sourcing can rebuild state from the log, but reads still come from a projection.',
+      },
+    ],
     useCasesTitle: 'Kafka Use Cases',
     useCasesP1: 'Inventory sync across partner systems. Campaign events for budget tracking and lead attribution. CRM workflow triggers. Audit and analytics pipelines.',
     useCasesP2: 'High-throughput, fault-tolerant messaging. Decoupled services that scale independently.',
