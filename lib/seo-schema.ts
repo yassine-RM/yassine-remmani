@@ -215,6 +215,45 @@ export function caseStudyNode(options: {
   }
 }
 
+/**
+ * FAQPage — the one schema type that turns a page into a quotable answer.
+ *
+ * The site had no `FAQPage`, `Question` or `acceptedAnswer` anywhere, which is
+ * why nothing on it was eligible for a featured snippet or an AI-generated
+ * answer: a crawler could tell what each page was *about*, but never found a
+ * question paired with a self-contained answer it could lift out.
+ *
+ * Two rules this builder exists to keep:
+ *
+ * 1. **Every question here is also on the page.** The nodes are generated from
+ *    the same array the component renders, so the markup cannot describe an
+ *    answer a reader does not see — which is both a Google guideline and the
+ *    difference between structured data and a lie.
+ * 2. **One FAQPage per page.** `@id` is derived from the page URL, so a second
+ *    call on the same route would collide rather than silently emit two
+ *    competing FAQ blocks.
+ */
+export function faqNode(options: {
+  pageUrl: string
+  locale: Locale
+  questions: readonly { question: string; answer: string }[]
+}): Node {
+  const { pageUrl, locale, questions } = options
+  return {
+    '@type': 'FAQPage',
+    '@id': `${pageUrl}#faq`,
+    inLanguage: locale,
+    isPartOf: websiteRef,
+    about: personRef,
+    mainEntity: questions.map((q, i) => ({
+      '@type': 'Question',
+      '@id': `${pageUrl}#faq-${i + 1}`,
+      name: q.question,
+      acceptedAnswer: { '@type': 'Answer', text: q.answer },
+    })),
+  }
+}
+
 /** BlogPosting schema for blog article pages */
 export function blogPostingNode(options: {
   headline: string

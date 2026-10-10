@@ -2,10 +2,11 @@ import { Metadata } from 'next'
 import Link from 'next/link'
 import { buildMetadata, canonicalUrl } from '@/lib/seo'
 import { SeoJsonLd } from '@/components/seo/SeoJsonLd'
-import { graph, webPageNodes } from '@/lib/seo-schema'
+import { faqNode, graph, webPageNodes } from '@/lib/seo-schema'
 import { Button } from '@/components/ui/button'
 import { localePath } from '@/lib/i18n'
 import { getTranslations } from '@/lib/translations'
+import { Faq } from '@/components/sections/Faq'
 import type { Locale } from '@/lib/i18n'
 
 interface PageProps {
@@ -35,6 +36,10 @@ export default async function EventDrivenSystemsKafkaPage({ params }: PageProps)
     { name: t.kafkaPage.breadcrumbTitle, url: canonicalUrl(pathname) },
   ]
 
+  /* The FAQ is rendered from this array and marked up from this array, so the
+     schema can never describe an answer the page does not show. */
+  const faq = t.kafkaPage.faq
+
   return (
     <>
       <SeoJsonLd
@@ -45,7 +50,8 @@ export default async function EventDrivenSystemsKafkaPage({ params }: PageProps)
             pathname,
             locale: locale as Locale,
             breadcrumbs,
-          })
+          }),
+          faqNode({ pageUrl: canonicalUrl(pathname), locale: locale as Locale, questions: faq })
         )}
       />
       <article className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 max-w-3xl">
@@ -67,6 +73,11 @@ export default async function EventDrivenSystemsKafkaPage({ params }: PageProps)
           </h1>
           <p className="text-xl text-[var(--foreground-muted)]">
             {t.kafkaPage.subtitle}
+          </p>
+          {/* A plain definition directly beneath the h1: the 40-60 word answer
+              a featured snippet or an AI summary can quote without rewriting. */}
+          <p className="mt-6 text-[var(--foreground-muted)] leading-relaxed">
+            {t.kafkaPage.definition}
           </p>
         </header>
 
@@ -101,6 +112,8 @@ export default async function EventDrivenSystemsKafkaPage({ params }: PageProps)
             </p>
           </section>
         </div>
+
+        <Faq title={t.kafkaPage.faqTitle} items={faq} />
 
         <div className="mt-12 pt-8 border-t border-border flex flex-wrap gap-4">
           <Button asChild>
