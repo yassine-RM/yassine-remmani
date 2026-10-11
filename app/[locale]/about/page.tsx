@@ -1,11 +1,12 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
 import { buildMetadata, canonicalUrl, socialProfiles } from '@/lib/seo'
-import { graph, webPageNodes } from '@/lib/seo-schema'
+import { faqNode, graph, webPageNodes } from '@/lib/seo-schema'
 import { SeoJsonLd } from '@/components/seo/SeoJsonLd'
 import Image from 'next/image'
 import { localePath } from '@/lib/i18n'
 import { getTranslations } from '@/lib/translations'
+import { Faq } from '@/components/sections/Faq'
 import type { Locale } from '@/lib/i18n'
 
 interface PageProps {
@@ -35,6 +36,10 @@ export default async function AboutPage({ params }: PageProps) {
     { label: t.contactSection.linkedin, value: t.contactPage.linkedinDesc, href: socialProfiles.linkedin },
     { label: t.contactSection.github, value: t.contactPage.githubDesc, href: socialProfiles.github },
   ]
+  /* Rendered from this array and marked up from this array, so the schema can
+     never describe an answer the page does not show. */
+  const faq = t.aboutPage.faq
+
   const explore = [
     { href: localePath(loc, '/projects'), label: t.aboutPage.projectsLink },
     { href: localePath(loc, '/resume'), label: t.aboutPage.resumeLink },
@@ -56,7 +61,8 @@ export default async function AboutPage({ params }: PageProps) {
               { name: t.nav.home, url: canonicalUrl(homePath) },
               { name: t.nav.about, url: canonicalUrl(pathname) },
             ],
-          })
+          }),
+          faqNode({ pageUrl: canonicalUrl(pathname), locale: loc, questions: faq })
         )}
       />
       <section className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 max-w-3xl">
@@ -163,6 +169,8 @@ export default async function AboutPage({ params }: PageProps) {
             </ul>
           </nav>
         </div>
+
+        <Faq title={t.aboutPage.faqTitle} items={faq} />
       </section>
     </>
   )
