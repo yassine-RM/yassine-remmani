@@ -7,9 +7,24 @@ export const personName = 'Yassine Remmani'
 export const siteName = 'Yassine Remmani'
 export const personJobTitle = 'Senior Full-Stack Developer'
 
+/**
+ * Profiles that are unmistakably the same person.
+ *
+ * `sameAs` is how an answer engine joins "Yassine Remmani" on this domain to
+ * the same person elsewhere — the difference between a name on a page and an
+ * entity it can be confident about. Every entry has to be a profile that
+ * genuinely belongs here: a guessed URL attaches this identity to somebody
+ * else's account, which is worse than a short list.
+ *
+ * `x` is taken from `twitter_username` on the GitHub account above, which is
+ * self-declared on an account this person controls. Anything further —
+ * Stack Overflow, dev.to, Malt, Crunchbase, ORCID — has to be supplied
+ * rather than inferred.
+ */
 export const socialProfiles = {
   linkedin: 'https://www.linkedin.com/in/yassine-remmani/',
   github: 'https://github.com/yassine-RM',
+  x: 'https://x.com/YassineRMM',
 } as const
 
 export function canonicalUrl(pathname: string): string {

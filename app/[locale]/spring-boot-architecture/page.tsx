@@ -133,6 +133,9 @@ export default async function SpringBootArchitecturePage({ params }: PageProps) 
             <Link href={localePath(locale as Locale, '/nextjs-for-scalable-products')}>{t.springBootPage.nextjsLink}</Link>
           </Button>
           <Button variant="secondary" asChild>
+            <Link href={localePath(locale as Locale, '/laravel-development')}>{t.springBootPage.laravelLink}</Link>
+          </Button>
+          <Button variant="secondary" asChild>
             <Link href={localePath(locale as Locale, '/contact')}>{t.springBootPage.getInTouch}</Link>
           </Button>
         </div>
