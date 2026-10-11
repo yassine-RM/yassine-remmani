@@ -14,45 +14,59 @@ import { locales, type Locale } from './i18n'
  * the host rewrites all of them, so a search engine has to re-learn the
  * identity rather than recognise it.
  *
- * ## The symptom this comment exists for
+ * ## Which host is canonical, and how that was established
+ *
+ * The apex. Measured 2026-10-11, server-side (the qualifier matters — see the
+ * next section):
+ *
+ *     https://remmani.dev/      → 308 → https://remmani.dev/en   (same host)
+ *     https://remmani.dev/en    → 200
+ *
+ * The redirect on `/` is this repo's own `middleware.ts` sending the bare root
+ * to the default locale. It stays on the apex, so no canonical built from this
+ * constant points at a host that bounces somewhere else.
+ *
+ * `www.remmani.dev` was not attached to the Vercel project at all, so it had
+ * no certificate and failed its TLS handshake outright — and because the whole
+ * `.dev` TLD is HSTS-preloaded, a browser offers no way past that. It was
+ * added on 2026-10-11 as a permanent redirect to the apex, which is the right
+ * shape: one host serves, the other folds into it.
+ *
+ * ## A measurement that was wrong, kept here on purpose
+ *
+ * An earlier revision of this comment stated that the apex 308-redirected to
+ * www, and concluded that www was the primary host. That rested on a single
+ * `curl -sIL https://remmani.dev/` run from a café network. That same network
+ * could not load the site in a browser at all while a phone on 4G could, and
+ * `.dev` being HSTS-preloaded is precisely what makes a filtering or
+ * intercepting network fail on this domain while ordinary sites keep working.
+ * The redirect it reported was not reproducible from anywhere else.
+ *
+ * The part worth keeping: a redirect measured once, from one network, is a
+ * claim about that network as much as about the origin.
+ *
+ * ## The Search Console symptoms this comment started from
  *
  * On 2026-10-11 Search Console reported `https://remmani.dev/` as a
  * **Redirect error** and `https://remmani.dev/en` as **"Duplicate without
- * user-selected canonical"**, while nine of eleven inspected URLs had never
- * been indexed at all — against a sitemap with zero errors. Both symptoms are
- * what you get when a page's canonical names a host that redirects somewhere
- * else.
+ * user-selected canonical"**, with nine of eleven inspected URLs never indexed,
+ * against a sitemap reporting zero errors.
  *
- * Measured on 2026-10-11:
+ * Those reports describe a site that is not the one measured above, so the
+ * working assumption is that they are stale — crawled while www was
+ * unreachable, or before the domains settled. **That assumption is
+ * unconfirmed.** It gets resolved by requesting indexing for `/` and `/en` and
+ * re-inspecting. If `/en` still comes back as a duplicate after that, the
+ * cause is something this comment has not found, and the next person should
+ * start looking rather than trusting this paragraph.
  *
- *     curl -sIL https://remmani.dev/
- *     HTTP/2 308
- *     location: https://www.remmani.dev/
+ * ## If the host ever has to change
  *
- * So **www is the primary host** and the apex redirects to it, while every
- * canonical built from this constant names the apex. Each page therefore
- * declares a canonical pointing at a URL that bounces, and `/` is the head of
- * a chain — apex → www → /en — which is the redirect error.
- *
- * ## Fix it at Vercel, not here
- *
- * Make the **apex** primary and let www redirect to it. Two reasons that beats
- * editing this line:
- *
- * 1. `/en/resume` is the one page Google has indexed, and it is indexed with
- *    `googleCanonical = https://remmani.dev/en/resume`. The apex is the host
- *    Google has already accepted.
- * 2. Pointing this at www would rewrite every `@id` above and throw away the
- *    entity association built so far.
- *
- * Doing it that way needs no deploy and no change here: the code already
- * names the host Google has accepted, and the existing Search Console
- * property is the apex too, so everything lines up at once.
- *
- * Only if the apex genuinely cannot be primary should this become
- * `'https://www.remmani.dev'` — and then it is this single edit, nothing else,
- * because no other file hardcodes the origin. That path also needs a Search
- * Console property for www, and every `@id` above changes. (The three remaining mentions of
+ * It is this single edit and nothing else, because no other file hardcodes the
+ * origin — but it rewrites every `@id` above, discards the entity association
+ * built so far, and needs its own Search Console property. `/en/resume` is
+ * indexed with `googleCanonical = https://remmani.dev/en/resume`, so the apex
+ * is the host Google has already accepted. (The three remaining mentions of
  * the bare domain — two `portfolio:` labels and the OG image caption — are
  * display text, not URLs, and should stay as they are.)
  */
