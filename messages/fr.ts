@@ -200,6 +200,25 @@ export const fr: Messages = {
     projectsLink: 'Projets d’ingénierie logicielle',
     resumeLink: 'CV',
     blogLink: 'Articles techniques',
+    faqTitle: 'Questions sur une collaboration',
+    faq: [
+      {
+        question: 'Qui est Yassine Remmani ?',
+        answer: 'Ingénieur logiciel basé à Casablanca, au Maroc, avec six ans d’expérience en production. Développeur full-stack senior chez Auto Dealers Digital depuis décembre 2019, sur Spring Boot et Laravel côté backend et Next.js côté frontend, avec un Master en informatique et intelligence artificielle.',
+      },
+      {
+        question: 'Yassine Remmani est-il disponible en télétravail ?',
+        answer: 'Oui. Basé à Casablanca, au Maroc, et ouvert aux postes en télétravail comme à la relocalisation. La recherche porte sur des postes senior full-stack autour de Spring Boot et Next.js, et sur les équipes qui intègrent réellement l’IA à leur produit.',
+      },
+      {
+        question: 'Combien d’années d’expérience a Yassine Remmani ?',
+        answer: 'Six ans en production. Développeur full-stack senior chez Auto Dealers Digital depuis décembre 2019 : APIs REST à fort trafic, pipelines événementiels Kafka, optimisation PostgreSQL et outils back-office Next.js pour la plateforme qui alimente plus de 4 000 sites de concessionnaires automobiles.',
+      },
+      {
+        question: 'Quel type de poste Yassine Remmani recherche-t-il ?',
+        answer: 'Des postes senior full-stack, Spring Boot et Next.js en particulier, et des équipes qui intègrent l’IA à leur produit. L’intérêt porte sur les plateformes plutôt que sur des fonctionnalités isolées : conception système, multi-tenancy, workflows événementiels et le code qui doit durer.',
+      },
+    ],
   },
   blogPage: {
     badge: 'Blog',
@@ -334,12 +353,50 @@ export const fr: Messages = {
   },
   skillsPage: {
     h1: 'Compétences techniques',
+    faqTitle: 'Questions sur cette stack',
+    faq: [
+      {
+        question: 'Quelle est la stack principale de Yassine Remmani ?',
+        answer: 'Java avec Spring Boot et PHP avec Laravel côté backend, Next.js et React en TypeScript côté frontend, PostgreSQL pour les données, Redis pour le cache et Kafka pour l’événementiel. Le tout livré en Docker via des pipelines CI/CD.',
+      },
+      {
+        question: 'Yassine Remmani travaille-t-il avec Laravel autant qu’avec Spring Boot ?',
+        answer: 'Les deux, en production. Spring Boot fait tourner la plateforme automobile à fort trafic chez Auto Dealers Digital ; Laravel fait tourner SalonSync, un SaaS multi-tenant en production avec authentification Sanctum, tenancy par global scope, files d’attente et websockets Reverb.',
+      },
+      {
+        question: 'Quelles technologies frontend Yassine Remmani utilise-t-il ?',
+        answer: 'Next.js avec l’App Router, React et TypeScript, stylisés avec TailwindCSS et shadcn/ui. Cela va des pages publiques sensibles au SEO, qui reposent sur les server components, aux outils back-office internes où la densité et la rapidité d’usage priment sur la présentation.',
+      },
+      {
+        question: 'Quelle expérience Yassine Remmani a-t-il en intégration d’IA ?',
+        answer: 'AWS Bedrock et APIs LLM, y compris des flux de type RAG, utilisés là où ils apportent de la valeur plutôt que comme fonctionnalité en soi. SalonSync intègre un assistant de réservation IA qui réserve de vrais créneaux disponibles. Master en informatique et intelligence artificielle.',
+      },
+    ],
   },
   experiencePage: {
     h1: 'Expérience en ingénierie logicielle',
     intro: 'Le parcours professionnel de Yassine Remmani, développeur full-stack senior : APIs Spring Boot, pipelines événementiels Kafka et outils Next.js en production, ainsi qu’un Master en informatique et intelligence artificielle.',
     educationTitle: 'Formation',
     related: 'Voir aussi',
+    faqTitle: 'Questions sur ce parcours',
+    faq: [
+      {
+        question: 'Où travaille Yassine Remmani ?',
+        answer: 'Chez Auto Dealers Digital, à Casablanca au Maroc, en tant que développeur full-stack senior depuis décembre 2019. La plateforme couvre le stock, le CRM, les sites de concessionnaires et les campagnes publicitaires, et alimente plus de 4 000 sites automobiles.',
+      },
+      {
+        question: 'Qu’est-ce que Yassine Remmani a construit à l’échelle ?',
+        answer: 'Des APIs REST à fort trafic et des pipelines Kafka pour la synchronisation du stock et l’attribution des campagnes, la gestion de campagnes (budgets, ciblage, attribution des leads) et des schémas PostgreSQL optimisés pour de forts volumes de lecture. Déploiements sans interruption via CI/CD.',
+      },
+      {
+        question: 'Yassine Remmani a-t-il construit son propre SaaS ?',
+        answer: 'SalonSync, un SaaS multi-tenant en production qui gère la journée d’un barbershop ou d’un salon : réservation en ligne, file d’attente, clients, recettes et notifications, avec un assistant de réservation IA. API Laravel, frontend Next.js, PostgreSQL, déployé depuis GitHub Actions.',
+      },
+      {
+        question: 'Quelle est la formation de Yassine Remmani ?',
+        answer: 'Un Master en informatique et intelligence artificielle (Big Data) à l’Université Ibn Tofail, une licence professionnelle en génie logiciel à l’EST Safi, et un DUT en génie logiciel à l’EST Meknès.',
+      },
+    ],
   },
   projectsPage: {
     h1: 'Projets d’ingénierie logicielle',

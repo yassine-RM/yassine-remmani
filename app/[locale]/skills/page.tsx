@@ -1,8 +1,9 @@
 import { Metadata } from 'next'
 import { buildMetadata, canonicalUrl } from '@/lib/seo'
-import { graph, webPageNodes } from '@/lib/seo-schema'
+import { faqNode, graph, webPageNodes } from '@/lib/seo-schema'
 import { SeoJsonLd } from '@/components/seo/SeoJsonLd'
 import { getTranslations } from '@/lib/translations'
+import { Faq } from '@/components/sections/Faq'
 import type { Locale } from '@/lib/i18n'
 
 interface PageProps {
@@ -28,6 +29,10 @@ export default async function SkillsPage({ params }: PageProps) {
   const pathname = `/${locale}/skills`
   const homePath = `/${locale}`
 
+  /* Rendered from this array and marked up from this array, so the schema can
+     never describe an answer the page does not show. */
+  const faq = t.skillsPage.faq
+
   return (
     <>
       <SeoJsonLd
@@ -42,7 +47,8 @@ export default async function SkillsPage({ params }: PageProps) {
               { name: t.nav.home, url: canonicalUrl(homePath) },
               { name: t.nav.skills, url: canonicalUrl(pathname) },
             ],
-          })
+          }),
+          faqNode({ pageUrl: canonicalUrl(pathname), locale: locale as Locale, questions: faq })
         )}
       />
       <section className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
@@ -68,6 +74,12 @@ export default async function SkillsPage({ params }: PageProps) {
               </ul>
             </div>
           ))}
+        </div>
+
+        {/* Narrower than the skill grid above it: prose wants a readable
+            measure, and the grid is the only reason this page is full width. */}
+        <div className="max-w-3xl">
+          <Faq title={t.skillsPage.faqTitle} items={faq} />
         </div>
       </section>
     </>
