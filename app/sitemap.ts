@@ -17,6 +17,7 @@ const staticPaths: { path: string; priority: number; changeFrequency: Entry['cha
   { path: '/skills', priority: 0.7, changeFrequency: 'monthly' },
   { path: '/blog', priority: 0.7, changeFrequency: 'weekly' },
   { path: '/contact', priority: 0.6, changeFrequency: 'yearly' },
+  { path: '/laravel-development', priority: 0.8, changeFrequency: 'monthly' },
   { path: '/spring-boot-architecture', priority: 0.6, changeFrequency: 'yearly' },
   { path: '/nextjs-for-scalable-products', priority: 0.6, changeFrequency: 'yearly' },
   { path: '/event-driven-systems-kafka', priority: 0.6, changeFrequency: 'yearly' },

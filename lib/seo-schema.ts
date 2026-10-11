@@ -50,7 +50,7 @@ export function personNode(locale: Locale): Node {
       addressLocality: 'Casablanca',
       addressCountry: 'MA',
     },
-    sameAs: [socialProfiles.linkedin, socialProfiles.github],
+    sameAs: [socialProfiles.linkedin, socialProfiles.github, socialProfiles.x],
     worksFor: {
       '@type': 'Organization',
       name: 'Auto Dealers Digital',

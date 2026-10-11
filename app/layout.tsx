@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     template: '%s | Yassine Remmani',
   },
   description:
-    'Yassine Remmani is a Senior Full-Stack Developer and software engineer in Casablanca, Morocco, building production platforms with Java, Spring Boot, React, Next.js, PostgreSQL, Docker and AWS.',
+    'Yassine Remmani is a Senior Full-Stack Developer and software engineer in Casablanca, Morocco, building production platforms with Java, Spring Boot, PHP, Laravel, React, Next.js, PostgreSQL, Docker and AWS.',
   authors: [{ name: personName, url: siteUrl }],
   creator: personName,
   publisher: personName,
