@@ -1,7 +1,61 @@
 import type { Metadata } from 'next'
 import { locales, type Locale } from './i18n'
 
-/** Canonical production origin (apex, https, no trailing slash). */
+/**
+ * The canonical production origin — apex, https, no trailing slash.
+ *
+ * ## Why this one line matters more than it looks
+ *
+ * Everything machine-facing is built from it: every canonical, every hreflang
+ * alternate, every sitemap `<loc>`, `metadataBase`, robots' `host` and
+ * `sitemap`, and — the expensive part — every schema `@id`. `PERSON_ID`,
+ * `WEBSITE_ID`, `#person-image` and `#project-*` are all `${siteUrl}`-derived,
+ * and those ids are what joins every page of this site to one entity. Changing
+ * the host rewrites all of them, so a search engine has to re-learn the
+ * identity rather than recognise it.
+ *
+ * ## The symptom this comment exists for
+ *
+ * On 2026-10-11 Search Console reported `https://remmani.dev/` as a
+ * **Redirect error** and `https://remmani.dev/en` as **"Duplicate without
+ * user-selected canonical"**, while nine of eleven inspected URLs had never
+ * been indexed at all — against a sitemap with zero errors. Both symptoms are
+ * what you get when a page's canonical names a host that redirects somewhere
+ * else.
+ *
+ * Measured on 2026-10-11:
+ *
+ *     curl -sIL https://remmani.dev/
+ *     HTTP/2 308
+ *     location: https://www.remmani.dev/
+ *
+ * So **www is the primary host** and the apex redirects to it, while every
+ * canonical built from this constant names the apex. Each page therefore
+ * declares a canonical pointing at a URL that bounces, and `/` is the head of
+ * a chain — apex → www → /en — which is the redirect error.
+ *
+ * ## Fix it at Vercel, not here
+ *
+ * Make the **apex** primary and let www redirect to it. Two reasons that beats
+ * editing this line:
+ *
+ * 1. `/en/resume` is the one page Google has indexed, and it is indexed with
+ *    `googleCanonical = https://remmani.dev/en/resume`. The apex is the host
+ *    Google has already accepted.
+ * 2. Pointing this at www would rewrite every `@id` above and throw away the
+ *    entity association built so far.
+ *
+ * Doing it that way needs no deploy and no change here: the code already
+ * names the host Google has accepted, and the existing Search Console
+ * property is the apex too, so everything lines up at once.
+ *
+ * Only if the apex genuinely cannot be primary should this become
+ * `'https://www.remmani.dev'` — and then it is this single edit, nothing else,
+ * because no other file hardcodes the origin. That path also needs a Search
+ * Console property for www, and every `@id` above changes. (The three remaining mentions of
+ * the bare domain — two `portfolio:` labels and the OG image caption — are
+ * display text, not URLs, and should stay as they are.)
+ */
 export const siteUrl = 'https://remmani.dev'
 export const personName = 'Yassine Remmani'
 export const siteName = 'Yassine Remmani'
